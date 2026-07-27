@@ -194,15 +194,33 @@ The `Play Again` and `Exit` buttons.
 
 ## Cross-screen untested assumptions
 
-To be completed.
+- A first-time player can complete all six screens in order without needing outside instructions, per `docs/PROJECT_FOUNDATION.md` acceptance gate item 1.
+- Consistent placement of the primary action button (bottom or clearly separated) across all six screens reduces confusion between screens.
+- The player does not need a persistent cash display on every screen; showing it contextually (Screens 3, 5, 6) is sufficient.
+- The player correctly distinguishes provisional/scripted content (signal text, explanation text) from something they are expected to research or verify themselves.
+- No screen needs a back button; the Demo Spec's ten-step flow is intentionally linear.
 
 ## Accessibility checklist
 
-To be completed.
+- [ ] Body text is large enough to read comfortably without zooming (target: 16px minimum equivalent).
+- [ ] Text and background color combinations meet a readable contrast level on all six screens.
+- [ ] All buttons (Start, Continue, Confirm, Submit Bid, Play Again, Exit) are large enough to tap or click without precision difficulty.
+- [ ] No information is conveyed by color alone (e.g., gain/loss must also use text or icons, not just green/red).
+- [ ] All six screens remain readable and usable at a common mobile screen width.
+
+**Status:** Checklist defined; not yet executed against the Figma prototype, per Issue #2 acceptance criteria.
 
 ## Usability walkthrough tasks
 
-To be completed.
+Reused from `Market Empire Research Guide`, Track B (Pankuri), five test tasks, unmodified:
+
+1. Start the demo.
+2. Explain, in your own words, what the market signal just told you.
+3. Make an investment decision and confirm it.
+4. Find out how much cash you have left.
+5. Place a property bid and explain the result.
+
+**Status:** Tasks defined; no tester has attempted them yet.
 
 ## Figma prototype record
 
