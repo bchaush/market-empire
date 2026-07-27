@@ -1,0 +1,176 @@
+# Market Empire Finance Source Ledger
+
+**Status:** Provisional working document  
+**Related issue:** #1 — Finance evidence for the one-round demo  
+**Owner:** Bora, temporarily completing work assigned to Hanyu  
+**Review required:** Hanyu or explicit team approval
+
+## Purpose
+
+This ledger records the evidence, simplifications, limitations and known-answer examples used for the financial relationships required by the one-round Market Empire demo.
+
+It does not define final formulas for the complete game.
+
+## Evidence rules
+
+- AI output is not accepted as research evidence.
+- A claim is `Verified` only when a named source directly supports it.
+- An exact game value remains `Provisional` when the source supports only a general relationship.
+- Every source record must state what the source supports and what it does not support.
+- Unsupported information must remain visible rather than being silently completed.
+- Any approved change to a core financial rule must be recorded in `docs/DECISIONS.md`.
+
+## Research status
+
+| ID | Required output | Current status |
+|---|---|---|
+| FIN-DEMO-01 | Four simple sector definitions | Provisional — research not yet recorded |
+| FIN-DEMO-02 | Cash behaviour | Provisional — research and approval pending |
+| FIN-DEMO-03 | One property income or cost model | Provisional — research not yet recorded |
+| FIN-DEMO-04 | One end-of-round evaluation method | Provisional — research not yet recorded |
+| FIN-DEMO-05 | Known-input and known-output examples | Provisional — dependent on the rules above |
+
+---
+
+## FIN-DEMO-01 — Sector definitions
+
+### Research question
+
+Which four broad sector categories can be described clearly to a beginner and used in the one-round demo without implying that they represent every real-world investment sector?
+
+### Proposed game rule
+
+Not yet proposed.
+
+### Sources
+
+No sources recorded yet.
+
+### Known limitations
+
+- The final sector names have not been approved.
+- The four-sector limit belongs to the current Demo Spec and is not a claim about real financial markets.
+- Any descriptions produced here will be educational simplifications.
+
+---
+
+## FIN-DEMO-02 — Cash behaviour
+
+### Research question
+
+How should unallocated cash behave in the one-round demo, including whether it may become negative and whether it earns interest?
+
+### Current project constraint
+
+The Demo Spec does not include borrowing or going into debt.
+
+### Proposed game rule
+
+Not yet approved.
+
+### Sources
+
+No sources recorded yet.
+
+### Known limitations
+
+- A one-round demo may simplify the real behaviour of cash.
+- Any exact rate or reward applied to held cash remains Provisional unless directly supported and approved.
+
+---
+
+## FIN-DEMO-03 — Property income or cost model
+
+### Research question
+
+What simple relationship between a property's price and its income or cost can be explained in one sentence and calculated deterministically?
+
+### Proposed game rule
+
+Not yet proposed.
+
+### Sources
+
+No sources recorded yet.
+
+### Known limitations
+
+- One fictional demo property cannot represent the full real property market.
+- A source supporting a general range will not automatically verify one exact game percentage.
+
+---
+
+## FIN-DEMO-04 — End-of-round evaluation
+
+### Research question
+
+What provisional method can summarize how the player performed without presenting a full-game scoring system as validated?
+
+### Proposed game rule
+
+Not yet proposed.
+
+### Sources
+
+No sources recorded yet.
+
+### Known limitations
+
+- The complete game's final scoring system is outside this issue.
+- The method produced here will not be considered balance-validated.
+
+---
+
+## FIN-DEMO-05 — Known-answer examples
+
+Known-answer examples will be added only after the relevant provisional rules are written clearly.
+
+| Example ID | Inputs | Expected output | Rule tested | Status |
+|---|---|---|---|---|
+| To be added | — | — | — | Provisional |
+
+---
+
+## Research Source record
+
+Copy one block for every source used.
+
+### FIN-SRC-[number] — [short source name]
+
+**Claim:**  
+[Exact claim being assessed]
+
+**Source:**  
+[Author or organization, title and checkable location]
+
+**Date checked:**  
+[YYYY-MM-DD]
+
+**Relevant section:**  
+[Exact page, heading, table or paragraph]
+
+**What it supports:**  
+[What the source directly establishes]
+
+**What it does not support:**  
+[What cannot honestly be concluded from the source]
+
+**Project simplification:**  
+[How Market Empire simplifies the real relationship]
+
+**Status:**  
+Verified / Provisional
+
+---
+
+## Decision candidates
+
+No financial rule changes have been proposed for approval yet.
+
+## Unresolved risks
+
+- Hanyu has not reviewed this working document.
+- No finance sources have been recorded yet.
+- No exact financial values have been verified.
+- No known-answer calculations can be completed until provisional rules are written.
+- None of the resulting relationships will be treated as balance-validated.
