@@ -25,7 +25,7 @@ It does not define final formulas for the complete game.
 | ID | Required output | Current status |
 |---|---|---|
 | FIN-DEMO-01 | Four simple sector definitions | Provisional — research not yet recorded |
-| FIN-DEMO-02 | Cash behaviour | Provisional — research and approval pending |
+| FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
 | FIN-DEMO-03 | One property income or cost model | Provisional — research not yet recorded |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — research not yet recorded |
 | FIN-DEMO-05 | Known-input and known-output examples | Provisional — dependent on the rules above |
@@ -90,6 +90,9 @@ Cash and cash equivalents generally have lower risk and lower expected return th
 **Source:**  
 U.S. Securities and Exchange Commission, Investor.gov, “Beginners’ Guide to Asset Allocation, Diversification, and Rebalancing.”
 
+**URL:**  
+https://www.investor.gov/additional-resources/general-resources/publications-research/info-sheets/beginners-guide-asset
+
 **Date checked:**  
 2026-07-26
 
@@ -115,6 +118,9 @@ Investment risk and potential return are generally related, and cash or cash equ
 
 **Source:**  
 Financial Industry Regulatory Authority, “Risk.”
+
+**URL:**  
+https://www.finra.org/investors/investing/investing-basics/risk
 
 **Date checked:**  
 2026-07-26
@@ -230,12 +236,29 @@ Verified / Provisional
 
 ## Decision candidates
 
-No financial rule changes have been proposed for approval yet.
+### FIN-DEC-CAND-001 — Unallocated cash treatment
+
+**Proposed decision:**  
+For the one-round demo, unallocated cash remains available and changes by 0% during the round.
+
+**Why this is being proposed:**  
+This keeps the demo deterministic and avoids introducing an unresearched interest calculation.
+
+**Evidence status:**  
+FIN-SRC-001 and FIN-SRC-002 support the general relationship that cash and cash equivalents typically involve lower risk and lower expected return than stocks and bonds. They do not verify the exact 0% game value.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
 
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
-- No finance sources have been recorded yet.
+- Two sources have been recorded for cash behaviour.
+- No sources have yet been recorded for the sector definitions, property model or end-of-round evaluation method.
 - No exact financial values have been verified.
-- No known-answer calculations can be completed until provisional rules are written.
+- The 0% treatment of unallocated cash remains Provisional.
+- Known-answer examples have not yet been written.
 - None of the resulting relationships will be treated as balance-validated.
