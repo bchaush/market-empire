@@ -118,22 +118,27 @@ The `Confirm` button.
 ### Screen 4 — Market Result
 
 **Player goal:**  
-To be completed.
+Understand what happened to their cash after the investment decision, and why.
 
 **What the player should notice first:**  
-To be completed.
+The total gain or loss for the round.
 
 **What the player should notice second:**  
-To be completed.
+The gain or loss broken down per sector.
 
 **What the player should notice last:**  
-To be completed.
+The short, plain-language explanation and the `Continue` button.
 
 **Available action:**  
 Continue.
 
 **Untested assumptions:**  
-To be completed.
+
+- Showing the total change first, before the per-sector breakdown, helps a beginner process the result.
+- The scripted explanation sentence (from `content/explanations.ts`, per `docs/DEMO_SPEC.md`) is understandable without further financial vocabulary.
+- The player can tell that these are official, engine-calculated results and not a live estimate.
+- One combined screen for result + explanation (rather than two separate screens) does not overwhelm a first-time player.
+- All displayed numbers are exactly what the engine in `docs/finance/source-ledger.md` calculated — this screen does not perform its own calculation, per `docs/DEMO_SPEC.md` section 4 and `AGENTS.md`.
 
 ### Screen 5 — Property Bid
 
