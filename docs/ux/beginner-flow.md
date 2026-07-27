@@ -90,22 +90,30 @@ Continue.
 ### Screen 3 — Investment Decision
 
 **Player goal:**  
-To be completed.
+Decide how to split available cash across the four sectors, then confirm the decision.
 
 **What the player should notice first:**  
-To be completed.
+The player's current cash amount.
 
 **What the player should notice second:**  
-To be completed.
+The four sector input fields and a running total of cash allocated vs. cash remaining.
 
 **What the player should notice last:**  
-To be completed.
+The `Confirm` button.
 
 **Available actions:**  
-To be completed.
+
+- Type or adjust an amount for each of the four sectors.
+- View the running total of cash allocated vs. cash remaining.
+- Click Confirm.
 
 **Untested assumptions:**  
-To be completed.
+
+- A running total is enough feedback for a beginner to avoid over-allocating.
+- The four sector names and one-sentence descriptions (see `docs/finance/source-ledger.md`, FIN-DEC-CAND-003 — still Provisional) are understandable without financial background.
+- The player understands that Confirm locks in the decision and cannot be undone.
+- Numeric input alone (vs. sliders or presets) is the clearest interaction for this age/experience group.
+- The player does not need to see a sector's individual risk level before allocating.
 
 ### Screen 4 — Market Result
 
