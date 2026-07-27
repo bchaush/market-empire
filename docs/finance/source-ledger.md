@@ -26,7 +26,7 @@ It does not define final formulas for the complete game.
 |---|---|---|
 | FIN-DEMO-01 | Four simple sector definitions | Provisional — research not yet recorded |
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
-| FIN-DEMO-03 | One property income or cost model | Provisional — research not yet recorded |
+| FIN-DEMO-03 | One property income or cost model | Provisional — two sources recorded; model and exact values require review |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — research not yet recorded |
 | FIN-DEMO-05 | Known-input and known-output examples | Provisional — dependent on the rules above |
 
@@ -154,21 +154,99 @@ Verified for the stated general relationship. The exact game simplification rema
 
 ### Research question
 
-What simple relationship between a property's price and its income or cost can be explained in one sentence and calculated deterministically?
+What simple relationship can show property income, operating costs and the resulting property cash flow in one deterministic demo round?
 
 ### Proposed game rule
 
-Not yet proposed.
+For the one-round demo:
+
+- The property has one scripted gross rental-income amount.
+- The property has one scripted operating-cost amount.
+- If the player wins the property, the engine calculates:
+
+`net_property_result = gross_rental_income - operating_cost`
+
+- If the player does not win the property, the player's net property result is `0`.
+- The winning bid is handled separately from operating income and operating cost.
+- If the player wins, the provisional cash calculation is:
+
+`cash_after_property = cash_before_bid - winning_bid + net_property_result`
+
+- Exact income, cost and property values have not yet been selected.
+
+**Status:** Provisional pending Hanyu's review or explicit team approval.
+
+The sources support calculating a property result from income and expenses. They do not verify the exact game values, timing or simplified cash treatment.
 
 ### Sources
 
-No sources recorded yet.
+#### FIN-SRC-003 — IRS residential rental-property guide
+
+**Claim:**  
+Rental property can produce rental income while also creating expenses, and those amounts contribute to a net rental income or loss.
+
+**Source:**  
+Internal Revenue Service, Publication 527, “Residential Rental Property.”
+
+**URL:**  
+https://www.irs.gov/publications/p527
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Chapter 1, “Rental Income and Expenses”; Chapter 3, “Reporting Rental Income, Expenses, and Losses”; worked examples calculating net rental income or loss.
+
+**What it supports:**  
+Rental activity involves both income and expenses, and a net rental result can be calculated after relevant expenses are deducted.
+
+**What it does not support:**  
+It does not support one exact fictional property value, one-round timing, a scripted opponent bid, or omitting every real-world expense and tax consideration.
+
+**Project simplification:**  
+Market Empire uses one fixed rental-income value and one fixed operating-cost value for a single fictional property. It does not model taxes, depreciation, insurance, financing or detailed maintenance categories in this demo.
+
+**Status:**  
+Verified for the stated general income-and-expense relationship. The exact game model and values remain Provisional.
+
+#### FIN-SRC-004 — Freddie Mac Net Operating Income definition
+
+**Claim:**  
+A property's operating result is based on income from its operations after vacancy and operating expenses are deducted, excluding debt service.
+
+**Source:**  
+Freddie Mac, “Multifamily Seller/Servicer Guide — Glossary and List of Commonly Used Acronyms.”
+
+**URL:**  
+https://mf.freddiemac.com/docs/mf_guide_glossary.pdf
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Glossary entry “Net Operating Income,” page 25 of the PDF.
+
+**What it supports:**  
+Property operating income must be considered together with operating expenses rather than treating gross rental income as pure profit.
+
+**What it does not support:**  
+It does not verify the demo's exact values, the length of a game round, the property bid rule or the removal of vacancy from the simplified calculation.
+
+**Project simplification:**  
+The one-round demo uses one scripted income value minus one scripted operating-cost value. Vacancy, debt service and other detailed calculations are omitted and recorded as limitations.
+
+**Status:**  
+Verified for the stated general operating-income relationship. The exact game simplification remains Provisional.
 
 ### Known limitations
 
-- One fictional demo property cannot represent the full real property market.
-- A source supporting a general range will not automatically verify one exact game percentage.
-
+- The model represents one fictional property and does not represent the full property market.
+- Exact income, operating-cost, asking-price and opponent-bid values remain unresolved.
+- Real rental property may involve vacancy, repairs, insurance, taxes, financing, depreciation, management costs and other expenses.
+- The demo does not model mortgages or debt service.
+- The demo treats income and cost as scripted values instead of values derived from a real location or property.
+- Subtracting the winning bid changes cash but does not by itself measure the player's total wealth because the player also owns the property.
+- The proposed rule has not yet been reviewed by Hanyu.
 ---
 
 ## FIN-DEMO-04 — End-of-round evaluation
@@ -253,12 +331,32 @@ Provisional — awaiting Hanyu's review or explicit team approval.
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
+### FIN-DEC-CAND-002 — Simplified property cash-flow model
+
+**Proposed decision:**  
+For the one-round demo, a won property produces one scripted gross rental-income amount and one scripted operating-cost amount. The engine calculates the net property result by subtracting the operating cost from the gross rental income.
+
+**Why this is being proposed:**  
+The relationship is simple, deterministic and explainable to a beginner while preserving the distinction between gross income and the amount remaining after costs.
+
+**Evidence status:**  
+FIN-SRC-003 and FIN-SRC-004 support the general relationship between property income, expenses and a resulting net amount. They do not verify the exact game values or one-round timing.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
 - Two sources have been recorded for cash behaviour.
-- No sources have yet been recorded for the sector definitions, property model or end-of-round evaluation method.
+- Two sources have been recorded for the property cash-flow relationship.
+- No sources have yet been recorded for the sector definitions or end-of-round evaluation method.
 - No exact financial values have been verified.
 - The 0% treatment of unallocated cash remains Provisional.
+- Exact property income, cost, asking-price and opponent-bid values remain unresolved.
+- Ending cash alone does not represent total wealth when the player owns a property.
 - Known-answer examples have not yet been written.
 - None of the resulting relationships will be treated as balance-validated.
