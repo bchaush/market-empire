@@ -24,11 +24,11 @@ Current stage: Research and one-round demo build • Status: Not yet balance-val
 
 1. What we are building
 
-Market Empire is a short multiplayer game where players make simple investment decisions, see what happens as a result, and learn from clear explanations. It is designed first for people who have never invested money before — students and museum visitors — and later for more experienced players who want a faster, denser version.
+Market Empire is a short multiplayer game where players make simple investment decisions, see what happens as a result, and learn from clear explanations. It is designed first for people who have never invested money before - students and museum visitors - and later for more experienced players who want a faster, denser version.
 
 The idea in one sentence
 
-Players get cash, react to market information, invest across a few sectors, bid on property, and try to grow their position over a handful of short rounds — while the game explains, in plain language, why each result happened.
+Players get cash, react to market information, invest across a few sectors, bid on property, and try to grow their position over a handful of short rounds - while the game explains, in plain language, why each result happened.
 
 Why this project exists
 
