@@ -16,6 +16,7 @@ It does not approve the interface, financial wording, game values or final visua
 ## Scope rules
 
 - The prototype contains exactly six screens.
+- The first Figma prototype is desktop-first. The selected desktop frame size is Provisional pending Pankuri's review or explicit team approval. Phone adaptation will be considered after the desktop flow is complete.
 - The screen order must match `docs/DEMO_SPEC.md`.
 - No additional screen, game rule or step may be added without an approved Decision Record.
 - The existing AI-generated interface is treated only as an untested design hypothesis.
@@ -206,7 +207,8 @@ The `Play Again` and `Exit` buttons.
 - [ ] Text and background color combinations meet a readable contrast level on all six screens.
 - [ ] All buttons (Start, Continue, Confirm, Submit Bid, Play Again, Exit) are large enough to tap or click without precision difficulty.
 - [ ] No information is conveyed by color alone (e.g., gain/loss must also use text or icons, not just green/red).
-- [ ] All six screens remain readable and usable at a common mobile screen width.
+- [ ] All six desktop frames remain readable and usable at the selected desktop width.
+- [ ] A later responsive and mobile-width review is required before phone support is claimed.
 
 **Status:** Checklist defined; not yet executed against the Figma prototype, per Issue #2 acceptance criteria.
 
@@ -224,6 +226,7 @@ Reused from `Market Empire Research Guide`, Track B (Pankuri), five test tasks, 
 
 ## Figma prototype record
 
+**Prototype target:** Desktop-first; exact viewport size remains Provisional.  
 **Prototype link:** Not yet created.  
 **Six screens created:** No.  
 **Screens linked from Start to Round Summary:** No.  
