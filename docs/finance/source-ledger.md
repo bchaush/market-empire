@@ -672,6 +672,37 @@ The following known-answer examples cannot yet be written without inventing miss
 **Status:** Provisional — partial known-answer coverage only.
 
 ---
+
+## Research Source record
+
+Copy one block for every source used.
+
+### FIN-SRC-[number] — [short source name]
+
+**Claim:**  
+[Exact claim being assessed]
+
+**Source:**  
+[Author or organization, title and checkable location]
+
+**Date checked:**  
+[YYYY-MM-DD]
+
+**Relevant section:**  
+[Exact page, heading, table or paragraph]
+
+**What it supports:**  
+[What the source directly establishes]
+
+**What it does not support:**  
+[What cannot honestly be concluded from the source]
+
+**Project simplification:**  
+[How Market Empire simplifies the real relationship]
+
+**Status:**  
+Verified / Provisional
+
 ---
 
 ## Decision candidates
@@ -763,7 +794,7 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Exact property income, cost, asking-price and opponent-bid values remain unresolved.
 - The winning bid is not a verified property market value.
 - The end-of-round method does not evaluate whether the player overpaid or underpaid.
-- Known-answer examples have not yet been written.
+- Known-answer examples are currently partial; sector-result and complete end-to-end examples remain unresolved.
 - The deterministic sector-result relationship still requires definition before all known-answer examples can be completed.
 - None of the resulting relationships will be treated as balance-validated.
 - The known-answer numbers in FIN-EX-001 through FIN-EX-006 are synthetic test inputs, not approved demo constants.
