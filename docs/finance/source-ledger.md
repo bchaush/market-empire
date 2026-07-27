@@ -24,7 +24,7 @@ It does not define final formulas for the complete game.
 
 | ID | Required output | Current status |
 |---|---|---|
-| FIN-DEMO-01 | Four simple sector definitions | Provisional — research not yet recorded |
+| FIN-DEMO-01 | Four simple sector definitions | Provisional — two sources recorded; labels require Hanyu and Pankuri review |
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
 | FIN-DEMO-03 | One property income or cost model | Provisional — two sources recorded; model and exact values require review |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — research not yet recorded |
@@ -40,17 +40,97 @@ Which four broad sector categories can be described clearly to a beginner and us
 
 ### Proposed game rule
 
-Not yet proposed.
+The one-round demo uses these four investment choices:
+
+1. **Technology** — businesses that provide software and technology services or make products such as computers, electronic equipment and semiconductors.
+2. **Health Care** — businesses that provide health services or make medicines, biotechnology products, medical equipment and health-related supplies.
+3. **Everyday Goods** — businesses that make or sell frequently used products such as food, drinks, household goods and personal-care products.
+4. **Energy** — businesses involved in producing, processing, transporting or supporting oil, gas and other consumable fuels.
+
+The labels are intended as beginner-facing educational simplifications:
+
+- `Technology` is a shortened label based on the GICS `Information Technology` sector.
+- `Everyday Goods` is a simplified display label based on the GICS `Consumer Staples` sector.
+- `Health Care` and `Energy` retain the standard GICS sector names.
+
+**Status:** Provisional pending Hanyu's financial review, Pankuri's beginner-language review or explicit team approval.
+
+No sector has an approved gain, loss, risk level or expected return yet.
 
 ### Sources
 
-No sources recorded yet.
+#### FIN-SRC-005 — S&P Global sector definitions
+
+**Claim:**  
+Investment classification systems can group companies into sectors based on their principal business activities, including Information Technology, Health Care, Consumer Staples and Energy.
+
+**Source:**  
+S&P Dow Jones Indices, “Sectors — Investment Themes” and “Global Industry Classification Standard Methodology.”
+
+**URL:**  
+https://www.spglobal.com/spdji/en/landing/investment-themes/sectors/
+
+**Methodology URL:**  
+https://www.spglobal.com/spdji/en/documents/methodologies/methodology-gics.pdf
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+“Sectors — Investment Themes” → “Sector Definitions”; GICS Methodology, “Overview,” “GICS Classification” and “GICS Structure.”
+
+**What it supports:**  
+GICS is a hierarchical investment classification system based primarily on a company's principal business activity. It identifies and defines Information Technology, Health Care, Consumer Staples and Energy as sectors.
+
+**What it does not support:**  
+It does not support limiting a financial game to exactly four sectors, replacing the standard label `Consumer Staples` with `Everyday Goods`, or assigning any particular gain, loss or risk level to these sectors.
+
+**Project simplification:**  
+Market Empire selects four distinct GICS-based categories for one demo round. Two labels are simplified for beginner readability, and the remaining GICS sectors are omitted from this version.
+
+**Status:**  
+Verified for the existence and general definitions of the referenced GICS sectors. The selected four-sector set and beginner labels remain Provisional.
+
+#### FIN-SRC-006 — U.S. Census industry-classification guidance
+
+**Claim:**  
+A sector is a broad level within a hierarchical system used to classify businesses according to related economic or production activity.
+
+**Source:**  
+U.S. Census Bureau, “Economic Census: NAICS Codes & Understanding Industry Classification Systems.”
+
+**URL:**  
+https://www.census.gov/programs-surveys/economic-census/year/2022/guidance/understanding-naics.html
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+“Industry Classification,” “NAICS Structure” and “Sector Definitions.”
+
+**What it supports:**  
+NAICS groups establishments according to similarities in the processes used to produce goods or services. It uses a hierarchy beginning with broad sectors and then moving into narrower categories.
+
+**What it does not support:**  
+NAICS is not an investment-sector system and does not validate the four GICS-based labels chosen for Market Empire. It also does not support any expected sector return or game outcome.
+
+**Project simplification:**  
+Market Empire uses four investment-style categories rather than reproducing either the complete GICS structure or the complete NAICS structure.
+
+**Status:**  
+Verified for the general purpose and hierarchical nature of sector classification. The game's exact four-sector selection remains Provisional.
 
 ### Known limitations
 
-- The final sector names have not been approved.
-- The four-sector limit belongs to the current Demo Spec and is not a claim about real financial markets.
-- Any descriptions produced here will be educational simplifications.
+- GICS currently contains more sectors than the four used in this demo.
+- NAICS and GICS classify economic activity for different purposes and do not use identical categories.
+- `Everyday Goods` is a beginner-facing project label, not the official GICS name.
+- A company may conduct several business activities even when a classification system places it in one principal category.
+- The four labels do not represent every type of company or investment.
+- No sector-specific return, volatility, signal effect or risk value has been researched or approved.
+- The labels have not yet been tested with an unfamiliar beginner.
+- Hanyu has not reviewed the financial descriptions.
+- Pankuri has not reviewed the beginner-facing wording.
 
 ---
 
@@ -348,14 +428,37 @@ Provisional — awaiting Hanyu's review or explicit team approval.
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
+### FIN-DEC-CAND-003 — Four demo sector labels
+
+**Proposed decision:**  
+Use Technology, Health Care, Everyday Goods and Energy as the four investment choices in the one-round demo.
+
+`Technology` is based on the GICS Information Technology sector. `Everyday Goods` is a simplified beginner-facing label based on the GICS Consumer Staples sector.
+
+**Why this is being proposed:**  
+The four categories cover distinct types of business activity and can each be explained in one sentence. Limiting the demo to four choices follows the current Demo Spec and avoids presenting the complete market-classification system during one beginner round.
+
+**Evidence status:**  
+FIN-SRC-005 supports the existence and definitions of the four underlying GICS categories. FIN-SRC-006 supports the general use of hierarchical sector classifications and demonstrates that classification systems can organize activity differently. Neither source verifies this exact four-sector selection or the simplified display labels.
+
+**Status:**  
+Provisional — awaiting Hanyu's financial review, Pankuri's beginner-language review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
+- Pankuri has not reviewed or usability-tested the proposed sector labels.
 - Two sources have been recorded for cash behaviour.
 - Two sources have been recorded for the property cash-flow relationship.
-- No sources have yet been recorded for the sector definitions or end-of-round evaluation method.
+- Two sources have been recorded for sector classification and definitions.
+- No sources have yet been recorded for the end-of-round evaluation method.
 - No exact financial values have been verified.
 - The 0% treatment of unallocated cash remains Provisional.
+- The exact four-sector selection and the label `Everyday Goods` remain Provisional.
+- No gain, loss, risk or market-signal effect has been assigned to any sector.
 - Exact property income, cost, asking-price and opponent-bid values remain unresolved.
 - Ending cash alone does not represent total wealth when the player owns a property.
 - Known-answer examples have not yet been written.
