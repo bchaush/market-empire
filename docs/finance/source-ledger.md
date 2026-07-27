@@ -232,6 +232,17 @@ Verified for the stated general relationship. The exact game simplification rema
 
 ## FIN-DEMO-03 — Property income or cost model
 
+- If the player's bid is lower than the scripted opponent bid, the player does not win the property.
+- A losing bid is not deducted from cash.
+- The player receives no property income or operating cost after losing.
+- For a losing bid:
+
+`property_won = false`
+
+`net_property_result = 0`
+
+`cash_after_property = cash_before_bid`
+
 ### Research question
 
 What simple relationship can show property income, operating costs and the resulting property cash flow in one deterministic demo round?
@@ -571,6 +582,18 @@ The one-round demo uses one scripted sector rate, no separate sector income, and
 
 **Status:**  
 Verified for the general investment-return relationship. The exact game implementation remains Provisional.
+
+#### FIN-SRC-011 — MIT first-price sealed-bid auction
+
+Source: MIT OpenCourseWare, “Lecture 21: Auctions and Incomplete Information.”
+Relevant section: “Auction Formats,” page 24; “First-Price Auction,” page 36.
+URL: https://ocw.mit.edu/courses/14-15-networks-spring-2022/mit14_15s22_lec21.pdf
+
+#### FIN-SRC-012 — EconPort first-price sealed-bid auction
+
+Source: EconPort, Georgia State University, “First Price Sealed-Bid Auction.”
+Relevant section: Opening definition.
+URL: https://www.econport.org/content/handbook/auctions/commntypes/firstpricesealed.html
 
 ### Calculation conventions for these examples
 
