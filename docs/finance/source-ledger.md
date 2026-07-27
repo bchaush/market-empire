@@ -62,20 +62,85 @@ How should unallocated cash behave in the one-round demo, including whether it m
 
 ### Current project constraint
 
-The Demo Spec does not include borrowing or going into debt.
+The Demo Spec excludes borrowing and going into debt.
+
+The player may allocate only available cash and may place the property bid only using cash available at that point in the round.
 
 ### Proposed game rule
 
-Not yet approved.
+For the one-round demo:
+
+- The player's cash balance cannot become negative.
+- Total investment allocation cannot exceed the cash available when the decision is confirmed.
+- A property bid cannot exceed the cash available when the bid is submitted.
+- Cash that is not invested remains available for later use in the round.
+- Unallocated cash earns 0% during this one-round demo.
+
+**Status:** Provisional pending Hanyu's review or explicit team approval.
+
+The no-debt boundary comes from the current Demo Spec. The exact 0% treatment is a project simplification and is not presented as a verified real-world rate.
 
 ### Sources
 
-No sources recorded yet.
+#### FIN-SRC-001 — Investor.gov asset-allocation guide
+
+**Claim:**  
+Cash and cash equivalents generally have lower risk and lower expected return than stocks and bonds.
+
+**Source:**  
+U.S. Securities and Exchange Commission, Investor.gov, “Beginners’ Guide to Asset Allocation, Diversification, and Rebalancing.”
+
+**Date checked:**  
+2026-07-26
+
+**Relevant section:**  
+“Investment Choices” → “Cash.”
+
+**What it supports:**  
+Cash and cash equivalents are generally lower-risk and lower-return than the other major asset categories described by the source.
+
+**What it does not support:**  
+It does not support an exact 0% return, one-round timing, or the rule that all unallocated game cash must remain unchanged.
+
+**Project simplification:**  
+Market Empire keeps unallocated cash unchanged during the single demo round so the player can understand the trade-off between holding available cash and investing it.
+
+**Status:**  
+Verified for the stated general relationship. The exact game simplification remains Provisional.
+
+#### FIN-SRC-002 — FINRA risk guide
+
+**Claim:**  
+Investment risk and potential return are generally related, and cash or cash equivalents have historically produced lower returns than stocks and bonds.
+
+**Source:**  
+Financial Industry Regulatory Authority, “Risk.”
+
+**Date checked:**  
+2026-07-26
+
+**Relevant section:**  
+“Risk and Reward.”
+
+**What it supports:**  
+The general relationship between higher potential return and higher risk, and the comparatively lower historical return associated with cash or cash equivalents.
+
+**What it does not support:**  
+It does not prove that cash always has no risk, that it always earns the same return, or that the Market Empire demo should use exactly 0%.
+
+**Project simplification:**  
+The demo uses a 0% change for unallocated cash during its single short round. This avoids introducing interest calculations before they are researched and approved.
+
+**Status:**  
+Verified for the stated general relationship. The exact game simplification remains Provisional.
 
 ### Known limitations
 
-- A one-round demo may simplify the real behaviour of cash.
-- Any exact rate or reward applied to held cash remains Provisional unless directly supported and approved.
+- The 0% game treatment is not claimed to represent every real cash account or cash-equivalent product.
+- Real cash and cash equivalents may earn interest or experience inflation risk.
+- The demo does not model bank accounts, deposit insurance, taxes, fees or inflation.
+- The no-debt rule is a current demo boundary, not a claim that borrowing never exists in real finance.
+- The proposed rule has not yet been reviewed by Hanyu.
 
 ---
 
