@@ -27,7 +27,7 @@ It does not define final formulas for the complete game.
 | FIN-DEMO-01 | Four simple sector definitions | Provisional — two sources recorded; labels require Hanyu and Pankuri review |
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
 | FIN-DEMO-03 | One property income or cost model | Provisional — two sources recorded; model and exact values require review |
-| FIN-DEMO-04 | One end-of-round evaluation method | Provisional — research not yet recorded |
+| FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
 | FIN-DEMO-05 | Known-input and known-output examples | Provisional — dependent on the rules above |
 
 ---
@@ -333,21 +333,116 @@ Verified for the stated general operating-income relationship. The exact game si
 
 ### Research question
 
-What provisional method can summarize how the player performed without presenting a full-game scoring system as validated?
+What provisional method can summarize the player's end-of-round financial position without treating ending cash alone as the complete result or presenting a final full-game score?
 
 ### Proposed game rule
 
-Not yet proposed.
+The one-round demo evaluates the player's change in financial position.
+
+At the start of the round:
+
+`starting_position = starting_cash`
+
+At the end of the round:
+
+`property_carrying_value = winning_bid` if the player won the property.
+
+`property_carrying_value = 0` if the player did not win the property.
+
+The engine then calculates:
+
+`ending_position = ending_cash + property_carrying_value`
+
+`round_change = ending_position - starting_position`
+
+The overall summary line is determined as follows:
+
+- If `round_change > 0`, display: `Your financial position increased by $X this round.`
+- If `round_change = 0`, display: `Your financial position was unchanged this round.`
+- If `round_change < 0`, display: `Your financial position decreased by $X this round.`
+
+The Round Summary must still show ending cash and whether the property was won as separate information.
+
+**Status:** Provisional pending Hanyu's review or explicit team approval.
+
+This method is an end-of-round summary only. It is not the complete game's final score, a property appraisal or a claim about the player's real-world net worth.
 
 ### Sources
 
-No sources recorded yet.
+#### FIN-SRC-007 — Investor.gov net-worth guidance
+
+**Claim:**  
+A financial position can consider both assets owned and liabilities owed rather than looking only at available cash.
+
+**Source:**  
+U.S. Securities and Exchange Commission, Investor.gov, “Figure Out Your Finances.”
+
+**URL:**  
+https://www.investor.gov/introduction-investing/investing-basics/save-and-invest/figure-out-your-finances
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+The section describing a net-worth statement, assets, liabilities and subtracting liabilities from assets.
+
+**What it supports:**  
+Financial position includes assets a person owns and liabilities a person owes. Looking only at cash can omit other owned assets.
+
+**What it does not support:**  
+It does not support using a winning bid as the property's current market value, omitting all liabilities in a real financial situation, or using net worth as the final Market Empire scoring system.
+
+**Project simplification:**  
+The demo has no borrowing or debt, so liabilities are zero. It combines ending cash with a provisional carrying value for the one property the player may own.
+
+**Status:**  
+Verified for the general assets-minus-liabilities relationship. The exact game calculation remains Provisional.
+
+#### FIN-SRC-008 — IRS basis-of-assets guidance
+
+**Claim:**  
+The basis of property acquired through a purchase is generally its cost, meaning the amount paid for it, subject to possible additions and adjustments.
+
+**Source:**  
+Internal Revenue Service, Publication 551, “Basis of Assets,” and Tax Topic No. 703, “Basis of Assets.”
+
+**URL:**  
+https://www.irs.gov/publications/p551
+
+**Summary URL:**  
+https://www.irs.gov/taxtopics/tc703
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Publication 551, “Introduction” and “Cost Basis”; Tax Topic No. 703, opening section describing the basis of an asset.
+
+**What it supports:**  
+Purchase cost is a documented starting measure of a person's investment in acquired property.
+
+**What it does not support:**  
+Cost basis is not necessarily current market value. The sources do not support the demo's scoring method, one-round timeframe, omission of purchase expenses or assumption that the winning bid always equals the property's economic value.
+
+**Project simplification:**  
+Market Empire uses the winning bid as the property's temporary carrying value because the demo has no appraisal, resale market, closing costs, depreciation or later valuation step.
+
+**Status:**  
+Verified for the general cost-basis relationship. The exact game treatment remains Provisional.
 
 ### Known limitations
 
-- The complete game's final scoring system is outside this issue.
-- The method produced here will not be considered balance-validated.
+- The method is not a final scoring system for the complete game.
+- The winning bid may differ from the property's real or perceived market value.
+- The property carrying value is based on acquisition cost, not an independent appraisal.
+- The method does not assess whether the player overpaid or underpaid for the property.
+- The method does not model liabilities because borrowing and debt are outside the current demo.
+- Taxes, transaction fees, depreciation, resale value and future property income are not included.
+- A positive round change does not automatically mean that every individual decision was good.
+- The summary method has not yet been reviewed by Hanyu.
+- No numeric game values have yet been approved.
 
+---
 ---
 
 ## FIN-DEMO-05 — Known-answer examples
@@ -447,6 +542,25 @@ Provisional — awaiting Hanyu's financial review, Pankuri's beginner-language r
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
+### FIN-DEC-CAND-004 — End-of-round financial-position summary
+
+**Proposed decision:**  
+Evaluate the one-round result using the player's ending cash plus the acquisition cost of any property won, then compare that ending position with starting cash.
+
+The winning bid is used only as the property's provisional carrying value. It is not presented as verified market value.
+
+**Why this is being proposed:**  
+Ending cash alone does not include the property the player owns. Adding a property carrying value prevents the purchase from appearing as a complete financial loss while keeping the calculation deterministic.
+
+**Evidence status:**  
+FIN-SRC-007 supports considering assets and liabilities when describing financial position. FIN-SRC-008 supports purchase cost as a starting basis for acquired property. Neither source verifies this exact game calculation or treats acquisition cost as current market value.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
@@ -454,12 +568,14 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Two sources have been recorded for cash behaviour.
 - Two sources have been recorded for the property cash-flow relationship.
 - Two sources have been recorded for sector classification and definitions.
-- No sources have yet been recorded for the end-of-round evaluation method.
+- Two sources have been recorded for the end-of-round financial-position method.
 - No exact financial values have been verified.
 - The 0% treatment of unallocated cash remains Provisional.
 - The exact four-sector selection and the label `Everyday Goods` remain Provisional.
 - No gain, loss, risk or market-signal effect has been assigned to any sector.
 - Exact property income, cost, asking-price and opponent-bid values remain unresolved.
-- Ending cash alone does not represent total wealth when the player owns a property.
+- The winning bid is not a verified property market value.
+- The end-of-round method does not evaluate whether the player overpaid or underpaid.
 - Known-answer examples have not yet been written.
+- The deterministic sector-result relationship still requires definition before all known-answer examples can be completed.
 - None of the resulting relationships will be treated as balance-validated.
