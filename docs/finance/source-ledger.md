@@ -539,8 +539,7 @@ No sector gain-or-loss example using actual demo values is recorded yet because 
 
 - a scripted signal-to-sector mapping;
 - sector result rates;
-- permitted sector-return ranges; or
-- a rounding rule.
+- permitted sector-return ranges;
 
 ### Deterministic sector-settlement relationship
 
@@ -588,7 +587,7 @@ The engine must calculate each sector result separately so Screen 4 can show the
 
 **Status:** Provisional pending Hanyu's review or explicit team approval.
 
-The weighted-return relationship is supported by the recorded sources below. The exact sector rates, signal mapping, permitted rate ranges and rounding behaviour remain unresolved.
+The weighted-return relationship is supported by the recorded sources below. The exact sector rates, signal mapping and permitted rate ranges remain unresolved. Cent-level rounding is documented separately below as a Provisional project convention.
 
 ### Sources supporting the settlement relationship
 
@@ -658,7 +657,7 @@ Verified for the general investment-return relationship. The exact game implemen
 
 - All amounts are expressed in dollars.
 - Every input used by a calculation is written explicitly.
-- The examples use whole-dollar amounts, so they do not silently establish a cent-rounding rule.
+- FIN-EX-001 through FIN-EX-008 primarily use whole-dollar amounts. FIN-EX-009 explicitly tests the documented cent-level rounding rule.
 - A future automated test must not infer a value that is not written in its example.
 - The examples test the provisional relationships only; they do not validate game balance.
 
