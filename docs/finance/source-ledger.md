@@ -795,6 +795,20 @@ The net property result is a `$400` gain.
 
 **Status:** Provisional synthetic test example.
 
+### FIN-EX-007 — Losing bid leaves cash unchanged
+
+**Inputs:**
+
+- `cash_before_bid = 7000`
+- `player_bid = 2000`
+- `opponent_bid = 2500`
+
+**Expected output:**
+
+- `property_won = false`
+- `net_property_result = 0`
+- `cash_after_property = 7000`
+
 ### Examples that remain blocked
 
 The following known-answer examples cannot yet be written without inventing missing rules:
@@ -930,6 +944,20 @@ The method makes the effect of each investment visible, produces deterministic r
 FIN-SRC-009 supports aggregating portfolio returns according to the weights of the individual holdings. FIN-SRC-010 supports relating an investment's change in value to the amount invested and its percentage return.
 
 Neither source supplies the game's exact sector rates, scripted signal mapping, return ranges or rounding rule.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
+#### FIN-DEC-CAND-006 — Losing-bid cash treatment
+
+**Proposed decision:**  
+A player who loses the property auction keeps the full bid amount. No cash is deducted, no property is acquired and no property income or cost is applied.
+
+**Evidence status:**  
+FIN-SRC-011 and FIN-SRC-012 support the standard first-price sealed-bid relationship that the highest bidder wins and pays their bid. They do not approve Market Empire’s opponent bid, tie rule or property values.
 
 **Status:**  
 Provisional — awaiting Hanyu's review or explicit team approval.
