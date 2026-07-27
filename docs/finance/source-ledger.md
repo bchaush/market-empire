@@ -329,6 +329,64 @@ The one-round demo uses one scripted income value minus one scripted operating-c
 **Status:**  
 Verified for the stated general operating-income relationship. The exact game simplification remains Provisional.
 
+#### FIN-SRC-011 — MIT first-price sealed-bid auction
+
+**Claim:**  
+In a first-price sealed-bid auction, bidders submit sealed bids, the highest bidder wins and the winner pays their own bid.
+
+**Source:**  
+Alexander Wolitzky, Massachusetts Institute of Technology OpenCourseWare, “Lecture 21: Auctions and Incomplete Information,” 14.15 / 6.207 Networks, Spring 2022.
+
+**URL:**  
+https://ocw.mit.edu/courses/14-15-networks-spring-2022/mit14_15s22_lec21.pdf
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Page 24, “Auction Formats”; page 36, “First-Price Auction.”
+
+**What it supports:**  
+The source states that the highest bidder wins a first-price sealed-bid auction and pays their own bid. It also describes a bidder who loses the auction as receiving a payoff of zero.
+
+**What it does not support:**  
+It does not define Market Empire's scripted opponent bid, tied-bid rule, property values, entry fees, deposits or penalties.
+
+**Project simplification:**  
+The one-round demo has no auction-entry fee, deposit or losing-bid penalty. Therefore, a player who loses does not acquire the property and keeps the full amount they offered.
+
+**Status:**  
+Verified for the standard first-price sealed-bid winner-payment relationship. The exact Market Empire rule remains Provisional pending review or explicit team approval.
+
+#### FIN-SRC-012 — EconPort first-price sealed-bid auction
+
+**Claim:**  
+In a first-price sealed-bid auction, the highest bidder wins and pays their submitted bid.
+
+**Source:**  
+EconPort, Georgia State University, “First-Price Sealed-Bid Auction.”
+
+**URL:**  
+https://www.econport.org/econport/request?page=man_auctions_firstpricesealed
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Opening definition of the first-price sealed-bid auction.
+
+**What it supports:**  
+The source states that the high bidder wins the auction and pays their own bid.
+
+**What it does not support:**  
+It does not define Market Empire's opponent bid, tied-bid rule, property values, entry fees, deposits or losing-bid penalties.
+
+**Project simplification:**  
+Market Empire uses a first-price sealed-bid structure with no fee or deposit. Only the winning player's bid is deducted from cash.
+
+**Status:**  
+Verified for the standard first-price sealed-bid winner-payment relationship. The exact Market Empire rule remains Provisional pending review or explicit team approval.
+
 ### Known limitations
 
 - The model represents one fictional property and does not represent the full property market.
@@ -582,64 +640,6 @@ The one-round demo uses one scripted sector rate, no separate sector income, and
 
 **Status:**  
 Verified for the general investment-return relationship. The exact game implementation remains Provisional.
-
-#### FIN-SRC-011 — MIT first-price sealed-bid auction
-
-**Claim:**  
-In a first-price sealed-bid auction, bidders submit sealed bids, the highest bidder wins and the winner pays their own bid.
-
-**Source:**  
-Alexander Wolitzky, Massachusetts Institute of Technology OpenCourseWare, “Lecture 21: Auctions and Incomplete Information,” 14.15 / 6.207 Networks, Spring 2022.
-
-**URL:**  
-https://ocw.mit.edu/courses/14-15-networks-spring-2022/mit14_15s22_lec21.pdf
-
-**Date checked:**  
-2026-07-27
-
-**Relevant section:**  
-Page 24, “Auction Formats”; page 36, “First-Price Auction.”
-
-**What it supports:**  
-The source states that the highest bidder wins a first-price sealed-bid auction and pays their own bid. It also describes a bidder who loses the auction as receiving a payoff of zero.
-
-**What it does not support:**  
-It does not define Market Empire's scripted opponent bid, tied-bid rule, property values, entry fees, deposits or penalties.
-
-**Project simplification:**  
-The one-round demo has no auction-entry fee, deposit or losing-bid penalty. Therefore, a player who loses does not acquire the property and keeps the full amount they offered.
-
-**Status:**  
-Verified for the standard first-price sealed-bid winner-payment relationship. The exact Market Empire rule remains Provisional pending review or explicit team approval.
-
-#### FIN-SRC-012 — EconPort first-price sealed-bid auction
-
-**Claim:**  
-In a first-price sealed-bid auction, the highest bidder wins and pays their submitted bid.
-
-**Source:**  
-EconPort, Georgia State University, “First-Price Sealed-Bid Auction.”
-
-**URL:**  
-https://www.econport.org/econport/request?page=man_auctions_firstpricesealed
-
-**Date checked:**  
-2026-07-27
-
-**Relevant section:**  
-Opening definition of the first-price sealed-bid auction.
-
-**What it supports:**  
-The source states that the high bidder wins the auction and pays their own bid.
-
-**What it does not support:**  
-It does not define Market Empire's opponent bid, tied-bid rule, property values, entry fees, deposits or losing-bid penalties.
-
-**Project simplification:**  
-Market Empire uses a first-price sealed-bid structure with no fee or deposit. Only the winning player's bid is deducted from cash.
-
-**Status:**  
-Verified for the standard first-price sealed-bid winner-payment relationship. The exact Market Empire rule remains Provisional pending review or explicit team approval.
 
 ### Calculation conventions for these examples
 
