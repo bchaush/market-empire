@@ -26,7 +26,7 @@ It does not define final formulas for the complete game.
 |---|---|---|
 | FIN-DEMO-01 | Four simple sector definitions | Provisional — two sources recorded; labels require Hanyu and Pankuri review |
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
-| FIN-DEMO-03 | One property income or cost model | Provisional — two sources recorded; model and exact values require review |
+| FIN-DEMO-03 | One property income or cost model | Provisional — property model and losing-bid relationship documented; exact values and approval remain pending |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
 | FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples and settlement relationship recorded; sector rates, signal mapping and rounding remain unresolved |
 
@@ -232,17 +232,6 @@ Verified for the stated general relationship. The exact game simplification rema
 
 ## FIN-DEMO-03 — Property income or cost model
 
-- If the player's bid is lower than the scripted opponent bid, the player does not win the property.
-- A losing bid is not deducted from cash.
-- The player receives no property income or operating cost after losing.
-- For a losing bid:
-
-`property_won = false`
-
-`net_property_result = 0`
-
-`cash_after_property = cash_before_bid`
-
 ### Research question
 
 What simple relationship can show property income, operating costs and the resulting property cash flow in one deterministic demo round?
@@ -262,6 +251,17 @@ For the one-round demo:
 - If the player wins, the provisional cash calculation is:
 
 `cash_after_property = cash_before_bid - winning_bid + net_property_result`
+
+- If the player's bid is lower than the scripted opponent bid, the player does not win the property.
+- A losing bid is not deducted from cash.
+- The player receives no property income or operating cost after losing.
+- For a losing bid:
+
+`property_won = false`
+
+`net_property_result = 0`
+
+`cash_after_property = cash_before_bid`
 
 - Exact income, cost and property values have not yet been selected.
 
@@ -585,15 +585,61 @@ Verified for the general investment-return relationship. The exact game implemen
 
 #### FIN-SRC-011 — MIT first-price sealed-bid auction
 
-Source: MIT OpenCourseWare, “Lecture 21: Auctions and Incomplete Information.”
-Relevant section: “Auction Formats,” page 24; “First-Price Auction,” page 36.
-URL: https://ocw.mit.edu/courses/14-15-networks-spring-2022/mit14_15s22_lec21.pdf
+**Claim:**  
+In a first-price sealed-bid auction, bidders submit sealed bids, the highest bidder wins and the winner pays their own bid.
+
+**Source:**  
+Alexander Wolitzky, Massachusetts Institute of Technology OpenCourseWare, “Lecture 21: Auctions and Incomplete Information,” 14.15 / 6.207 Networks, Spring 2022.
+
+**URL:**  
+https://ocw.mit.edu/courses/14-15-networks-spring-2022/mit14_15s22_lec21.pdf
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Page 24, “Auction Formats”; page 36, “First-Price Auction.”
+
+**What it supports:**  
+The source states that the highest bidder wins a first-price sealed-bid auction and pays their own bid. It also describes a bidder who loses the auction as receiving a payoff of zero.
+
+**What it does not support:**  
+It does not define Market Empire's scripted opponent bid, tied-bid rule, property values, entry fees, deposits or penalties.
+
+**Project simplification:**  
+The one-round demo has no auction-entry fee, deposit or losing-bid penalty. Therefore, a player who loses does not acquire the property and keeps the full amount they offered.
+
+**Status:**  
+Verified for the standard first-price sealed-bid winner-payment relationship. The exact Market Empire rule remains Provisional pending review or explicit team approval.
 
 #### FIN-SRC-012 — EconPort first-price sealed-bid auction
 
-Source: EconPort, Georgia State University, “First Price Sealed-Bid Auction.”
-Relevant section: Opening definition.
-URL: https://www.econport.org/content/handbook/auctions/commntypes/firstpricesealed.html
+**Claim:**  
+In a first-price sealed-bid auction, the highest bidder wins and pays their submitted bid.
+
+**Source:**  
+EconPort, Georgia State University, “First-Price Sealed-Bid Auction.”
+
+**URL:**  
+https://www.econport.org/econport/request?page=man_auctions_firstpricesealed
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+Opening definition of the first-price sealed-bid auction.
+
+**What it supports:**  
+The source states that the high bidder wins the auction and pays their own bid.
+
+**What it does not support:**  
+It does not define Market Empire's opponent bid, tied-bid rule, property values, entry fees, deposits or losing-bid penalties.
+
+**Project simplification:**  
+Market Empire uses a first-price sealed-bid structure with no fee or deposit. Only the winning player's bid is deducted from cash.
+
+**Status:**  
+Verified for the standard first-price sealed-bid winner-payment relationship. The exact Market Empire rule remains Provisional pending review or explicit team approval.
 
 ### Calculation conventions for these examples
 
@@ -803,24 +849,34 @@ The net property result is a `$400` gain.
 - `player_bid = 2000`
 - `opponent_bid = 2500`
 
+**Expected calculation:**
+
+`player_bid < opponent_bid`
+
+`property_won = false`
+
+`bid_amount_deducted = 0`
+
+`net_property_result = 0`
+
+`cash_after_property = 7000 - 0 + 0 = 7000`
+
 **Expected output:**
 
-- `property_won = false`
-- `net_property_result = 0`
-- `cash_after_property = 7000`
+- The player does not win the property.
+- No bid amount is deducted.
+- No property income or operating cost is applied.
+- Cash after the property bid is `$7,000`.
 
-### Examples that remain blocked
+**Rule tested:**
 
-The following known-answer examples cannot yet be written without inventing missing rules:
+A losing bid does not reduce the player's cash balance.
 
-- Per-sector gains and losses after the scripted market signal.
-- Total market gain or loss across the four allocations.
-- Cent-level calculations requiring a rounding rule.
-- A property-loss example requiring explicit losing-bid cash treatment.
-- A tied property bid requiring an approved tie rule.
-- One complete example using the actual demo constants.
+**Known limitation:**
 
-**Status:** Provisional — partial known-answer coverage only.
+The example uses synthetic amounts and does not establish the actual demo opponent bid or property price.
+
+**Status:** Provisional synthetic test example.
 
 ---
 
@@ -951,13 +1007,18 @@ Provisional — awaiting Hanyu's review or explicit team approval.
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
-#### FIN-DEC-CAND-006 — Losing-bid cash treatment
+### FIN-DEC-CAND-006 — Losing-bid cash treatment
 
 **Proposed decision:**  
-A player who loses the property auction keeps the full bid amount. No cash is deducted, no property is acquired and no property income or cost is applied.
+A player who loses the property auction keeps the full bid amount. No cash is deducted, no property is acquired and no property income or operating cost is applied.
+
+**Why this is being proposed:**  
+This follows the standard first-price sealed-bid winner-payment structure, avoids introducing an unsupported penalty or deposit and produces a simple deterministic result for the one-round demo.
 
 **Evidence status:**  
-FIN-SRC-011 and FIN-SRC-012 support the standard first-price sealed-bid relationship that the highest bidder wins and pays their bid. They do not approve Market Empire’s opponent bid, tie rule or property values.
+FIN-SRC-011 and FIN-SRC-012 support the standard relationship that the highest bidder wins and pays their own bid.
+
+The sources do not approve Market Empire's opponent bid, tied-bid rule, property values or the absence of every possible auction fee. The no-fee and no-deposit treatment remains a project simplification.
 
 **Status:**  
 Provisional — awaiting Hanyu's review or explicit team approval.
@@ -983,10 +1044,10 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Known-answer examples are currently partial; sector-result and complete end-to-end examples remain unresolved.
 - The deterministic sector-settlement relationship is documented, but it remains Provisional pending review.
 - None of the resulting relationships will be treated as balance-validated.
-- The known-answer numbers in FIN-EX-001 through FIN-EX-006 are synthetic test inputs, not approved demo constants.
+- The known-answer numbers in FIN-EX-001 through FIN-EX-007 are synthetic test inputs, not approved demo constants.
+- The losing-bid treatment assumes that the demo has no auction-entry fee, deposit or losing-bid penalty.
 - No sector rates, permitted return ranges or scripted signal-to-sector mapping have been approved.
 - The current settlement relationship omits transaction fees, taxes, inflation and separate sector income.
 - No cent-level rounding rule has been documented.
-- The property-bid rules do not yet state what happens to cash after a losing bid.
 - The property-bid rules do not yet define how a tied bid is resolved.
 - A complete end-to-end known-answer example remains blocked until those rules and the actual demo constants are approved.
