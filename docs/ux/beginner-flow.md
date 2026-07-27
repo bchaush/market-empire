@@ -168,22 +168,29 @@ Submit Bid.
 ### Screen 6 — Round Summary
 
 **Player goal:**  
-To be completed.
+See the overall result of the round and choose to play again or exit.
 
 **What the player should notice first:**  
-To be completed.
+The one overall line describing how the round went (increased, unchanged or decreased).
 
 **What the player should notice second:**  
-To be completed.
+Starting cash, ending cash and whether the property was won.
 
 **What the player should notice last:**  
-To be completed.
+The `Play Again` and `Exit` buttons.
 
 **Available actions:**  
-Play Again or Exit.
+
+- Play Again.
+- Exit.
 
 **Untested assumptions:**  
-To be completed.
+
+- Leading with the one overall summary line, before the individual numbers, matches how a beginner wants to process a final result.
+- The player understands this is the end of the one-round demo, with no second round in this version.
+- "Play Again" restarting the same one-round demo (rather than suggesting new content) does not disappoint or confuse the player.
+- The player does not need a comparison to other players' scores, per `docs/DEMO_SPEC.md` Screen 6 exclusions.
+- The end-of-round financial-position method behind this summary line (`docs/finance/source-ledger.md`, FIN-DEC-CAND-004 — still Provisional) is understandable without further explanation of "carrying value."
 
 ## Cross-screen untested assumptions
 
