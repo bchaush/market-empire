@@ -26,9 +26,9 @@ It does not define final formulas for the complete game.
 |---|---|---|
 | FIN-DEMO-01 | Four simple sector definitions | Provisional — two sources recorded; labels require Hanyu and Pankuri review |
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
-| FIN-DEMO-03 | One property income or cost model | Provisional — property model and losing-bid relationship documented; exact values and approval remain pending |
+| FIN-DEMO-03 | One property income or cost model | Provisional — property model, losing-bid and tied-bid relationships documented; exact values and approval remain pending |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
-| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples and settlement relationship recorded; sector rates, signal mapping and rounding remain unresolved |
+| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples, settlement relationship and bid-boundary examples recorded; sector rates, signal mapping and rounding remain unresolved |
 
 ---
 
@@ -263,6 +263,18 @@ For the one-round demo:
 
 `cash_after_property = cash_before_bid`
 
+- If the player's bid equals the scripted opponent bid, the scripted opponent wins.
+- The player does not acquire the property.
+- A tied bid is not deducted from the player's cash.
+- The player receives no property income or operating cost.
+- For a tied bid:
+
+`property_won = false`
+
+`net_property_result = 0`
+
+`cash_after_property = cash_before_bid`
+
 - Exact income, cost and property values have not yet been selected.
 
 **Status:** Provisional pending Hanyu's review or explicit team approval.
@@ -395,6 +407,7 @@ Verified for the standard first-price sealed-bid winner-payment relationship. Th
 - The demo does not model mortgages or debt service.
 - The demo treats income and cost as scripted values instead of values derived from a real location or property.
 - Subtracting the winning bid changes cash but does not by itself measure the player's total wealth because the player also owns the property.
+- The tied-bid rule is a deterministic project choice and is not established by FIN-SRC-011 or FIN-SRC-012.
 - The proposed rule has not yet been reviewed by Hanyu.
 ---
 
@@ -878,6 +891,44 @@ The example uses synthetic amounts and does not establish the actual demo oppone
 
 **Status:** Provisional synthetic test example.
 
+### FIN-EX-008 — Tied bid is awarded to the scripted opponent
+
+**Inputs:**
+
+- `cash_before_bid = 7000`
+- `player_bid = 2500`
+- `opponent_bid = 2500`
+
+**Expected calculation:**
+
+`player_bid = opponent_bid`
+
+`property_won = false`
+
+`bid_amount_deducted = 0`
+
+`net_property_result = 0`
+
+`cash_after_property = 7000 - 0 + 0 = 7000`
+
+**Expected output:**
+
+- The scripted opponent wins the tied bid.
+- The player does not acquire the property.
+- No bid amount is deducted.
+- No property income or operating cost is applied.
+- Cash after the property bid is `$7,000`.
+
+**Rule tested:**
+
+When the player's bid equals the scripted opponent bid, the scripted opponent wins and the player's cash remains unchanged.
+
+**Known limitation:**
+
+This is a deterministic project choice and is not presented as a universal auction rule.
+
+**Status:** Provisional synthetic test example.
+
 ---
 
 ## Research Source record
@@ -1026,6 +1077,25 @@ Provisional — awaiting Hanyu's review or explicit team approval.
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
+### FIN-DEC-CAND-007 — Tied-bid resolution
+
+**Proposed decision:**  
+When the player's bid equals the scripted opponent bid, the scripted opponent wins. The player keeps the full bid amount, does not acquire the property and receives no property income or operating cost.
+
+**Why this is being proposed:**  
+A fixed tied-bid outcome keeps the one-round demo deterministic and testable without adding randomness or another tie-breaking step.
+
+**Evidence status:**  
+FIN-SRC-011 and FIN-SRC-012 support the standard relationship that the highest bidder wins and pays their own bid.
+
+They do not define how equal bids must be resolved. The proposed tied-bid treatment is therefore a project choice, not a verified financial relationship.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
@@ -1044,10 +1114,9 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Known-answer examples are currently partial; sector-result and complete end-to-end examples remain unresolved.
 - The deterministic sector-settlement relationship is documented, but it remains Provisional pending review.
 - None of the resulting relationships will be treated as balance-validated.
-- The known-answer numbers in FIN-EX-001 through FIN-EX-007 are synthetic test inputs, not approved demo constants.
+- The known-answer numbers in FIN-EX-001 through FIN-EX-008 are synthetic test inputs, not approved demo constants.
 - The losing-bid treatment assumes that the demo has no auction-entry fee, deposit or losing-bid penalty.
 - No sector rates, permitted return ranges or scripted signal-to-sector mapping have been approved.
 - The current settlement relationship omits transaction fees, taxes, inflation and separate sector income.
 - No cent-level rounding rule has been documented.
-- The property-bid rules do not yet define how a tied bid is resolved.
 - A complete end-to-end known-answer example remains blocked until those rules and the actual demo constants are approved.
