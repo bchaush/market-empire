@@ -73,7 +73,7 @@ See the round summary
 <td><p><strong>What the demo will NOT include yet</strong></p>
 <p>Real online multiplayer, accounts, or logins</p>
 <p>The full six-round game or the faster "Advanced" version</p>
-<p>Final, validated financial formulas — all numbers are clearly marked provisional</p></td>
+<p>Final, validated financial formulas - all numbers are clearly marked provisional</p></td>
 </tr>
 </tbody>
 </table>
