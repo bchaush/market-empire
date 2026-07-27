@@ -222,9 +222,9 @@ https://mf.freddiemac.com/docs/mf_guide_glossary.pdf
 
 **Date checked:**  
 2026-07-27
-
+ 
 **Relevant section:**  
-Glossary entry “Net Operating Income,” page 25 of the PDF.
+Glossary entry “Net Operating Income,” PDF page 26; footer: “Glossary – Page 26.”
 
 **What it supports:**  
 Property operating income must be considered together with operating expenses rather than treating gross rental income as pure profit.
