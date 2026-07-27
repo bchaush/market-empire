@@ -34,11 +34,11 @@ Why this project exists
 
 Financial ideas are usually taught as definitions. This project turns them into decisions and consequences a person can feel and discuss.
 
-It is built for people with no background — so every screen, rule and explanation must work without a teacher present.
+It is built for people with no background - so every screen, rule and explanation must work without a teacher present.
 
 It is not yet a finished game. It is currently a researched, documented plan being turned into one working demo round.
 
-2. What we are building right now — the demo
+2. What we are building right now - the demo
 
 We are not building the whole game yet. We are building one small, complete, clickable slice of it, so the team can see it, test it, and agree it feels right before doing more work. This is normal practice in software: prove the smallest real version first.
 
@@ -78,9 +78,9 @@ See the round summary
 </tbody>
 </table>
 
-3. What counts as done — the first milestone
+3. What counts as done - the first milestone
 
-The one-round demo is ready to show to the team, and to anyone outside it, only when every item below is true. This is the acceptance gate — the concrete finish line for the first piece of work.
+The one-round demo is ready to show to the team, and to anyone outside it, only when every item below is true. This is the acceptance gate - the concrete finish line for the first piece of work.
 
 ☐ A user can start the demo without needing instructions.
 
@@ -110,15 +110,15 @@ The one-round demo is ready to show to the team, and to anyone outside it, only 
 
 You do not need to remember many tools. You need to understand three ideas. Everything else in this document is built on top of these three.
 
-1 — GitHub is our memory
+1 - GitHub is our memory
 
 Every decision, task, document and piece of code lives in one place: a GitHub repository called market-empire. Only information committed to the repository, or recorded in an issue, pull request or decision file, counts as shared project knowledge. A conversation with an AI or a teammate is not an accepted decision by itself — if it matters, it gets written down there.
 
-2 — AGENTS.md is our shared instruction sheet
+2 - AGENTS.md is our shared instruction sheet
 
 This is one short file that tells any AI coding tool (Claude Code, Cursor, Gemini) the same basic rules: how to run the project, what it must never invent, and how it should ask before building. We configure each AI coding tool to use this same short instruction file, so the project rules remain consistent across all of them.
 
-3 — Every task is one GitHub issue
+3 - Every task is one GitHub issue
 
 Nothing is built without first writing down: what we want, why it matters, and how we will know it is done. That written task is called an issue. One issue, one small piece of work, one review, one merge. This is what keeps four people from stepping on each other.
 
@@ -126,15 +126,15 @@ Nothing is built without first writing down: what we want, why it matters, and h
 
 Keeping this simple and clear prevents confusion about whose call something is.
 
-Bora — product scope, integration and final demo direction
+Bora - product scope, integration and final demo direction
 
-Pankuri — UX and interface recommendations
+Pankuri - UX and interface recommendations
 
-Hanyu — financial relationships, formulas and scoring
+Hanyu - financial relationships, formulas and scoring
 
-Leo — testing method, evidence and process integrity
+Leo - testing method, evidence and process integrity
 
-6. What to do first — today
+6. What to do first - today
 
 Follow this order. Skipping straight to coding before step 5 creates avoidable confusion and rework later.
 
@@ -163,7 +163,7 @@ Only after that: create the six Figma screens (see section 7). Do not write game
 </tbody>
 </table>
 
-7. Tools — what each one is for, in plain words
+7. Tools - what each one is for, in plain words
 
 You do not need to be technical to understand this table. Read the middle column only.
 
@@ -175,7 +175,7 @@ Cost
 
 GitHub
 
-Where the project lives — code, tasks, history, decisions.
+Where the project lives - code, tasks, history, decisions.
 
 Free
 
@@ -241,7 +241,7 @@ Free tier
 
 Supabase
 
-Added later — lets multiple real players play together online.
+Added later - lets multiple real players play together online.
 
 Free tier
 
@@ -251,7 +251,7 @@ Pricing checked: 26 July 2026
 
 8. How a piece of work actually gets done
 
-Every single change — no matter how small — follows the same seven steps. This is what stops the project from becoming confusing as more people touch it.
+Every single change - no matter how small — follows the same seven steps. This is what stops the project from becoming confusing as more people touch it.
 
 Write the task as one GitHub issue: goal, why it matters, what "done" looks like.
 
@@ -261,11 +261,11 @@ Claude Code reads the task and the shared rules, proposes a short plan, and wait
 
 Once approved, Claude Code builds it and runs the automatic tests.
 
-A pull request is opened — this is a request to merge the new work into the main project.
+A pull request is opened - this is a request to merge the new work into the main project.
 
 Gemini (or a teammate) reviews the change without editing it, and lists any problems.
 
-Once it looks right on the live preview link, it is merged — and the task moves to Done.
+Once it looks right on the live preview link, it is merged - and the task moves to Done.
 
 Nobody edits the main project directly. Everything passes through this loop, so there is always a record of what changed, why, and who checked it.
 
@@ -301,43 +301,43 @@ One task (issue) at a time. No silent scope changes.
 
 Every changed game rule needs an updated test.
 
-Big decisions (scope, architecture, core rules) get written down in DECISIONS.md — not just said out loud.
+Big decisions (scope, architecture, core rules) get written down in DECISIONS.md - not just said out loud.
 
 Never commit passwords, API keys, or secrets to GitHub.
 
-If something is unresolved or risky, say so in writing — do not hide it.
+If something is unresolved or risky, say so in writing - do not hide it.
 
 11. What we are deliberately not doing yet
 
-Not finishing every research question before building anything — only what the one-round demo needs.
+Not finishing every research question before building anything - only what the one-round demo needs.
 
 Not writing another full 39-page blueprint. Small, working documents only.
 
 Not adding real multiplayer, accounts, or the Advanced experience until the local one-round demo works end to end.
 
-Not treating the AI-generated interface as finished research — it is a starting hypothesis to test with a real person.
+Not treating the AI-generated interface as finished research - it is a starting hypothesis to test with a real person.
 
 12. Where to check every claim in this document
 
 Nothing above should be taken on trust. These are the same public, official sources this plan is based on — search or open them directly.
 
-AGENTS.md — the open, shared AI-instructions format — <u>https://agents.md/</u>
+AGENTS.md - the open, shared AI-instructions format - <u>https://agents.md/</u>
 
-GitHub Projects — planning and tracking work — <u>https://docs.github.com/en/issues/planning-and-tracking-with-projects</u>
+GitHub Projects - planning and tracking work - <u>https://docs.github.com/en/issues/planning-and-tracking-with-projects</u>
 
-GitHub Pull Requests — how review and merging works — <u>https://docs.github.com/en/pull-requests</u>
+GitHub Pull Requests - how review and merging works - <u>https://docs.github.com/en/pull-requests</u>
 
-Claude Code documentation — <u>https://docs.claude.com/en/docs/claude-code/overview</u>
+Claude Code documentation - <u>https://docs.claude.com/en/docs/claude-code/overview</u>
 
-Vitest — testing framework — <u>https://vitest.dev/</u>
+Vitest — testing framework - <u>https://vitest.dev/</u>
 
-Playwright — browser testing — <u>https://playwright.dev/</u>
+Playwright — browser testing - <u>https://playwright.dev/</u>
 
-Vercel — preview deployments — <u>https://vercel.com/docs/deployments/preview-deployments</u>
+Vercel — preview deployments - <u>https://vercel.com/docs/deployments/preview-deployments</u>
 
-Supabase — Realtime for multiplayer — <u>https://supabase.com/docs/guides/realtime</u>
+Supabase — Realtime for multiplayer - <u>https://supabase.com/docs/guides/realtime</u>
 
-Figma — prototyping and comments — <u>https://www.figma.com/prototyping/</u>
+Figma — prototyping and comments - <u>https://www.figma.com/prototyping/</u>
 
 A link alone is not enough. When a source affects a project decision, record what it supports, what it does not support, the relevant page or section, the date checked, and whether the resulting project choice is verified or provisional.
 
