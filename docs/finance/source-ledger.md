@@ -28,7 +28,7 @@ It does not define final formulas for the complete game.
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
 | FIN-DEMO-03 | One property income or cost model | Provisional — property model, losing-bid and tied-bid relationships documented; exact values and approval remain pending |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
-| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples, settlement relationship and bid-boundary examples recorded; sector rates, signal mapping and rounding remain unresolved |
+| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples, settlement relationship, bid boundaries and cent-level rounding documented; sector rates and signal mapping remain unresolved |
 
 ---
 
@@ -662,6 +662,26 @@ Verified for the general investment-return relationship. The exact game implemen
 - A future automated test must not infer a value that is not written in its example.
 - The examples test the provisional relationships only; they do not validate game balance.
 
+### Cent-level rounding rule
+
+For the one-round demo:
+
+- Monetary inputs may include dollars and cents.
+- Percentage calculations may initially produce fractions smaller than one cent.
+- Each sector's calculated dollar change is rounded to the nearest cent before it is added to the settled sector value or total market change.
+- An amount exactly halfway between two cents is rounded away from zero:
+  - `$5.005` becomes `$5.01`.
+  - `-$5.005` becomes `-$5.01`.
+- Amounts already expressed to the nearest cent are added or subtracted without further rounding.
+- Ending cash and the end-of-round financial position are calculated from the already-rounded component amounts.
+- The interface displays monetary amounts using two decimal places.
+
+This means the engine must not calculate the total from unrounded sector changes and then round only once at the end.
+
+**Status:** Provisional pending Hanyu's review or explicit team approval.
+
+This is a deterministic project convention. It is not presented as a universal accounting or financial-market rule.
+
 ### FIN-EX-001 — Unallocated cash remains unchanged
 
 **Inputs:**
@@ -929,6 +949,53 @@ This is a deterministic project choice and is not presented as a universal aucti
 
 **Status:** Provisional synthetic test example.
 
+### FIN-EX-009 — Half-cent results round away from zero
+
+**Inputs — positive result:**
+
+- `sector_allocation = 100.10`
+- `sector_return_rate = 5%`
+
+**Expected calculation:**
+
+`unrounded_sector_change = 100.10 × 0.05 = 5.005`
+
+`rounded_sector_change = 5.01`
+
+`settled_sector_value = 100.10 + 5.01 = 105.11`
+
+**Expected output — positive result:**
+
+- The sector change is displayed and stored as a `$5.01` gain.
+- The settled sector value is `$105.11`.
+
+**Inputs — negative result:**
+
+- `sector_allocation = 100.10`
+- `sector_return_rate = -5%`
+
+**Expected calculation:**
+
+`unrounded_sector_change = 100.10 × -0.05 = -5.005`
+
+`rounded_sector_change = -5.01`
+
+`settled_sector_value = 100.10 - 5.01 = 95.09`
+
+**Expected output — negative result:**
+
+- The sector change is displayed and stored as a `$5.01` loss.
+- The settled sector value is `$95.09`.
+
+**Rule tested:**
+
+A calculated amount exactly halfway between two cents is rounded away from zero before it is used in later totals.
+
+**Known limitation:**
+
+The inputs are synthetic and do not establish an approved sector return rate or demo allocation.
+
+**Status:** Provisional synthetic test example.
 ---
 
 ## Research Source record
@@ -1096,6 +1163,27 @@ Provisional — awaiting Hanyu's review or explicit team approval.
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
+### FIN-DEC-CAND-008 — Cent-level monetary rounding
+
+**Proposed decision:**  
+For the one-round demo, round each calculated sector dollar change to the nearest cent before using it in settled values or totals.
+
+An amount exactly halfway between two cents is rounded away from zero. All later cash and financial-position calculations use the already-rounded component amounts.
+
+**Why this is being proposed:**  
+The rule produces deterministic cent-level results and prevents displayed sector amounts from disagreeing with the displayed total.
+
+**Evidence status:**  
+This is an implementation and game-calculation convention rather than a claim established by the financial sources currently recorded in this ledger.
+
+No source is being used to present it as a universal accounting or financial-market rule.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
@@ -1114,9 +1202,9 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Known-answer examples are currently partial; sector-result and complete end-to-end examples remain unresolved.
 - The deterministic sector-settlement relationship is documented, but it remains Provisional pending review.
 - None of the resulting relationships will be treated as balance-validated.
-- The known-answer numbers in FIN-EX-001 through FIN-EX-008 are synthetic test inputs, not approved demo constants.
+- The known-answer numbers in FIN-EX-001 through FIN-EX-009 are synthetic test inputs, not approved demo constants.
 - The losing-bid treatment assumes that the demo has no auction-entry fee, deposit or losing-bid penalty.
+- The cent-level rounding rule remains Provisional pending review or explicit team approval.
 - No sector rates, permitted return ranges or scripted signal-to-sector mapping have been approved.
 - The current settlement relationship omits transaction fees, taxes, inflation and separate sector income.
-- No cent-level rounding rule has been documented.
-- A complete end-to-end known-answer example remains blocked until those rules and the actual demo constants are approved.
+- A complete end-to-end known-answer example remains blocked until the sector rates, scripted signal-to-sector mapping and actual demo constants are approved.
