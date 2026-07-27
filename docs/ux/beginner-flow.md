@@ -143,22 +143,27 @@ Continue.
 ### Screen 5 — Property Bid
 
 **Player goal:**  
-To be completed.
+Decide how much of their remaining cash to bid on the one available property, then submit the bid.
 
 **What the player should notice first:**  
-To be completed.
+The property's name and asking price.
 
 **What the player should notice second:**  
-To be completed.
+The single bid input field and their remaining cash.
 
 **What the player should notice last:**  
-To be completed.
+The `Submit Bid` button.
 
 **Available action:**  
 Submit Bid.
 
 **Untested assumptions:**  
-To be completed.
+
+- Showing the asking price (even though the bid is sealed and doesn't have to match it) does not mislead the player into thinking it's the required amount.
+- The player understands the bid is sealed — they cannot see or react to the opponent's bid before submitting.
+- The player does not need the losing-bid or tied-bid rules explained in advance on this screen; the result and reason appear afterward.
+- One single numeric field is sufficient for entering a bid, with no additional confirmation step before Submit Bid.
+- The player does not need to be told in advance that a losing or tied bid costs them nothing (per `docs/finance/source-ledger.md`, FIN-DEC-CAND-006 and FIN-DEC-CAND-007 — both still Provisional).
 
 ### Screen 6 — Round Summary
 
