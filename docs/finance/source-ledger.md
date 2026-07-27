@@ -28,7 +28,7 @@ It does not define final formulas for the complete game.
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
 | FIN-DEMO-03 | One property income or cost model | Provisional — two sources recorded; model and exact values require review |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
-| FIN-DEMO-05 | Known-input and known-output examples | Provisional — dependent on the rules above |
+| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples recorded; sector-result examples blocked pending an approved settlement rule |
 
 ---
 
@@ -447,44 +447,231 @@ Verified for the general cost-basis relationship. The exact game treatment remai
 
 ## FIN-DEMO-05 — Known-answer examples
 
-Known-answer examples will be added only after the relevant provisional rules are written clearly.
+These examples use synthetic test inputs chosen only to prove the arithmetic and boundary behaviour of rules already written in this ledger.
 
-| Example ID | Inputs | Expected output | Rule tested | Status |
-|---|---|---|---|---|
-| To be added | — | — | — | Provisional |
+They are not approved game constants, market forecasts, balance targets, property valuations or source-backed real-world values.
+
+No sector gain-or-loss example is recorded yet because the ledger does not currently define:
+
+- a sector settlement formula;
+- a scripted signal-to-sector mapping;
+- sector result rates; or
+- a rounding rule.
+
+### Calculation conventions for these examples
+
+- All amounts are expressed in dollars.
+- Every input used by a calculation is written explicitly.
+- The examples use whole-dollar amounts, so they do not silently establish a cent-rounding rule.
+- A future automated test must not infer a value that is not written in its example.
+- The examples test the provisional relationships only; they do not validate game balance.
+
+### FIN-EX-001 — Unallocated cash remains unchanged
+
+**Inputs:**
+
+- `starting_cash = 10000`
+- `total_allocated = 0`
+- `unallocated_cash = 10000`
+- `cash_return_rate = 0%`
+
+**Expected calculation:**
+
+`cash_change = 10000 × 0 = 0`
+
+`cash_after_market = 10000 + 0 = 10000`
+
+**Expected output:**
+
+- Cash after the market result is `$10,000`.
+- No gain or loss is attributed to unallocated cash.
+
+**Rule tested:**
+
+Unallocated cash changes by 0% during the one-round demo.
+
+**Status:** Provisional synthetic test example.
+
+### FIN-EX-002 — Allocation may equal available cash
+
+**Inputs:**
+
+- `starting_cash = 10000`
+- `technology_allocation = 2500`
+- `health_care_allocation = 2500`
+- `everyday_goods_allocation = 2500`
+- `energy_allocation = 2500`
+
+**Expected calculation:**
+
+`total_allocated = 2500 + 2500 + 2500 + 2500 = 10000`
+
+`cash_remaining = 10000 - 10000 = 0`
+
+**Expected output:**
+
+- The allocation is valid because it does not exceed available cash.
+- Total allocated cash is `$10,000`.
+- Cash remaining before market settlement is `$0`.
+
+**Rule tested:**
+
+Total allocation may equal, but may not exceed, available cash.
+
+**Known limitation:**
+
+No gain or loss is calculated because sector settlement rates have not been defined.
+
+**Status:** Provisional synthetic boundary example.
+
+### FIN-EX-003 — Positive property operating result
+
+**Inputs:**
+
+- `gross_rental_income = 600`
+- `operating_cost = 200`
+
+**Expected calculation:**
+
+`net_property_result = 600 - 200 = 400`
+
+**Expected output:**
+
+The net property result is a `$400` gain.
+
+**Rule tested:**
+
+`net_property_result = gross_rental_income - operating_cost`
+
+**Status:** Provisional synthetic test example.
+
+### FIN-EX-004 — Property win produces an increased financial position
+
+**Inputs:**
+
+- `starting_position = 10000`
+- `cash_before_bid = 10000`
+- `property_won = true`
+- `winning_bid = 2500`
+- `gross_rental_income = 600`
+- `operating_cost = 200`
+
+**Expected calculation:**
+
+`net_property_result = 600 - 200 = 400`
+
+`ending_cash = 10000 - 2500 + 400 = 7900`
+
+`property_carrying_value = 2500`
+
+`ending_position = 7900 + 2500 = 10400`
+
+`round_change = 10400 - 10000 = 400`
+
+**Expected output:**
+
+- Ending cash is `$7,900`.
+- Property carrying value is `$2,500`.
+- Ending financial position is `$10,400`.
+- Display: `Your financial position increased by $400 this round.`
+
+**Rules tested:**
+
+- Property cash-flow calculation.
+- Winning-bid cash treatment.
+- Property carrying-value treatment.
+- Positive end-of-round summary.
+
+**Status:** Provisional synthetic test example.
+
+### FIN-EX-005 — Property win produces an unchanged financial position
+
+**Inputs:**
+
+- `starting_position = 10000`
+- `cash_before_bid = 10000`
+- `property_won = true`
+- `winning_bid = 2500`
+- `gross_rental_income = 200`
+- `operating_cost = 200`
+
+**Expected calculation:**
+
+`net_property_result = 200 - 200 = 0`
+
+`ending_cash = 10000 - 2500 + 0 = 7500`
+
+`property_carrying_value = 2500`
+
+`ending_position = 7500 + 2500 = 10000`
+
+`round_change = 10000 - 10000 = 0`
+
+**Expected output:**
+
+- Ending cash is `$7,500`.
+- Property carrying value is `$2,500`.
+- Ending financial position is `$10,000`.
+- Display: `Your financial position was unchanged this round.`
+
+**Rules tested:**
+
+- Zero property operating result.
+- Zero-change end-of-round summary.
+
+**Status:** Provisional synthetic test example.
+
+### FIN-EX-006 — Property win produces a decreased financial position
+
+**Inputs:**
+
+- `starting_position = 10000`
+- `cash_before_bid = 10000`
+- `property_won = true`
+- `winning_bid = 2500`
+- `gross_rental_income = 100`
+- `operating_cost = 300`
+
+**Expected calculation:**
+
+`net_property_result = 100 - 300 = -200`
+
+`ending_cash = 10000 - 2500 - 200 = 7300`
+
+`property_carrying_value = 2500`
+
+`ending_position = 7300 + 2500 = 9800`
+
+`round_change = 9800 - 10000 = -200`
+
+**Expected output:**
+
+- Ending cash is `$7,300`.
+- Property carrying value is `$2,500`.
+- Ending financial position is `$9,800`.
+- Display: `Your financial position decreased by $200 this round.`
+
+**Rules tested:**
+
+- Negative property operating result.
+- Negative-change end-of-round summary.
+
+**Status:** Provisional synthetic test example.
+
+### Examples that remain blocked
+
+The following known-answer examples cannot yet be written without inventing missing rules:
+
+- Per-sector gains and losses after the scripted market signal.
+- Total market gain or loss across the four allocations.
+- Cent-level calculations requiring a rounding rule.
+- A property-loss example requiring explicit losing-bid cash treatment.
+- A tied property bid requiring an approved tie rule.
+- One complete example using the actual demo constants.
+
+**Status:** Provisional — partial known-answer coverage only.
 
 ---
-
-## Research Source record
-
-Copy one block for every source used.
-
-### FIN-SRC-[number] — [short source name]
-
-**Claim:**  
-[Exact claim being assessed]
-
-**Source:**  
-[Author or organization, title and checkable location]
-
-**Date checked:**  
-[YYYY-MM-DD]
-
-**Relevant section:**  
-[Exact page, heading, table or paragraph]
-
-**What it supports:**  
-[What the source directly establishes]
-
-**What it does not support:**  
-[What cannot honestly be concluded from the source]
-
-**Project simplification:**  
-[How Market Empire simplifies the real relationship]
-
-**Status:**  
-Verified / Provisional
-
 ---
 
 ## Decision candidates
@@ -579,3 +766,9 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Known-answer examples have not yet been written.
 - The deterministic sector-result relationship still requires definition before all known-answer examples can be completed.
 - None of the resulting relationships will be treated as balance-validated.
+- The known-answer numbers in FIN-EX-001 through FIN-EX-006 are synthetic test inputs, not approved demo constants.
+- No sector settlement formula, sector rates or scripted signal-to-sector mapping has been approved.
+- No cent-level rounding rule has been documented.
+- The property-bid rules do not yet state what happens to cash after a losing bid.
+- The property-bid rules do not yet define how a tied bid is resolved.
+- A complete end-to-end known-answer example remains blocked until those rules and the actual demo constants are approved.
