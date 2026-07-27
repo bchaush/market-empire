@@ -41,42 +41,51 @@ It does not approve the interface, financial wording, game values or final visua
 ### Screen 1 — Start
 
 **Player goal:**  
-To be completed.
+Understand that this is the beginning of one short Market Empire demo round and start the experience.
 
 **What the player should notice first:**  
-To be completed.
+The `Market Empire` game title.
 
 **What the player should notice second:**  
-To be completed.
+One short sentence explaining what the player is about to do.
 
 **What the player should notice last:**  
-To be completed.
+The single `Start` button.
 
 **Available action:**  
 Start.
 
 **Untested assumptions:**  
-To be completed.
+
+- The game title and one introductory sentence provide enough context for a first-time player.
+- The `Start` button clearly communicates the only available action.
+- The player does not need login, settings, detailed rules or financial explanations before beginning.
+- Not displaying the starting cash before the player clicks `Start` will not cause confusion.
 
 ### Screen 2 — Market Signal
 
 **Player goal:**  
-To be completed.
+Read and understand the single market clue before making an investment decision.
 
 **What the player should notice first:**  
-To be completed.
+The `Market Signal` screen heading.
 
 **What the player should notice second:**  
-To be completed.
+The one short, scripted market-signal message.
 
 **What the player should notice last:**  
-To be completed.
+The `Continue` button.
 
 **Available action:**  
 Continue.
 
 **Untested assumptions:**  
-To be completed.
+
+- A first-time player can understand the scripted signal without additional financial definitions.
+- One signal is enough information for the player to continue confidently.
+- The player understands that `Continue` moves to the investment decision.
+- Keeping the signal visible or summarized on the next screen will help the player remember it.
+- The exact signal wording has not yet been usability-tested.
 
 ### Screen 3 — Investment Decision
 
