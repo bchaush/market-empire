@@ -407,6 +407,7 @@ Verified for the standard first-price sealed-bid winner-payment relationship. Th
 - The demo does not model mortgages or debt service.
 - The demo treats income and cost as scripted values instead of values derived from a real location or property.
 - Subtracting the winning bid changes cash but does not by itself measure the player's total wealth because the player also owns the property.
+- The losing-bid no-fee, no-deposit and no-penalty treatment is a project simplification and is not established by FIN-SRC-011 or FIN-SRC-012.
 - The tied-bid rule is a deterministic project choice and is not established by FIN-SRC-011 or FIN-SRC-012.
 - The proposed rule has not yet been reviewed by Hanyu.
 ---
@@ -525,7 +526,6 @@ Verified for the general cost-basis relationship. The exact game treatment remai
 - No numeric game values have yet been approved.
 
 ---
----
 
 ## FIN-DEMO-05 — Known-answer examples
 
@@ -539,7 +539,7 @@ No sector gain-or-loss example using actual demo values is recorded yet because 
 
 - a scripted signal-to-sector mapping;
 - sector result rates;
-- permitted sector-return ranges;
+- permitted sector-return ranges.
 
 ### Deterministic sector-settlement relationship
 
@@ -1116,7 +1116,7 @@ The method makes the effect of each investment visible, produces deterministic r
 **Evidence status:**  
 FIN-SRC-009 supports aggregating portfolio returns according to the weights of the individual holdings. FIN-SRC-010 supports relating an investment's change in value to the amount invested and its percentage return.
 
-Neither source supplies the game's exact sector rates, scripted signal mapping, return ranges or rounding rule.
+Neither source supplies the game's exact sector rates, scripted signal mapping or permitted return ranges. Cent-level rounding is documented separately as a Provisional project convention.
 
 **Status:**  
 Provisional — awaiting Hanyu's review or explicit team approval.
