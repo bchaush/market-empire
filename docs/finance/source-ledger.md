@@ -28,7 +28,7 @@ It does not define final formulas for the complete game.
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
 | FIN-DEMO-03 | One property income or cost model | Provisional — two sources recorded; model and exact values require review |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
-| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples recorded; sector-result examples blocked pending an approved settlement rule |
+| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples and settlement relationship recorded; sector rates, signal mapping and rounding remain unresolved |
 
 ---
 
@@ -451,12 +451,126 @@ These examples use synthetic test inputs chosen only to prove the arithmetic and
 
 They are not approved game constants, market forecasts, balance targets, property valuations or source-backed real-world values.
 
-No sector gain-or-loss example is recorded yet because the ledger does not currently define:
+The deterministic sector-settlement relationship is documented below.
 
-- a sector settlement formula;
+No sector gain-or-loss example using actual demo values is recorded yet because the ledger does not currently define:
+
 - a scripted signal-to-sector mapping;
-- sector result rates; or
+- sector result rates;
+- permitted sector-return ranges; or
 - a rounding rule.
+
+### Deterministic sector-settlement relationship
+
+For each sector, the engine receives:
+
+- the amount allocated to that sector; and
+- one scripted return rate for that sector.
+
+The return rate must be represented as a decimal during calculation:
+
+- `5% = 0.05`
+- `-5% = -0.05`
+
+For each sector:
+
+`sector_change = sector_allocation × sector_return_rate`
+
+`settled_sector_value = sector_allocation + sector_change`
+
+Across the four sectors:
+
+`total_market_change = technology_change + health_care_change + everyday_goods_change + energy_change`
+
+The unallocated cash amount is:
+
+`unallocated_cash = starting_cash - total_allocated`
+
+The cash available after market settlement is:
+
+`cash_after_market = unallocated_cash + technology_settled_value + health_care_settled_value + everyday_goods_settled_value + energy_settled_value`
+
+A mathematically equivalent check is:
+
+`cash_after_market = starting_cash + total_market_change`
+
+The equivalent check applies only when:
+
+- total allocation does not exceed starting cash;
+- no borrowing is used;
+- unallocated cash changes by `0%`;
+- no fee, tax or separate sector-income amount is added; and
+- all four sector changes are calculated from the same confirmed allocation.
+
+The engine must calculate each sector result separately so Screen 4 can show the gain or loss per sector as required by the Demo Spec.
+
+**Status:** Provisional pending Hanyu's review or explicit team approval.
+
+The weighted-return relationship is supported by the recorded sources below. The exact sector rates, signal mapping, permitted rate ranges and rounding behaviour remain unresolved.
+
+### Sources supporting the settlement relationship
+
+#### FIN-SRC-009 — CFA Institute portfolio-return relationship
+
+**Claim:**  
+A portfolio return can be aggregated from the returns of its individual holdings according to the weight of each holding in the portfolio.
+
+**Source:**  
+CFA Institute, “Portfolio Mathematics,” 2026 CFA Program Level I Quantitative Methods.
+
+**URL:**  
+https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/portfolio-mathematics
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+“Introduction,” specifically the statement that expected portfolio return is a weighted average of the expected returns on the securities in the portfolio.
+
+**What it supports:**  
+The general mathematical relationship that each holding contributes to portfolio return according to its portfolio weight.
+
+**What it does not support:**  
+It does not provide Market Empire's four sector rates, scripted signal, one-round timeframe, rounding rule or educational balance parameters. It discusses expected portfolio return and does not validate any particular scripted realized outcome.
+
+**Project simplification:**  
+Market Empire applies one scripted return rate to each confirmed sector allocation and sums the resulting dollar changes.
+
+**Status:**  
+Verified for the weighted portfolio-return relationship. The exact game rates and signal mapping remain Provisional.
+
+#### FIN-SRC-010 — FINRA investment-return calculation
+
+**Claim:**  
+An investment's percent return relates its change in value and income to the amount invested.
+
+**Source:**  
+Financial Industry Regulatory Authority, “Evaluating Performance.”
+
+**URL:**  
+https://www.finra.org/investors/investing/investing-basics/evaluating-performance
+
+**Date checked:**  
+2026-07-27
+
+**Relevant section:**  
+“Performance Measures” → “Rate of Return.”
+
+**What it supports:**  
+FINRA gives the relationship:
+
+`(change in value + income) / investment amount = percent return`
+
+When no separate income component exists, the relationship can be rearranged to calculate the change in value from the invested amount and return rate.
+
+**What it does not support:**  
+It does not provide a return rate for any Market Empire sector. It also does not support ignoring fees, taxes, inflation or holding-period differences in a complete real-world investment calculation.
+
+**Project simplification:**  
+The one-round demo uses one scripted sector rate, no separate sector income, and no transaction fees or taxes. Each sector's dollar change is calculated from its confirmed allocation.
+
+**Status:**  
+Verified for the general investment-return relationship. The exact game implementation remains Provisional.
 
 ### Calculation conventions for these examples
 
@@ -779,6 +893,27 @@ Provisional — awaiting Hanyu's review or explicit team approval.
 **Decision Log status:**  
 Not yet recorded in `docs/DECISIONS.md`.
 
+### FIN-DEC-CAND-005 — Allocation-weighted sector settlement
+
+**Proposed decision:**  
+For the one-round demo, calculate each sector's dollar change by multiplying the confirmed allocation by that sector's scripted return rate.
+
+The engine then sums the four sector changes and adds the result to starting cash. Unallocated cash changes by `0%`.
+
+**Why this is being proposed:**  
+The method makes the effect of each investment visible, produces deterministic results and allows Screen 4 to display both per-sector and total outcomes.
+
+**Evidence status:**  
+FIN-SRC-009 supports aggregating portfolio returns according to the weights of the individual holdings. FIN-SRC-010 supports relating an investment's change in value to the amount invested and its percentage return.
+
+Neither source supplies the game's exact sector rates, scripted signal mapping, return ranges or rounding rule.
+
+**Status:**  
+Provisional — awaiting Hanyu's review or explicit team approval.
+
+**Decision Log status:**  
+Not yet recorded in `docs/DECISIONS.md`.
+
 ## Unresolved risks
 
 - Hanyu has not reviewed this working document.
@@ -795,10 +930,11 @@ Not yet recorded in `docs/DECISIONS.md`.
 - The winning bid is not a verified property market value.
 - The end-of-round method does not evaluate whether the player overpaid or underpaid.
 - Known-answer examples are currently partial; sector-result and complete end-to-end examples remain unresolved.
-- The deterministic sector-result relationship still requires definition before all known-answer examples can be completed.
+- The deterministic sector-settlement relationship is documented, but it remains Provisional pending review.
 - None of the resulting relationships will be treated as balance-validated.
 - The known-answer numbers in FIN-EX-001 through FIN-EX-006 are synthetic test inputs, not approved demo constants.
-- No sector settlement formula, sector rates or scripted signal-to-sector mapping has been approved.
+- No sector rates, permitted return ranges or scripted signal-to-sector mapping have been approved.
+- The current settlement relationship omits transaction fees, taxes, inflation and separate sector income.
 - No cent-level rounding rule has been documented.
 - The property-bid rules do not yet state what happens to cash after a losing bid.
 - The property-bid rules do not yet define how a tied bid is resolved.
