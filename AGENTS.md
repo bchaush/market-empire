@@ -38,11 +38,12 @@ If a required file does not exist yet, stop and report that clearly.
 The first demo contains:
 
 1. Start
-2. Market Signal
-3. Investment Decision
-4. Market Result
-5. Property Bid
-6. Round Summary
+2. Coach Tutorial
+3. Market Intelligence
+4. City Investment Decision
+5. Market Result
+6. Property Opportunity & Sealed Bid
+7. Round Summary
 
 It does not yet include:
 
