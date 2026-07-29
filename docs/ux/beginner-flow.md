@@ -350,6 +350,31 @@ Two distinct prototypes are tracked here. They must not be conflated.
 
 One informal observed walkthrough of the seven-screen direction has occurred (Alexandra, 2026-07-29). No formal usability test, accessibility test, review, approval, or final validation of the seven-screen direction is claimed in this document.
 
+## Post-walkthrough Figma revision (2026-07-29)
+
+Following Alexandra's 2026-07-29 informal walkthrough above, the seven-screen Figma prototype (https://www.figma.com/design/JNrhuxNqawLvcGTtFqJMHU/Market-Empire---Beginner-One-Round-Prototype) was revised on the same date.
+
+**Changes made:**
+
+- Screen 2 (Coach Tutorial) now introduces the scripted Coach and preserves the existing Next / Back / Skip Tutorial controls.
+- Screen 4 (City Investment Decision) now includes neutral Coach guidance and Provisional sector descriptions.
+- Screen 5 (Market Result) now has distinct Mixed / Net Gain / Net Loss explanations.
+- Screen 6 (Property Opportunity & Sealed Bid) now explains the sealed bid, the exact next action, and the transition to Round Summary.
+
+**Preserved:**
+
+- Existing allocation states, values, navigation, and Provisional labels were preserved.
+- No paid-Coach or multiplayer feature was added — the Future hypotheses entry below remains unbuilt and unapproved.
+
+**Verification performed:**
+
+- Cursor Present-mode verification reported the complete seven-screen flow as working.
+- This is implementation verification only. It is not a usability, accessibility, or final-validation pass, and does not satisfy any item in `docs/DEMO_SPEC.md` §19's testing and acceptance criteria.
+
+**Remaining limitation:**
+
+- Some helper and description text remains below the intended 16px target because of panel space.
+
 ## Known limitations
 
 - Pankuri has not reviewed this document.
