@@ -322,7 +322,7 @@ Two distinct prototypes are tracked here. They must not be conflated.
 **Prototype link:** https://www.figma.com/design/JNrhuxNqawLvcGTtFqJMHU/Market-Empire---Beginner-One-Round-Prototype  
 **Seven screens created:** Yes.  
 **Screens linked from Start to Round Summary:** Yes, clickable.  
-**Prototype status:** One informal observed walkthrough completed (Alexandra, 2026-07-29; see Usability walkthrough record below). Formal usability testing, accessibility testing, and automated/browser validation have not been completed.
+**Prototype status:** Two informal observed walkthroughs completed (Alexandra, 2026-07-29, first and second sessions; see Usability walkthrough record below). Per `docs/DECISIONS.md` DEC-009, Figma iteration on this prototype is now closed and it is accepted as the Provisional design and flow foundation for implementation. Formal usability testing, accessibility testing, and automated/browser validation have not been completed and must occur on the coded demo.
 
 ## Usability walkthrough record
 
@@ -348,7 +348,13 @@ Two distinct prototypes are tracked here. They must not be conflated.
 
 **Result:** These are informal, unverified observations from a single walkthrough by one tester of unrecorded familiarity. No formal defect severity is assigned to any finding. This record does not confirm or rule out any usability, accessibility, or design strength, and does not satisfy any item in `docs/DEMO_SPEC.md` §19's testing and acceptance criteria.
 
-One informal observed walkthrough of the seven-screen direction has occurred (Alexandra, 2026-07-29). No formal usability test, accessibility test, review, approval, or final validation of the seven-screen direction is claimed in this document.
+**Tester:** Alexandra (second session).  
+**Date:** 2026-07-29.  
+**Prototype tested:** The current seven-screen Figma prototype (https://www.figma.com/design/JNrhuxNqawLvcGTtFqJMHU/Market-Empire---Beginner-One-Round-Prototype), following the Post-walkthrough Figma revision recorded below.  
+**Method:** One informal observed walkthrough. As with the first session, the tester's familiarity with the project is not assumed either way. This was not a formal usability pass, not an accessibility test, and not a final validation.  
+**Result:** Alexandra reported the same clarity issues previously recorded in the first session above (Coach introduction, Coach persistence, Screen 4 sector-selection clarity, Screen 5 market-result clarity, text size, Screen 6 auction confusion, cross-screen guidance). No new findings were reported. No formal defect severity is assigned. This second session does not constitute a formal usability or accessibility pass, and does not satisfy any item in `docs/DEMO_SPEC.md` §19's testing and acceptance criteria.
+
+Two informal observed walkthroughs of the seven-screen direction have occurred (Alexandra, 2026-07-29, first and second sessions). No formal usability test, accessibility test, review, approval, or final validation of the seven-screen direction is claimed in this document.
 
 ## Post-walkthrough Figma revision (2026-07-29)
 
@@ -375,10 +381,26 @@ Following Alexandra's 2026-07-29 informal walkthrough above, the seven-screen Fi
 
 - Some helper and description text remains below the intended 16px target because of panel space.
 
+## Figma iteration closed — DEC-009 (2026-07-29)
+
+Per `docs/DECISIONS.md` DEC-009, Bora (Product Lead) decided on 2026-07-29 that Figma iteration is complete. No more Figma polishing is required before coding. The seven-screen prototype is accepted as the Provisional design and flow foundation for implementation.
+
+Alexandra completed a second informal walkthrough on 2026-07-29 and reported the same previously recorded clarity issues (see Usability walkthrough record above). This is not a formal usability or accessibility pass.
+
+Remaining clarity and presentation work moves to the coded React/TypeScript demo. Required coded improvements:
+
+- Coach popup access on every applicable screen.
+- Building and sector information popups.
+- Clearer market-result and auction explanations.
+- Larger readable text.
+- Improved spacing and responsive content panels.
+
+Final usability and accessibility validation must occur on the coded demo, not on Figma. This decision does not approve any financial value, formula, or gameplay rule.
+
 ## Known limitations
 
 - Pankuri has not reviewed this document.
-- One informal observed walkthrough of the seven-screen direction has occurred (Alexandra, 2026-07-29); no formal usability or accessibility test of the seven-screen direction has been executed. The six-screen prototype was separately tested by Anant on 2026-07-28.
+- Two informal observed walkthroughs of the seven-screen direction have occurred (Alexandra, 2026-07-29, first and second sessions); no formal usability or accessibility test of the seven-screen direction has been executed. The six-screen prototype was separately tested by Anant on 2026-07-28.
 - Alexandra's familiarity with the project prior to the walkthrough was not formally recorded and should not be assumed.
 - No formal defect severity has been assigned to any finding from Alexandra's walkthrough.
 - No accessibility check has been executed.

@@ -236,3 +236,28 @@ Not documented in source material.
 
 **Status:**  
 Active
+
+---
+
+### DEC-009 — Accept seven-screen Figma prototype as provisional foundation; move remaining clarity work to the coded demo
+
+**Decision:**  
+Figma iteration is complete. No more Figma polishing is required before coding begins. The seven-screen prototype (https://www.figma.com/design/JNrhuxNqawLvcGTtFqJMHU/Market-Empire---Beginner-One-Round-Prototype) is accepted as the Provisional design and flow foundation for implementation. Alexandra completed a second informal walkthrough on 2026-07-29 and reported the same previously recorded clarity issues — this is not a formal usability or accessibility pass. Remaining clarity and presentation work moves to the coded React/TypeScript demo. Required coded improvements include: Coach popup access on every applicable screen; building and sector information popups; clearer market-result and auction explanations; larger readable text; and improved spacing and responsive content panels. Final usability and accessibility validation must occur on the coded demo, not on Figma. This decision does not approve any financial value, formula, or gameplay rule.
+
+**Date:**  
+2026-07-29
+
+**Who approved:**  
+Bora, Product Lead
+
+**Why:**  
+To stop further Figma iteration and move remaining clarity and presentation work into the coded implementation, where it can be built and validated directly, rather than continuing to revise static mockups against the same recurring findings.
+
+**Alternatives considered:**  
+Continue iterating in Figma until all of Alexandra's findings are resolved there — rejected, since the remaining issues (Coach access, information popups, explanation clarity, text size, spacing) are implementation-level concerns better solved and validated in the coded demo itself.
+
+**What this changes:**  
+`docs/ux/beginner-flow.md` (Figma prototype record, Usability walkthrough record, and a new Figma-iteration-closed section recording the required coded improvements). Does not change `docs/DEMO_SPEC.md`, financial values, formulas, or gameplay rules.
+
+**Status:**  
+Active
