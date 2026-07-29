@@ -78,6 +78,19 @@ See the round summary
 </tbody>
 </table>
 
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p><strong>Screen mapping note</strong></p>
+<p>The ten steps above were originally mapped to a six-screen build (Start, Market Signal, Investment Decision, Market Result, Property Bid, Round Summary). That six-screen prototype was tested for basic clarity only by Anant on 2026-07-28 and completed without questions or blocked actions.</p>
+<p>The current controlling, screen-by-screen build specification is the seven-screen <code>docs/DEMO_SPEC.md</code> (Start, Coach Tutorial, Market Intelligence, City Investment Decision, Market Result, Property Opportunity & Sealed Bid, Round Summary), approved per <code>docs/DECISIONS.md</code> DEC-001. The seven-screen direction has not yet been tested.</p></td>
+</tr>
+</tbody>
+</table>
+
 3. What counts as done - the first milestone
 
 The one-round demo is ready to show to the team, and to anyone outside it, only when every item below is true. This is the acceptance gate - the concrete finish line for the first piece of work.
@@ -146,9 +159,9 @@ Add the shared instruction files: AGENTS.md (the rules) and CLAUDE.md (just poin
 
 Write three starting issues: (a) finance evidence for the one-round demo, (b) the beginner clickable flow, (c) the initial test plan.
 
-Write one page called DEMO_SPEC.md describing exactly the 10-step round in section 2.
+Maintain docs/DEMO_SPEC.md as the current seven-screen build specification. The original ten-step/six-screen sequence remains historical baseline evidence.
 
-Only after that: create the six Figma screens (see section 7). Do not write game code before this.
+Only after that: build the current seven-screen flow described in `docs/DEMO_SPEC.md` (see section 7 for tools). The original six-screen Figma sequence remains on record as tested historical baseline evidence (see the screen mapping note above). Do not write game code before this.
 
 <table>
 <colgroup>
@@ -157,7 +170,7 @@ Only after that: create the six Figma screens (see section 7). Do not write game
 <tbody>
 <tr class="odd">
 <td><p><strong>STOP AND CHECK</strong></p>
-<p>Before any code is written, the team should be able to look at DEMO_SPEC.md and the six Figma screens and agree: "yes, this is the round we are building."</p>
+<p>Before any code is written, the team should be able to look at <code>docs/DEMO_SPEC.md</code> (the current seven-screen flow) and agree: "yes, this is the round we are building." The six-screen Figma sequence remains preserved as tested historical baseline evidence, not as the current build gate.</p>
 <p>If anyone is unsure what the demo does, fix that before coding — not after.</p></td>
 </tr>
 </tbody>
