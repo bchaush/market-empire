@@ -36,7 +36,7 @@ Approved Provisional Direction. This is a design direction the team has approved
 
 **This document is not:**
 
-- Usability-tested. No one has clicked through this seven-screen version yet.
+- Usability-tested, accessibility-tested, or automatically validated. One informal observed walkthrough has occurred, but formal usability, accessibility and automatic validation remain incomplete.
 - A finance document — `docs/finance/source-ledger.md` is still the real source for numbers. That file belongs to the unmerged Finance PR #4 and is not present on this branch (see §16).
 - A replacement for the six-screen prototype's test results, which still apply only to the six-screen version.
 
@@ -382,9 +382,9 @@ None of the following are resolved by this document. All require Hanyu's review 
 - No sound implementation.
 - Market-intelligence indicator content is a Provisional placeholder.
 - Scripted-opponent behaviour is fully predictable by design (a deterministic demo).
-- This seven-screen direction has not been usability-tested with anyone; only the prior six-screen prototype has been.
+- One informal observed walkthrough has occurred, but formal usability, accessibility and automatic validation remain incomplete; only the prior six-screen prototype has a completed test result.
 - No sector risk profile exists; none is currently sourced.
 
 > **ONE-LINE SUMMARY OF THIS WHOLE DOCUMENT**
 >
-> Seven screens, one round, still a proposed direction — not yet tested with anyone. The six-screen version stays on record as what was actually tested. Every dollar figure, rate, and Coach line stays Provisional until Hanyu or the team formally signs off. The engine decides; the screen only shows.
+> Seven screens, one round, still a proposed direction — one informal walkthrough has occurred, but formal usability, accessibility and automatic validation remain incomplete. The six-screen version stays on record as what was actually tested. Every dollar figure, rate, and Coach line stays Provisional until Hanyu or the team formally signs off. The engine decides; the screen only shows.
