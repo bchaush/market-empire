@@ -37,7 +37,7 @@ Approved Provisional Direction. This is a design direction the team has approved
 **This document is not:**
 
 - Usability-tested, accessibility-tested, or automatically validated. One informal observed walkthrough has occurred, but formal usability, accessibility and automatic validation remain incomplete.
-- A finance document — `docs/finance/source-ledger.md` is still the real source for numbers. That file belongs to the unmerged Finance PR #4 and is not present on this branch (see §16).
+- A finance document — `docs/finance/source-ledger.md` is still the real source for numbers (present in this repository via merged PR #4; see §16).
 - A replacement for the six-screen prototype's test results, which still apply only to the six-screen version.
 
 ## 2. Replacement and Version History
@@ -56,7 +56,7 @@ The six-screen prototype's screen goals, notice-order, and plain-language explan
 >
 > This is the only claim the test result supports. It does not confirm specific design strengths, and it is not evidence that the seven-screen direction is understandable — it is not described as such anywhere in this document.
 
-Controlling decisions DEC-001 through DEC-008 are recorded in `docs/DECISIONS.md`. This specification became the official GitHub build record once those decisions were recorded.
+Controlling decisions DEC-001 through DEC-010 are recorded in `docs/DECISIONS.md`. This specification became the official GitHub build record once DEC-001 through DEC-008 were recorded; DEC-009 and DEC-010 were recorded afterward and do not change that history.
 
 ## 3. Demo Goal and Educational Purpose
 
@@ -150,7 +150,7 @@ The Coach:
 - Never recommends a specific allocation or bid amount.
 - Never states that one decision is universally correct.
 - Never gives personalized financial advice.
-- Uses approved beginner terminology only — exact wording is a finance dependency (see §16).
+- Uses approved beginner terminology only — the Coach introduction script and permitted/prohibited terminology are Approved Provisional via `docs/DECISIONS.md` DEC-010 (2026-07-30); see §16.
 
 ## 10. Day-to-Night Visual Progression
 
@@ -195,13 +195,13 @@ Shows: afternoon city; right panel with three scripted indicator cards — one w
 
 No flip-card or face-down animation is required — an open/inspected state is sufficient. The exact interaction is a design choice, not a spec requirement.
 
-Constraint: indicators must not name an obviously correct sector or promise an outcome. Exact wording, meanings, and any sector mapping are Provisional (§16).
+Constraint: indicators must not name an obviously correct sector or promise an outcome. Exact wording, meanings, and sector-mapping modifiers are Approved Provisional via `docs/DECISIONS.md` DEC-010 (2026-07-30); see §16.
 
 Action: ANALYZE CITY, enabled once all three indicators have been opened.
 
 ### Screen 4 — City Investment Decision
 
-Shows: dusk city; four clickable landmarks — Technology, Health Care, Everyday Goods, Energy. Selecting one opens, in the right panel: sector name, its Provisional one-sentence description (`docs/finance/source-ledger.md` FIN-DEC-CAND-003 — cross-branch, Provisional; see §16), an allocation slider, current allocation, and a relevant indicator reminder. No risk-profile label or score is shown — none is sourced.
+Shows: dusk city; four clickable landmarks — Technology, Health Care, Everyday Goods, Energy. Selecting one opens, in the right panel: sector name, its Approved Provisional one-sentence description (`docs/finance/source-ledger.md` FIN-DEC-CAND-003 — Approved Provisional via `docs/DECISIONS.md` DEC-010; see §16), an allocation slider, current allocation, and a relevant indicator reminder. No risk-profile label or score is shown — none is sourced.
 
 Live display: total allocated; cash remaining.
 
@@ -225,7 +225,7 @@ Shows: night city; one highlighted property hotspot. This screen has two interna
 
 **Pre-submission state**
 
-Property name and type; Provisional asking price; available cash; documented income/operating-cost information (`docs/finance/source-ledger.md` FIN-DEMO-03 — cross-branch, Provisional; see §16); bid control; sealed-bid explanation; opponent labelled "Scripted Opponent" (opponent's bid hidden).
+Property name and type; Approved Provisional asking price; available cash; documented income/operating-cost information (`docs/finance/source-ledger.md` FIN-DEMO-03 — Approved Provisional via `docs/DECISIONS.md` DEC-010; see §16); bid control; sealed-bid explanation; opponent labelled "Scripted Opponent" (opponent's bid hidden).
 
 Validation: bid cannot exceed available cash; invalid input shows a clear explanation.
 
@@ -235,7 +235,7 @@ Action: SUBMIT BID.
 
 Player bid; scripted opponent bid; won/not won; cash after bid; property added/not added; property income/cost result if won; scripted Coach explanation.
 
-Required deterministic branches (`docs/finance/source-ledger.md` FIN-DEC-CAND-006/007 — cross-branch, Provisional; see §16):
+Required deterministic branches (`docs/finance/source-ledger.md` FIN-DEC-CAND-006/007 — branch structure Active via `docs/DECISIONS.md` DEC-006; opponent bid amount Approved Provisional via DEC-010; see §16):
 
 - Player bid below opponent — player loses, no deduction.
 - Player bid equals opponent — opponent wins, no deduction.
@@ -245,7 +245,7 @@ Action: CONTINUE.
 
 ### Screen 7 — Round Summary
 
-Shows: late-night city; owned property illuminated if won, unowned if not; locked future district visible as a non-interactive teaser labelled "Future Game Content"; starting cash; total market change; property result; ending cash; property carrying value where applicable; ending financial position (`docs/finance/source-ledger.md` FIN-DEC-CAND-004 — cross-branch, Provisional; see §16); round change; one neutral scripted Coach lesson.
+Shows: late-night city; owned property illuminated if won, unowned if not; locked future district visible as a non-interactive teaser labelled "Future Game Content"; starting cash; total market change; property result; ending cash; property carrying value where applicable; ending financial position (`docs/finance/source-ledger.md` FIN-DEC-CAND-004 — Provisional; see §16); round change; one neutral scripted Coach lesson.
 
 Actions: PLAY AGAIN (resets all state and map, restarts at Screen 1); EXIT.
 
@@ -294,23 +294,23 @@ No screen or map component may independently recalculate an official result. Map
 
 ## 16. Finance Dependencies (Provisional / TBD)
 
-None of the following are resolved by this document. All require Hanyu's review or an explicit team decision recorded in `docs/DECISIONS.md` before becoming non-Provisional.
+None of the following were resolved by this document at the time it was originally written. Provisional values for the items below are now recorded as Approved Provisional in `docs/DECISIONS.md` DEC-010 (2026-07-30); Hanyu's and/or Pankuri's review remains pending before any of them becomes non-Provisional.
 
-> **CROSS-BRANCH DEPENDENCY**
+> **FINANCE LEDGER STATUS**
 >
-> `docs/finance/source-ledger.md` belongs to the unmerged Finance PR #4 (`1-finance-evidence-for-the-one-round-demo`) and is not present on this branch. Every FIN-DEC-CAND-* and FIN-DEMO-* reference in this document is a cross-branch, Provisional dependency — it cites content that has not yet merged and has not been independently verified from this branch.
+> `docs/finance/source-ledger.md` is present in this repository (merged via PR #4, `1-finance-evidence-for-the-one-round-demo`). Every FIN-DEC-CAND-* and FIN-DEMO-* reference in this document should be read against its current status there — most are now Approved Provisional via `docs/DECISIONS.md` DEC-010 (2026-07-30); a few remain unresolved. See the table below and DEC-010 for the current, controlling status of each figure.
 
 | Input | Status |
 |---|---|
-| Three market-indicator texts and meanings | Provisional — not yet written |
-| Indicator-to-sector mapping | Provisional — not yet defined |
-| Sector return rates (4) | Provisional — not yet defined |
-| Permitted sector-rate ranges | Provisional — not yet defined |
-| Starting cash (exact, approved) | Provisional — $10,000 placeholder only |
-| Property name, type, asking price | Provisional — placeholder only |
-| Gross property income / operating cost | Provisional — placeholder only |
-| Scripted opponent bid | Provisional — placeholder only |
-| Coach financial terminology | Provisional — not yet approved |
+| Three market-indicator texts and meanings | Approved Provisional — see DEC-010 (2026-07-30); Hanyu and Pankuri review pending |
+| Indicator-to-sector mapping | Approved Provisional — see DEC-010 (2026-07-30); Hanyu review pending |
+| Sector return rates (4) | Approved Provisional — see DEC-010 (2026-07-30); Hanyu review pending |
+| Permitted sector-rate ranges | Approved Provisional — see DEC-010 (2026-07-30); Hanyu review pending |
+| Starting cash (exact, approved) | Approved Provisional — $10,000, see DEC-010 (2026-07-30) |
+| Property name, type, asking price | Approved Provisional — see DEC-010 (2026-07-30); Hanyu review pending |
+| Gross property income / operating cost | Approved Provisional — see DEC-010 (2026-07-30); Hanyu review pending |
+| Scripted opponent bid | Approved Provisional — see DEC-010 (2026-07-30); Hanyu and Leo review pending |
+| Coach financial terminology | Approved Provisional — see DEC-010 (2026-07-30); Pankuri review pending |
 
 ## 17. Content and Design Dependencies
 
@@ -380,7 +380,7 @@ None of the following are resolved by this document. All require Hanyu's review 
 
 - Desktop-first; mobile/responsive behaviour not yet verified.
 - No sound implementation.
-- Market-intelligence indicator content is a Provisional placeholder.
+- Market-intelligence indicator content is Approved Provisional through `docs/DECISIONS.md` DEC-010; Hanyu's and Pankuri's review remains pending where recorded; it is not usability-, accessibility-, or balance-validated.
 - Scripted-opponent behaviour is fully predictable by design (a deterministic demo).
 - One informal observed walkthrough has occurred, but formal usability, accessibility and automatic validation remain incomplete; only the prior six-screen prototype has a completed test result.
 - No sector risk profile exists; none is currently sourced.
