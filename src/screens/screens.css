@@ -1,0 +1,122 @@
+/*
+ * Structural, accessible styling shared by the seven screens. Not final
+ * visual artwork — colours loosely follow the non-binding direction in
+ * docs/DEMO_SPEC.md §7.
+ */
+
+.start-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #1b2430;
+  color: #f4f6f8;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.start-screen button {
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  border: 1px solid #d4af37;
+  background: #10161f;
+  color: #d4af37;
+  cursor: pointer;
+}
+
+.screen-panel {
+  overflow-wrap: break-word;
+}
+
+.screen-panel h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.screen-panel h3 {
+  font-size: 1.05rem;
+}
+
+.screen-panel button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+  border-radius: 4px;
+  border: 1px solid #3a4658;
+  background: #1b2430;
+  color: #f4f6f8;
+  cursor: pointer;
+}
+
+.screen-panel button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.screen-panel button[aria-pressed='true'] {
+  border-color: #d4af37;
+}
+
+.screen-panel input[type='range'],
+.screen-panel input[type='number'] {
+  width: 100%;
+  max-width: 320px;
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.indicator-list {
+  list-style: none;
+  padding: 0;
+}
+
+.indicator-list li {
+  margin-bottom: 0.75rem;
+}
+
+.indicator-detail {
+  margin-left: 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid #2a3546;
+}
+
+.indicator-source,
+.sector-note {
+  color: #8a97a8;
+  font-size: 1rem;
+}
+
+.sector-rate {
+  font-weight: 600;
+}
+
+.provisional-tag {
+  font-weight: 600;
+  color: #d4af37;
+}
+
+.content-pending {
+  color: #8a97a8;
+  font-style: italic;
+}
+
+.error-message {
+  color: #ff8a8a;
+  font-weight: 600;
+}
+
+.gain {
+  color: #4fd1a5;
+}
+
+.loss {
+  color: #ff8a8a;
+}
+
+.locked-district {
+  color: #8a97a8;
+  font-style: italic;
+}
