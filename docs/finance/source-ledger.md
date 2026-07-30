@@ -24,11 +24,11 @@ It does not define final formulas for the complete game.
 
 | ID | Required output | Current status |
 |---|---|---|
-| FIN-DEMO-01 | Four simple sector definitions | Provisional — two sources recorded; labels require Hanyu and Pankuri review |
+| FIN-DEMO-01 | Four simple sector definitions | Approved Provisional — four labels and definitions recorded via `docs/DECISIONS.md` DEC-010 (2026-07-30); Hanyu (financial) and Pankuri (beginner-wording) review pending |
 | FIN-DEMO-02 | Cash behaviour | Provisional — two sources recorded; Hanyu or explicit team approval pending |
-| FIN-DEMO-03 | One property income or cost model | Provisional — property model, losing-bid and tied-bid relationships documented; exact values and approval remain pending |
+| FIN-DEMO-03 | One property income or cost model | Approved Provisional — property, income, cost and opponent-bid values recorded via DEC-010 (2026-07-30); losing-bid and tied-bid relationships documented; Hanyu review pending |
 | FIN-DEMO-04 | One end-of-round evaluation method | Provisional — two sources recorded; method requires review |
-| FIN-DEMO-05 | Known-input and known-output examples | Provisional — formula examples, settlement relationship, bid boundaries and cent-level rounding documented; sector rates and signal mapping remain unresolved |
+| FIN-DEMO-05 | Known-input and known-output examples | Approved Provisional (rates and mapping) — sector rates, permitted range and indicator modifiers recorded via DEC-010 (2026-07-30); FIN-EX-010 adds winning-bid coverage; cent-level rounding remains unresolved |
 
 ---
 
@@ -53,9 +53,9 @@ The labels are intended as beginner-facing educational simplifications:
 - `Everyday Goods` is a simplified display label based on the GICS `Consumer Staples` sector.
 - `Health Care` and `Energy` retain the standard GICS sector names.
 
-**Status:** Provisional pending Hanyu's financial review, Pankuri's beginner-language review or explicit team approval.
+**Status:** Approved Provisional — labels and definitions recorded via `docs/DECISIONS.md` DEC-010 (2026-07-30). Hanyu's financial review and Pankuri's beginner-language review remain pending.
 
-No sector has an approved gain, loss, risk level or expected return yet.
+Each sector now has an Approved Provisional return rate for this demo round, recorded via DEC-010 (2026-07-30) — see FIN-DEC-CAND-005 and FIN-DEMO-05 below. No sector has an assigned risk level; none is sourced (`docs/DECISIONS.md` DEC-008).
 
 ### Sources
 
@@ -127,7 +127,7 @@ Verified for the general purpose and hierarchical nature of sector classificatio
 - `Everyday Goods` is a beginner-facing project label, not the official GICS name.
 - A company may conduct several business activities even when a classification system places it in one principal category.
 - The four labels do not represent every type of company or investment.
-- No sector-specific return, volatility, signal effect or risk value has been researched or approved.
+- Sector-specific return and signal-effect (modifier) values are Approved Provisional per `docs/DECISIONS.md` DEC-010 (2026-07-30); no volatility or risk value is assigned (none is sourced, per DEC-008).
 - The labels have not yet been tested with an unfamiliar beginner.
 - Hanyu has not reviewed the financial descriptions.
 - Pankuri has not reviewed the beginner-facing wording.
@@ -275,11 +275,11 @@ For the one-round demo:
 
 `cash_after_property = cash_before_bid`
 
-- Exact income, cost and property values have not yet been selected.
+- Exact income, cost and property values: Approved Provisional — property name (Metro Tech Hub Plaza), type (Commercial Real Estate — Office & Retail Space), asking price ($4,000), gross rental income ($350/round) and operating cost ($100/round) recorded via `docs/DECISIONS.md` DEC-010 (2026-07-30).
 
-**Status:** Provisional pending Hanyu's review or explicit team approval.
+**Status:** Approved Provisional (project-authored property configuration) via DEC-010 (2026-07-30). Hanyu's review of the model and the exact values remains pending.
 
-The sources support calculating a property result from income and expenses. They do not verify the exact game values, timing or simplified cash treatment.
+The sources support calculating a property result from income and expenses. They do not verify the exact game values, timing or simplified cash treatment — those exact values are project-authored, per DEC-010.
 
 ### Sources
 
@@ -402,7 +402,7 @@ Verified for the standard first-price sealed-bid winner-payment relationship. Th
 ### Known limitations
 
 - The model represents one fictional property and does not represent the full property market.
-- Exact income, operating-cost, asking-price and opponent-bid values remain unresolved.
+- Exact income, operating-cost, asking-price and opponent-bid values are Approved Provisional via `docs/DECISIONS.md` DEC-010 (2026-07-30); Hanyu's review remains pending.
 - Real rental property may involve vacancy, repairs, insurance, taxes, financing, depreciation, management costs and other expenses.
 - The demo does not model mortgages or debt service.
 - The demo treats income and cost as scripted values instead of values derived from a real location or property.
@@ -535,11 +535,7 @@ They are not approved game constants, market forecasts, balance targets, propert
 
 The deterministic sector-settlement relationship is documented below.
 
-No sector gain-or-loss example using actual demo values is recorded yet because the ledger does not currently define:
-
-- a scripted signal-to-sector mapping;
-- sector result rates;
-- permitted sector-return ranges.
+As of `docs/DECISIONS.md` DEC-010 (2026-07-30), the ledger defines project-authored sector base rates, scripted indicator modifiers, resolved final rates and a permitted rate range (see Decision candidates, FIN-DEC-CAND-005, below). No worked sector-settlement example using these approved values has been added to this ledger yet — approval alone does not constitute a written known-answer example.
 
 ### Deterministic sector-settlement relationship
 
@@ -657,7 +653,7 @@ Verified for the general investment-return relationship. The exact game implemen
 
 - All amounts are expressed in dollars.
 - Every input used by a calculation is written explicitly.
-- FIN-EX-001 through FIN-EX-008 primarily use whole-dollar amounts. FIN-EX-009 explicitly tests the documented cent-level rounding rule.
+- FIN-EX-001 through FIN-EX-008 primarily use whole-dollar amounts. FIN-EX-009 explicitly tests the documented cent-level rounding rule. FIN-EX-010 tests the winning-bid branch using the DEC-010 (2026-07-30) property configuration.
 - A future automated test must not infer a value that is not written in its example.
 - The examples test the provisional relationships only; they do not validate game balance.
 
@@ -995,6 +991,46 @@ A calculated amount exactly halfway between two cents is rounded away from zero 
 The inputs are synthetic and do not establish an approved sector return rate or demo allocation.
 
 **Status:** Provisional synthetic test example.
+
+---
+
+### FIN-EX-010 — Winning bid produces a positive net cash change
+
+**Inputs:**
+
+- `cash_before_bid = 10800`
+- `player_bid = 4500`
+- `opponent_bid = 4250`
+- `gross_property_income = 350`
+- `operating_cost = 100`
+
+**Expected calculation:**
+
+`player_bid > opponent_bid` → `property_won = true`
+
+`winning_bid = 4500`
+
+`net_property_result = 350 - 100 = 250`
+
+`cash_after_property = 10800 - 4500 + 250 = 6550`
+
+**Expected output:**
+
+- The player wins the property because `4500 > 4250`.
+- The winning bid deducted is `$4,500`.
+- The net property result is a `$250` gain.
+- Cash after the property bid is `$6,550`.
+
+**Rule tested:**
+
+A player bid above the scripted opponent bid wins the property and pays the submitted bid (win branch of the deterministic bid-resolution rule, `docs/DECISIONS.md` DEC-006), and the resulting net property result is applied (FIN-DEC-CAND-002 / FIN-DEMO-03). This supplies the previously missing numeric coverage for BOUND-BID-05 (`docs/testing/initial-test-plan.md`).
+
+**Known limitation:**
+
+`cash_before_bid` and `player_bid` are synthetic known-answer test inputs chosen to demonstrate the win-branch arithmetic; they are not a claim about the shipped demo's actual mid-round cash balance or a required bid amount. `gross_property_income`, `operating_cost` and `opponent_bid` match the Approved Provisional property configuration recorded in `docs/DECISIONS.md` DEC-010 (2026-07-30) for consistency, but this example remains a synthetic test fixture, not a market forecast or property valuation.
+
+**Status:** Provisional synthetic test example. Numeric coverage for BOUND-BID-05 now exists; the corresponding Vitest test has not been implemented or executed.
+
 ---
 
 ## Research Source record
@@ -1060,10 +1096,10 @@ The relationship is simple, deterministic and explainable to a beginner while pr
 FIN-SRC-003 and FIN-SRC-004 support the general relationship between property income, expenses and a resulting net amount. They do not verify the exact game values or one-round timing.
 
 **Status:**  
-Provisional — awaiting Hanyu's review or explicit team approval.
+Approved Provisional — project-authored property values (gross income $350, operating cost $100, net result $250) recorded via `docs/DECISIONS.md` DEC-010 (2026-07-30), applying this formula. The formula itself remains pending Hanyu's review.
 
 **Decision Log status:**  
-Not yet recorded in `docs/DECISIONS.md`.
+Recorded in `docs/DECISIONS.md` DEC-010 (2026-07-30).
 
 ### FIN-DEC-CAND-003 — Four demo sector labels
 
@@ -1079,10 +1115,10 @@ The four categories cover distinct types of business activity and can each be ex
 FIN-SRC-005 supports the existence and definitions of the four underlying GICS categories. FIN-SRC-006 supports the general use of hierarchical sector classifications and demonstrates that classification systems can organize activity differently. Neither source verifies this exact four-sector selection or the simplified display labels.
 
 **Status:**  
-Provisional — awaiting Hanyu's financial review, Pankuri's beginner-language review or explicit team approval.
+Approved Provisional — confirmed via `docs/DECISIONS.md` DEC-010 (2026-07-30). Hanyu's financial review and Pankuri's beginner-language review remain pending.
 
 **Decision Log status:**  
-Not yet recorded in `docs/DECISIONS.md`.
+Recorded in `docs/DECISIONS.md` DEC-010 (2026-07-30).
 
 ### FIN-DEC-CAND-004 — End-of-round financial-position summary
 
@@ -1119,10 +1155,10 @@ FIN-SRC-009 supports aggregating portfolio returns according to the weights of t
 Neither source supplies the game's exact sector rates, scripted signal mapping or permitted return ranges. Cent-level rounding is documented separately as a Provisional project convention.
 
 **Status:**  
-Provisional — awaiting Hanyu's review or explicit team approval.
+Approved Provisional — project-authored sector base rates, scripted indicator modifiers, permitted rate range and resolved final rates recorded via `docs/DECISIONS.md` DEC-010 (2026-07-30), applying this relationship. Hanyu's review of the relationship and the exact rates remains pending.
 
 **Decision Log status:**  
-Not yet recorded in `docs/DECISIONS.md`.
+Recorded in `docs/DECISIONS.md` DEC-010 (2026-07-30).
 
 ### FIN-DEC-CAND-006 — Losing-bid cash treatment
 
@@ -1138,10 +1174,10 @@ FIN-SRC-011 and FIN-SRC-012 support the standard relationship that the highest b
 The sources do not approve Market Empire's opponent bid, tied-bid rule, property values or the absence of every possible auction fee. The no-fee and no-deposit treatment remains a project simplification.
 
 **Status:**  
-Provisional — awaiting Hanyu's review or explicit team approval.
+The deterministic branch structure (below/tied/above, no deduction on loss or tie) is Active per `docs/DECISIONS.md` DEC-006 (2026-07-28). The scripted opponent bid amount ($4,250) is Approved Provisional via DEC-010 (2026-07-30). Hanyu's review of both remains pending.
 
 **Decision Log status:**  
-Not yet recorded in `docs/DECISIONS.md`.
+Branch structure recorded in `docs/DECISIONS.md` DEC-006 (2026-07-28); opponent bid amount recorded in DEC-010 (2026-07-30).
 
 ### FIN-DEC-CAND-007 — Tied-bid resolution
 
@@ -1157,10 +1193,10 @@ FIN-SRC-011 and FIN-SRC-012 support the standard relationship that the highest b
 They do not define how equal bids must be resolved. The proposed tied-bid treatment is therefore a project choice, not a verified financial relationship.
 
 **Status:**  
-Provisional — awaiting Hanyu's review or explicit team approval.
+The deterministic branch structure (the scripted opponent wins a tie, no deduction) is Active per `docs/DECISIONS.md` DEC-006 (2026-07-28). The scripted opponent bid amount ($4,250) is Approved Provisional via DEC-010 (2026-07-30). Hanyu's review of both remains pending.
 
 **Decision Log status:**  
-Not yet recorded in `docs/DECISIONS.md`.
+Branch structure recorded in `docs/DECISIONS.md` DEC-006 (2026-07-28); opponent bid amount recorded in DEC-010 (2026-07-30).
 
 ### FIN-DEC-CAND-008 — Cent-level monetary rounding
 
@@ -1191,19 +1227,19 @@ Not yet recorded in `docs/DECISIONS.md`.
 - Two sources have been recorded for the property cash-flow relationship.
 - Two sources have been recorded for sector classification and definitions.
 - Two sources have been recorded for the end-of-round financial-position method.
-- No exact financial values have been verified.
+- No exact financial value in this ledger is source-verified. The demo's exact values (sector rates, starting cash, property figures, opponent bid) are project-authored Approved Provisional constants per `docs/DECISIONS.md` DEC-010 (2026-07-30), not externally verified figures.
 - The 0% treatment of unallocated cash remains Provisional.
-- The exact four-sector selection and the label `Everyday Goods` remain Provisional.
-- No gain, loss, risk or market-signal effect has been assigned to any sector.
-- Exact property income, cost, asking-price and opponent-bid values remain unresolved.
+- The exact four-sector selection and labels (including `Everyday Goods`) are Approved Provisional per DEC-010 (2026-07-30); Hanyu (financial) and Pankuri (beginner-wording) review remain pending.
+- Sector return rates and indicator modifiers are Approved Provisional per DEC-010 (2026-07-30); no sector-specific risk value is assigned (none is sourced, per DEC-008).
+- Exact property income, cost, asking-price and opponent-bid values are Approved Provisional per DEC-010 (2026-07-30); Hanyu's review remains pending.
 - The winning bid is not a verified property market value.
 - The end-of-round method does not evaluate whether the player overpaid or underpaid.
-- Known-answer examples are currently partial; sector-result and complete end-to-end examples remain unresolved.
-- The deterministic sector-settlement relationship is documented, but it remains Provisional pending review.
+- Known-answer examples remain partial: FIN-EX-010 (added via DEC-010, 2026-07-30) now covers a winning bid; a sector-settlement example using the DEC-010 approved rates has not yet been added.
+- The deterministic sector-settlement relationship is documented, and DEC-010 (2026-07-30) now supplies exact Approved Provisional rates; the relationship and rates remain pending Hanyu's review.
 - None of the resulting relationships will be treated as balance-validated.
-- The known-answer numbers in FIN-EX-001 through FIN-EX-009 are synthetic test inputs, not approved demo constants.
+- The known-answer numbers in FIN-EX-001 through FIN-EX-009, and the `cash_before_bid`/`player_bid` inputs in FIN-EX-010, are synthetic test inputs, not approved demo constants. FIN-EX-010's `gross_property_income`, `operating_cost` and `opponent_bid` figures match the Approved Provisional property configuration in DEC-010.
 - The losing-bid treatment assumes that the demo has no auction-entry fee, deposit or losing-bid penalty.
 - The cent-level rounding rule remains Provisional pending review or explicit team approval.
-- No sector rates, permitted return ranges or scripted signal-to-sector mapping have been approved.
+- Sector rates, the permitted return range, and scripted signal-to-sector (indicator) modifiers are Approved Provisional per DEC-010 (2026-07-30); Hanyu's review remains pending.
 - The current settlement relationship omits transaction fees, taxes, inflation and separate sector income.
-- A complete end-to-end known-answer example remains blocked until the sector rates, scripted signal-to-sector mapping and actual demo constants are approved.
+- The sector rates, indicator-to-sector modifiers and demo constants needed for a complete end-to-end known-answer example are now Approved Provisional per DEC-010 (2026-07-30); no such end-to-end sector-settlement example has been written yet, but it is no longer blocked by missing approval.

@@ -20,7 +20,7 @@ It does not approve the interface, financial wording, game values or final visua
 ## Scope rules
 
 - The prototype contains exactly seven screens.
-- The first Figma prototype is desktop-first. The selected desktop frame size is Provisional pending Pankuri's review or explicit team approval. Phone adaptation will be considered after the desktop flow is complete.
+- The first Figma prototype is desktop-first. A 1440 × 900 baseline viewport for the coded demo is Approved Provisional via `docs/DECISIONS.md` DEC-010 (2026-07-30); Pankuri's review remains pending. Phone adaptation will be considered after the desktop flow is complete.
 - The screen order must match `docs/DEMO_SPEC.md`.
 - No additional screen, game rule or step may be added without an approved Decision Record.
 - The existing AI-generated interface is treated only as an untested design hypothesis. Generated reference art is not authoritative for mechanics, numbers, or terminology (`docs/DECISIONS.md` DEC-007).
@@ -100,6 +100,8 @@ The `Next` / `Back` / `Skip Tutorial` controls.
 - The Coach needs a proper introduction before the current scripted steps begin: who he is, what the game is, what the player will do, and how he will help.
 - The Coach should remain visible or accessible throughout the round. This is already required by `docs/DEMO_SPEC.md` §9 and `docs/DECISIONS.md` DEC-002/DEC-003 — this finding indicates a possible gap between the built prototype and that existing requirement, not a new requirement.
 
+**Update (2026-07-30):** A Coach introduction script and permitted/prohibited beginner financial terminology are now Approved Provisional via `docs/DECISIONS.md` DEC-010, addressing the introduction gap above going forward. Pankuri's review remains pending. This note does not alter the walkthrough finding recorded above.
+
 ### Screen 3 — Market Intelligence
 
 **Player goal:**  
@@ -153,7 +155,7 @@ The live total-allocated / cash-remaining display and the `Confirm Investments` 
 - Selecting a landmark on the map, rather than a plain list of sectors, is an intuitive way for a beginner to open a sector's allocation panel.
 - A slider is clearer than a numeric field for this age/experience group. This replaces the six-screen prototype's numeric-input approach and is itself untested.
 - A running allocated/remaining total is enough feedback for a beginner to avoid over-allocating.
-- The one-sentence sector descriptions (`docs/finance/source-ledger.md`, FIN-DEC-CAND-003 — still Provisional; cross-branch, Provisional; see finance dependency note) are understandable without financial background.
+- The one-sentence sector descriptions (`docs/finance/source-ledger.md`, FIN-DEC-CAND-003 — Approved Provisional via `docs/DECISIONS.md` DEC-010; see finance dependency note) are understandable without financial background.
 - The player understands that `Confirm Investments` locks in the decision and cannot be undone.
 - The player does not need to see a sector's individual risk level before allocating — none is sourced (`docs/DECISIONS.md` DEC-008; no risk-profile label exists).
 - Unallocated cash being permitted is understood as a valid choice, not an error.
@@ -228,7 +230,7 @@ The scripted Coach explanation and the `Continue` button.
 - The player understands the bid is sealed — the opponent's bid stays hidden until after submission.
 - The player does not need the losing-bid or tied-bid rules explained in advance; the result and reason appear afterward.
 - A single numeric bid field, with no additional confirmation step before Submit Bid, is sufficient.
-- The player does not need to be told in advance that a losing or tied bid costs them nothing (`docs/finance/source-ledger.md`, FIN-DEC-CAND-006 and FIN-DEC-CAND-007 — both still Provisional; cross-branch, Provisional; see finance dependency note).
+- The player does not need to be told in advance that a losing or tied bid costs them nothing (`docs/finance/source-ledger.md`, FIN-DEC-CAND-006 and FIN-DEC-CAND-007 — branch structure Active via `docs/DECISIONS.md` DEC-006; opponent bid amount Approved Provisional via DEC-010; see finance dependency note).
 
 **Observed findings (Alexandra, 2026-07-29 informal walkthrough):**
 
@@ -259,7 +261,7 @@ The `Play Again` and `Exit` buttons.
 - The player understands this is the end of the one-round demo, with no second round in this version.
 - The visible-but-non-interactive locked future district reads as a teaser, not as a broken or missing feature.
 - "Play Again" restarting the same one-round demo, rather than suggesting new content, does not disappoint or confuse the player.
-- The end-of-round financial-position method behind this summary line (`docs/finance/source-ledger.md`, FIN-DEC-CAND-004 — still Provisional; cross-branch, Provisional; see finance dependency note) is understandable without further explanation of "carrying value."
+- The end-of-round financial-position method behind this summary line (`docs/finance/source-ledger.md`, FIN-DEC-CAND-004 — still Provisional; see finance dependency note) is understandable without further explanation of "carrying value."
 
 ## Cross-screen untested assumptions
 
@@ -318,7 +320,7 @@ Two distinct prototypes are tracked here. They must not be conflated.
 
 **Seven-screen prototype (current direction)**
 
-**Prototype target:** Desktop-first; exact viewport size remains Provisional.  
+**Prototype target:** Desktop-first. The Figma prototype's own exact frame size remains Provisional — no exact Figma frame decision exists. This is distinct from the coded demo's baseline viewport, which is Approved Provisional at 1440 × 900 via `docs/DECISIONS.md` DEC-010 (2026-07-30); that decision does not retroactively set the Figma file's frame size.  
 **Prototype link:** https://www.figma.com/design/JNrhuxNqawLvcGTtFqJMHU/Market-Empire---Beginner-One-Round-Prototype  
 **Seven screens created:** Yes.  
 **Screens linked from Start to Round Summary:** Yes, clickable.  
@@ -406,7 +408,7 @@ Final usability and accessibility validation must occur on the coded demo, not o
 - No accessibility check has been executed.
 - A seven-screen Figma prototype now exists and is clickable (link in Figma prototype record above); it has not undergone formal usability, accessibility, or automated testing.
 - The usability walkthrough tasks were updated for seven screens in this pass and have not been re-approved by Pankuri or the team.
-- `docs/finance/source-ledger.md` (cited throughout for FIN-DEC-CAND-003/004/006/007 and FIN-DEMO-03) does not exist on this branch; it is expected from the unmerged finance branch/PR. Citations to it remain unverified until that work merges.
+- `docs/finance/source-ledger.md` is present in this repository. FIN-DEC-CAND-003, FIN-DEC-CAND-006/007 and FIN-DEMO-03 are now Approved Provisional via `docs/DECISIONS.md` DEC-010 (2026-07-30); FIN-DEC-CAND-004 remains Provisional and unresolved. Financial and beginner-wording review remain pending (Hanyu, Pankuri).
 - Financial values and wording may change following finance review.
 - All information-hierarchy choices remain untested design hypotheses.
 
