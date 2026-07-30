@@ -1,9 +1,13 @@
 # components/
 
-Reserved for shared, screen-independent UI (HUD, map hotspots, Coach popup,
-gain/loss indicator, etc.), per the engine/content/interface separation
-described in Issue #7.
+Reusable, screen-independent UI, per the engine/content/interface
+separation described in Issue #7.
 
-Not yet implemented. Building these against real gameplay content would
-require the unresolved values tracked in `src/content/gameConfig.ts` and
-`docs/DEMO_SPEC.md` §16 — deferred to Phase 2.
+`AppShell.tsx` (added in Phase 2A) provides the persistent structural
+regions required by `docs/DEMO_SPEC.md` §7 — HUD, city-map area, right
+panel, and Coach area — hydrated from the Approved Provisional DEC-010
+configuration (`src/content/gameConfig.ts`, `docs/DECISIONS.md` DEC-010).
+
+Screen-specific components (map landmarks, indicator cards, allocation
+sliders, the bid form, gain/loss indicator, etc.) are not yet implemented —
+deferred to Phase 2B.

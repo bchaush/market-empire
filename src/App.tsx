@@ -1,15 +1,21 @@
+import { AppShell } from './components/AppShell'
+import { humanizeIdentifier } from './components/format'
+import { gameConfig } from './content/gameConfig'
+import { initialGameState } from './state/initialState'
+
 function App() {
+  const isStartScreen = initialGameState.currentScreen === 'start'
+
   return (
-    <main>
-      <h1>Market Empire</h1>
-      <p>
-        Technical foundation only (Issue #7, Phase 1). The seven playable
-        screens are not implemented yet. See <code>docs/DEMO_SPEC.md</code> §16
-        and <code>docs/DECISIONS.md</code> DEC-008 for the gameplay inputs
-        (sector rates, indicator text, property values, opponent bid, Coach
-        terminology) that remain Provisional and unresolved until Phase 2.
-      </p>
-    </main>
+    <AppShell
+      currentStage={humanizeIdentifier(initialGameState.currentScreen)}
+      timeOfDay={humanizeIdentifier(initialGameState.timeOfDayState)}
+      availableCashCents={initialGameState.availableCashCents}
+      provisionalStatusLabel={`${gameConfig.status.label} — ${gameConfig.status.decisionId}`}
+      pendingReviews={gameConfig.status.pendingReviews}
+      balanceLimitation={gameConfig.status.balanceLimitation}
+      coachContent={isStartScreen ? undefined : <p>{gameConfig.coach.introduction}</p>}
+    />
   )
 }
 

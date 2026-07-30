@@ -1,0 +1,118 @@
+/*
+ * Structural layout only. Colours loosely follow the non-binding visual
+ * direction in docs/DEMO_SPEC.md §7 (navy/slate base, gold accents) but
+ * are not final artwork.
+ */
+
+.app-shell {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    'hud hud'
+    'citymap panel'
+    'coach coach'
+    'status status';
+  gap: 2px;
+  background: #1b2430;
+  color: #f4f6f8;
+  font-size: 16px;
+}
+
+.app-shell__hud {
+  grid-area: hud;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #10161f;
+  border-bottom: 2px solid #2a3546;
+}
+
+.app-shell__hud-item {
+  white-space: nowrap;
+}
+
+.app-shell__provisional-badge {
+  margin-left: auto;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #d4af37;
+  border-radius: 999px;
+  color: #d4af37;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.app-shell__city-map {
+  grid-area: citymap;
+  background: #0f1620;
+  padding: 1.25rem;
+}
+
+.app-shell__right-panel {
+  grid-area: panel;
+  background: #141d2a;
+  padding: 1.25rem;
+  border-left: 2px solid #2a3546;
+}
+
+.app-shell__coach {
+  grid-area: coach;
+  background: #10161f;
+  padding: 1rem 1.25rem;
+  border-top: 2px solid #2a3546;
+}
+
+.app-shell__placeholder {
+  color: #8a97a8;
+  font-style: italic;
+  margin: 0;
+}
+
+.app-shell__status {
+  grid-area: status;
+  padding: 1rem 1.25rem;
+  background: #10161f;
+  border-top: 2px solid #2a3546;
+  font-size: 0.9rem;
+}
+
+.app-shell__status-badge {
+  display: inline-block;
+  margin: 0 0 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #d4af37;
+  border-radius: 999px;
+  color: #d4af37;
+  font-weight: 600;
+}
+
+.app-shell__status-heading {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #8a97a8;
+}
+
+.app-shell__status-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.app-shell__status-limitation {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

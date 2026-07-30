@@ -1,11 +1,12 @@
 /**
  * Mirrors the required application state listed in docs/DEMO_SPEC.md §13.
  *
- * Financial and content-dependent fields are typed as nullable and
- * initialised to `null`/empty, not to a placeholder number or string.
- * Phase 2 populates them from an approved GameConfig
- * (src/content/gameConfig.ts) — no fallback values are assigned here,
- * per DEC-008.
+ * Fields that docs/DECISIONS.md DEC-010 now resolves (starting cash,
+ * available cash, unallocated cash, scripted sector rates, scripted
+ * opponent bid, gross property income, operating cost) are hydrated from
+ * the Approved Provisional configuration in src/content/gameConfig.ts —
+ * see src/state/initialState.ts. Fields determined only by player action
+ * or engine calculation during the round remain null/empty until then.
  */
 
 export type ScreenId =
@@ -47,34 +48,4 @@ export interface GameState {
   roundChangeCents: number | null
   coachMessageId: string | null
   timeOfDayState: string
-}
-
-export const initialGameState: GameState = {
-  currentScreen: 'start',
-  currentScreenState: null,
-  tutorialStep: 0,
-  tutorialCompletedForSession: false,
-  viewedIndicatorIds: [],
-  startingCashCents: null,
-  availableCashCents: null,
-  sectorAllocationsCents: {},
-  totalAllocatedCents: 0,
-  unallocatedCashCents: null,
-  scriptedSectorRates: null,
-  sectorResultsCents: null,
-  totalMarketChangeCents: null,
-  cashAfterMarketCents: null,
-  playerBidCents: null,
-  scriptedOpponentBidCents: null,
-  propertyWon: null,
-  winningBidCents: null,
-  grossPropertyIncomeCents: null,
-  operatingCostCents: null,
-  netPropertyResultCents: null,
-  endingCashCents: null,
-  propertyCarryingValueCents: null,
-  endingPositionCents: null,
-  roundChangeCents: null,
-  coachMessageId: null,
-  timeOfDayState: 'morning',
 }
