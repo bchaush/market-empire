@@ -1,4 +1,5 @@
 import { gameConfig } from '../content/gameConfig'
+import { screenTimeOfDay } from '../content/timeOfDay'
 import { createInitialGameState } from './initialState'
 import type { GameState, PropertyScreenState, ScreenId } from './types'
 
@@ -68,11 +69,12 @@ export function nextScreenPosition(current: ScreenPosition, action: TransitionAc
 /**
  * Applies a transition action to the full game state.
  *
- * Every action, including PLAY_AGAIN, is first validated through
+ * Every action, including PLAY_AGAIN and EXIT, is first validated through
  * `nextScreenPosition` — PLAY_AGAIN is only a valid transition from
- * `roundSummary` (docs/DEMO_SPEC.md §12), so attempting it from any other
- * screen throws the same "Invalid transition" error as any other
- * out-of-order action, rather than silently resetting.
+ * `roundSummary`, and so is EXIT (docs/DEMO_SPEC.md §12) — so attempting
+ * either from any other screen throws the same "Invalid transition" error
+ * as any other out-of-order action, rather than silently resetting or
+ * silently ending the demo.
  *
  * Once validated, PLAY_AGAIN performs the documented full reset
  * (docs/DEMO_SPEC.md §11 Screen 7 "resets all state and map"; §12) by
@@ -80,12 +82,16 @@ export function nextScreenPosition(current: ScreenPosition, action: TransitionAc
  * `createInitialGameState(gameConfig)`, rather than only moving the
  * screen pointer — every tracked field (tutorial progress, viewed
  * indicators, allocations, results, bid/property state, Coach message,
- * time-of-day, etc.) is restored, not just the screen.
+ * time-of-day, hasEnded, etc.) is restored, not just the screen.
  *
- * Every other action only moves the screen position via the already
- * validated `position`; it does not yet apply any other gameplay effect
- * (allocation, settlement, bidding, etc.) — that remains Phase 2B
- * screen-implementation work.
+ * Every other action moves the screen position via the already validated
+ * `position`, and updates `timeOfDayState` to the destination screen's
+ * documented value (docs/DEMO_SPEC.md §10, via the single shared
+ * `screenTimeOfDay` map — never derived independently elsewhere). EXIT
+ * additionally sets `hasEnded` to true ("End of demo").
+ *
+ * This layer does not yet apply any other gameplay effect (allocation,
+ * settlement, bidding, etc.) — that is src/state/gameActions.ts.
  */
 export function applyTransition(state: GameState, action: TransitionAction): GameState {
   const position = nextScreenPosition(
@@ -101,5 +107,7 @@ export function applyTransition(state: GameState, action: TransitionAction): Gam
     ...state,
     currentScreen: position.screen,
     currentScreenState: position.screenState,
+    timeOfDayState: screenTimeOfDay[position.screen],
+    hasEnded: action === 'EXIT' ? true : state.hasEnded,
   }
 }

@@ -20,6 +20,13 @@ export type ScreenId =
 
 export type PropertyScreenState = 'pre-submission' | 'post-submission'
 
+/**
+ * The seven documented time-of-day values (docs/DEMO_SPEC.md §10). Kept
+ * here as the single canonical definition — src/content/timeOfDay.ts
+ * imports this type rather than duplicating the union.
+ */
+export type TimeOfDay = 'morning' | 'daytime' | 'afternoon' | 'dusk' | 'early evening' | 'night' | 'late night'
+
 export interface GameState {
   currentScreen: ScreenId
   currentScreenState: PropertyScreenState | null
@@ -47,5 +54,7 @@ export interface GameState {
   endingPositionCents: number | null
   roundChangeCents: number | null
   coachMessageId: string | null
-  timeOfDayState: string
+  timeOfDayState: TimeOfDay
+  /** True once EXIT has been applied from Round Summary ("End of demo"). */
+  hasEnded: boolean
 }

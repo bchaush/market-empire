@@ -1,5 +1,6 @@
 import type { GameConfig } from '../content/gameConfig'
 import { gameConfig } from '../content/gameConfig'
+import { screenTimeOfDay } from '../content/timeOfDay'
 import { unallocatedCash } from '../engine'
 import type { GameState } from './types'
 
@@ -47,7 +48,8 @@ export function createInitialGameState(config: GameConfig): GameState {
     endingPositionCents: null,
     roundChangeCents: null,
     coachMessageId: 'coach-intro',
-    timeOfDayState: 'morning',
+    timeOfDayState: screenTimeOfDay.start,
+    hasEnded: false,
   }
 }
 

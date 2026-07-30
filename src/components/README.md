@@ -8,6 +8,12 @@ regions required by `docs/DEMO_SPEC.md` §7 — HUD, city-map area, right
 panel, and Coach area — hydrated from the Approved Provisional DEC-010
 configuration (`src/content/gameConfig.ts`, `docs/DECISIONS.md` DEC-010).
 
-Screen-specific components (map landmarks, indicator cards, allocation
-sliders, the bid form, gain/loss indicator, etc.) are not yet implemented —
-deferred to Phase 2B.
+`format.ts` provides presentation-only helpers (currency/label
+formatting) shared across screens.
+
+Screen-specific interactive content (indicator cards, allocation
+controls, the bid form, gain/loss display, etc.) is implemented directly
+in `src/screens/` (Phase 2B) and slotted into `AppShell`'s content
+regions, rather than as separate reusable components — each screen's
+content is specific enough to that screen that extracting shared
+sub-components did not pay for itself yet.
