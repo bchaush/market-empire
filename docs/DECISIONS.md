@@ -235,7 +235,10 @@ Not documented in source material.
 `docs/DEMO_SPEC.md` §16 (Finance Dependencies); `docs/ux/beginner-flow.md` financial references; required application state must not pre-assign any of these values.
 
 **Status:**  
-Active
+Partially superseded by DEC-010 (2026-07-30) — see note below. This decision's original text above is preserved unchanged, per this file's rule against rewriting recorded decisions.
+
+**Superseded-by-DEC-010 note (added 2026-07-30):**  
+DEC-010 supplies Approved Provisional values for every input this decision listed as unresolved: the three market-indicator texts and meanings; indicator-to-sector mapping; the four sector return rates and permitted rate range; exact starting cash ($10,000); property name, type, and asking price; gross property income and operating cost; the scripted opponent bid amount; and Coach financial terminology. These items are no longer unassigned, but none of them is final — Hanyu's financial-formula and terminology review and Pankuri's beginner-wording review remain pending exactly as this decision originally required, and none of these values is balance-, usability-, or accessibility-validated.
 
 ---
 
@@ -261,3 +264,70 @@ Continue iterating in Figma until all of Alexandra's findings are resolved there
 
 **Status:**  
 Active
+
+---
+
+### DEC-010 — Approve provisional demo configuration and scripted content (sectors, rates, indicators, property, Coach, viewport)
+
+**Decision:**
+
+The following Provisional demo inputs, required to make the seven-screen playable demo (Issue #7) run end-to-end, are approved as **Approved Provisional** project-authored implementation choices for this one-round demo. They are informed by general, externally documented financial relationships already recorded in `docs/finance/source-ledger.md`, but the exact numbers themselves are project-authored — not verified historical returns, market forecasts, valuations, historical benchmarks, or final balance values.
+
+**Four sector labels and definitions** (confirms FIN-DEC-CAND-003):
+- Technology — companies that provide software and information-technology services or make technology hardware, electronic equipment and semiconductors.
+- Health Care — companies providing health services, medicines, biotechnology products, medical equipment and health-related supplies. Demand may be less sensitive to economic cycles than in some other sectors, but returns are not guaranteed.
+- Everyday Goods — companies making or selling frequently purchased products such as food, drinks, household goods and personal-care products. These businesses are often described as relatively defensive, but their investments may still gain or lose value. `Everyday Goods` is Market Empire's beginner-facing project label based on the GICS `Consumer Staples` sector; it is not an official GICS sector name (see `docs/finance/source-ledger.md` FIN-SRC-005).
+- Energy — companies involved in producing, processing, transporting or supporting oil, gas and other consumable fuels.
+
+**Starting cash:** $10,000 exact.
+
+**Sector return rates and round configuration** (confirms FIN-DEC-CAND-005; applies the externally-supported weighted-return relationship documented in FIN-SRC-009 and FIN-SRC-010 — those sources support the general method only, not these exact numbers):
+- Project-authored active base rates for this scripted demo round: Technology +12%; Health Care +5%; Everyday Goods +3%; Energy +14%.
+- Project-authored permitted demo rate range: -15% to +20%.
+- Single-round scripted modifiers applied (see indicators below): Macro Boost (Indicator 1) +2% to all sectors; Tech Spending Boost (Indicator 2) +5% to Technology; Energy Shock / Transport Drag (Indicator 3) +4% to Energy, -4% to Everyday Goods.
+- Resolved final rates for this demo round (mathematically derived: base rate plus applicable modifiers): Technology +19% (+12% base + 2% macro + 5% boost); Health Care +7% (+5% base + 2% macro); Everyday Goods +1% (+3% base + 2% macro − 4% drag); Energy +20% (+14% base + 2% macro + 4% boost).
+- **Known balance limitation:** all four resolved final rates are positive, and Energy has the highest scripted rate at +20% — the top of the permitted range. With no separate risk penalty, allocating the maximum permitted amount to Energy produces the largest market-stage gain in this configuration. This configuration is not balance-validated and must not be claimed to prove that diversification is always the highest-return choice.
+
+**Indicator-to-sector relationship:** the scripted indicators below apply the predetermined modifiers listed above to the demo's sector rates. The same confirmed inputs always produce the same resolved rates (deterministic).
+
+**Three market-intelligence indicators** (Screen 3; supplies the exact wording DEC-004 left open):
+- Indicator 1 (wider economic indicator) — Headline: "Inflation Cools and Consumer Outlook Improves." Plain-language meaning: in this fictional demo round, this positive macro signal applies a project-authored +2% modifier to all four sectors; it is a scripted game mechanic, not a market forecast. Status/source label: Scripted Demo Signal — informed by BLS inflation reporting, Federal Reserve inflation guidance, and The Conference Board Consumer Confidence Survey (general context only; the exact +2% modifier is project-authored and not sourced from these institutions).
+- Indicator 2 (business/sector-activity indicator) — Headline: "Enterprise Cloud and Digital Infrastructure Spending Accelerates." Plain-language meaning: in this fictional demo round, increased technology spending applies a project-authored +5% modifier to Technology; it does not guarantee that technology investments generally earn this return. Status/source label: Scripted Demo Signal — informed by Gartner and IDC technology-spending research (general context only; the exact +5% modifier is project-authored).
+- Indicator 3 (counter-signal/risk indicator) — Headline: "Global Crude Supply Bottlenecks Raise Fuel Costs." Plain-language meaning: in this fictional demo round, a fuel-supply disruption applies a project-authored +4% modifier to Energy and a -4% modifier to Everyday Goods; these exact effects are not real-world forecasts. Status/source label: Scripted Demo Signal — informed by U.S. Energy Information Administration reporting (general context only; the exact modifiers are project-authored).
+
+**Property configuration** (confirms FIN-DEC-CAND-002's application and supplies the exact values FIN-DEMO-03 left as placeholders):
+- Property name: Metro Tech Hub Plaza. Property type: Commercial Real Estate (Office & Retail Space).
+- Asking price: $4,000.
+- Gross property income: $350 / round (mathematically derived context only: this equals 8.75% of the $4,000 asking price for this scripted round — a description of the chosen numbers, not an annualized yield or capitalization-rate claim).
+- Operating cost: $100 / round.
+- Net property result (mathematically derived, per FIN-DEC-CAND-002 / FIN-DEMO-03: gross income minus operating cost): $250 / round. Simplified expense ratio (mathematically derived: operating cost ÷ gross income): approximately 28.57%.
+- Scripted opponent bid: $4,250.
+
+**Winning-bid known-answer example:** a new example (`docs/finance/source-ledger.md` FIN-EX-010) is added using `cash_before_bid = $10,800`, `player_bid = $4,500`, `opponent_bid = $4,250`, `gross_property_income = $350`, `operating_cost = $100`, resolving (mathematically derived) to `property_won = true`, `winning_bid = $4,500`, `net_property_result = $250`, `cash_after_property = $6,550`. This supplies the previously missing numeric coverage for BOUND-BID-05 (`docs/testing/initial-test-plan.md`). It is a synthetic known-answer test fixture, not a market forecast or property valuation, and it does not itself constitute a passed or executed test.
+
+**Coach introduction and terminology:**
+- Coach introduction script: "Welcome to Market Empire. You begin this demo with $10,000 in Available Cash. Market indicators provide clues, not guarantees. You can spread your investment across sectors, keep cash available for later, and then decide whether to bid on one fictional property. I will explain each step and every confirmed result without choosing an amount for you."
+- Permitted beginner financial terms: Available Cash; Liquidity; Diversification; Concentration Risk; Net Property Result.
+- Prohibited or avoided terms: "Credits" (always use "Available Cash" instead); arbitrary numeric risk scores; guaranteed-return promises or claims that defensive sectors cannot lose value; advanced mechanics (short selling, leverage, margin calls, options).
+
+**Desktop layout baseline:** 1440 × 900 baseline resolution, with a fixed isometric district viewport, a persistent top HUD (Available Cash, current stage, time-of-day state), and a right-side interactive panel.
+
+**Status of every item above:** Approved Provisional. These are project-authored demo choices, informed by documented general financial relationships already recorded in `docs/finance/source-ledger.md` (including FIN-SRC-005, FIN-SRC-009 and FIN-SRC-010), but they are not verified historical returns, market forecasts, final balance values, property valuations, or complete-game constants.
+
+**Date:**  
+2026-07-30
+
+**Who approved:**  
+Bora, Product Lead — approval recorded in GitHub Issue #8 comment `5131661033` (2026-07-30). Comment identity confirmed by Bora in a follow-up clarification comment `5131794197` (2026-07-30), addressing a heading typo in the original comment without changing, withdrawing or weakening any recorded content.
+
+**Why:**  
+Issue #7 Phase 1 built and tested the deterministic engine without assigning any unresolved gameplay defaults (per DEC-008). The seven-screen interface and E2E-001 cannot be completed honestly until the required financial values and scripted content are explicitly selected and recorded, per `AGENTS.md`'s permanent rules against inventing formulas, sources, or approvals.
+
+**Alternatives considered:**  
+Not documented in source material beyond the approval record itself.
+
+**What this changes:**  
+`docs/finance/source-ledger.md` (research-status table; FIN-DEC-CAND-002, -003, -005, -006, -007 status and Decision Log fields; new FIN-EX-010); `docs/DEMO_SPEC.md` §16 (Finance Dependencies table and inline FIN-DEC-CAND/FIN-DEMO citations) and §9 (Coach terminology reference); `docs/ux/beginner-flow.md` (Scope rules desktop baseline, Screen 4/6/7 finance citations, Known limitations); `docs/testing/initial-test-plan.md` (BOUND-BID-05, REQ-06-02, Unresolved gaps); this file's DEC-008 (partially superseded — see DEC-008's updated status note). Does not change the qualitative DEC-006 bid-resolution branches, the engine implementation, or any Issue #7 application code.
+
+**Status:**  
+Active — Approved Provisional. Financial-formula and terminology review remains pending Hanyu's or explicit team approval. Beginner-facing wording review remains pending Pankuri's or explicit team approval. The BOUND-BID-05 known-answer example remains pending Leo's/Hanyu's review per the approval record. Final usability, accessibility and balance validation have not been completed.
