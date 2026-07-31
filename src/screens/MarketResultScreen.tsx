@@ -14,14 +14,19 @@ function signWordIcon(changeCents: number): { sign: string; word: string; icon: 
  * is read directly from state, which was populated only by the engine
  * (via the state layer's `confirmInvestments`) — this screen performs no
  * calculation. Gain/loss uses sign + word + icon + colour together, not
- * colour alone (§18).
+ * colour alone (§18). `resultHeading`/`resultMessage` are the approved
+ * DEC-011 explanation for the engine-owned `marketResultCategory`,
+ * derived once in `App.tsx` — this screen never inspects sector values or
+ * reproduces that classification itself.
  */
 export interface MarketResultScreenProps {
   state: GameState
   onContinueToAuction: () => void
+  resultHeading: string
+  resultMessage: string
 }
 
-export function MarketResultScreen({ state, onContinueToAuction }: MarketResultScreenProps) {
+export function MarketResultScreen({ state, onContinueToAuction, resultHeading, resultMessage }: MarketResultScreenProps) {
   const sectorResults = state.sectorResultsCents ?? {}
   const totalChangeCents = state.totalMarketChangeCents ?? 0
   const total = signWordIcon(totalChangeCents)
@@ -29,6 +34,10 @@ export function MarketResultScreen({ state, onContinueToAuction }: MarketResultS
   return (
     <div className="screen-panel">
       <h2>Market Result</h2>
+      <div className="screen-explanation">
+        <h3>{resultHeading}</h3>
+        <p>{resultMessage}</p>
+      </div>
       <p className={total.className}>
         <span aria-hidden="true">{total.icon}</span> Total market change: {total.sign}
         {formatCentsAsDollars(Math.abs(totalChangeCents))} ({total.word})

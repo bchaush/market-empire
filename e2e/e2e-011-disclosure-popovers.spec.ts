@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 import { gameConfig } from '../src/content/gameConfig'
 import { tutorialTopics } from '../src/content/tutorialSteps'
+import { formatCentsAsDollars } from '../src/components/format'
 import {
   bidBelowOpponentMessage,
   bidTieMessage,
@@ -18,6 +19,27 @@ import {
 } from '../src/content/issue11Guidance'
 import { SECTOR_KEYS } from '../src/state/gameActions'
 import { centsToDollars, dollarsToCents, marketResultCategory, settleSector } from '../src/engine'
+
+// Approved Provisional desktop baseline (docs/DECISIONS.md DEC-010) — not
+// invented differently here.
+const DESKTOP_BASELINE_VIEWPORT = { width: 1440, height: 900 }
+
+async function expectMinimumFontSize(locator: ReturnType<Page['locator']>, minPx = 16) {
+  const fontSizePx = await locator.evaluate((el) => parseFloat(window.getComputedStyle(el).fontSize))
+  expect(fontSizePx).toBeGreaterThanOrEqual(minPx)
+}
+
+type Rect = { x: number; y: number; width: number; height: number }
+
+function rectsOverlap(a: Rect, b: Rect): boolean {
+  return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y
+}
+
+async function requireBoundingBox(locator: ReturnType<Page['locator']>): Promise<Rect> {
+  const box = await locator.boundingBox()
+  expect(box).not.toBeNull()
+  return box as Rect
+}
 
 /**
  * Focused coverage for the DEC-011/DEC-012 disclosure-popover wiring
@@ -85,6 +107,7 @@ test('Coach disclosure popover: absent on Start, wired and functional on Screens
 
   const coachTrigger = page.getByRole('button', { name: coachTriggerLabel, exact: true })
   const coachPanel = page.locator(`#${COACH_PANEL_ID}`)
+  const resultPanel = page.getByLabel('Decision and result panel')
 
   // ---- Screen 2: full interaction contract exercised once here; later
   // screens re-verify only content + placeholder absence to avoid
@@ -175,6 +198,14 @@ test('Coach disclosure popover: absent on Start, wired and functional on Screens
   await expect(page.getByText('Coach area — content not yet implemented.')).toHaveCount(0)
   await coachTrigger.click()
 
+  // The same approved explanation is also visible directly in the main
+  // decision/result panel (docs/DECISIONS.md DEC-011), not only the Coach
+  // popover, and meets the 16px-equivalent readability target.
+  await expect(resultPanel.getByRole('heading', { name: expectedMarketResultContent.heading, exact: true })).toBeVisible()
+  const marketResultExplanationText = resultPanel.getByText(expectedMarketResultContent.message, { exact: true })
+  await expect(marketResultExplanationText).toBeVisible()
+  await expectMinimumFontSize(marketResultExplanationText)
+
   // ---- Screen 6 pre-submission. ----
   await page.getByRole('button', { name: 'Continue to Auction' }).click()
   await expect(page.getByRole('heading', { name: gameConfig.property.name })).toBeVisible()
@@ -185,6 +216,14 @@ test('Coach disclosure popover: absent on Start, wired and functional on Screens
   await expect(page.getByText('Coach area — content not yet implemented.')).toHaveCount(0)
   await coachTrigger.click()
 
+  // Visible in the main panel too; old placeholder gone; opponent bid
+  // still hidden pre-submission.
+  const preSubmissionExplanationText = resultPanel.getByText(sealedBidPreSubmissionMessage, { exact: true })
+  await expect(preSubmissionExplanationText).toBeVisible()
+  await expectMinimumFontSize(preSubmissionExplanationText)
+  await expect(page.getByText('Sealed-bid explanation: content pending approval.')).toHaveCount(0)
+  await expect(page.getByText(formatCentsAsDollars(gameConfig.property.scriptedOpponentBidCents))).toHaveCount(0)
+
   // ---- Submit the FIN-EX-010 winning bid -> Screen 6 post-submission (win). ----
   await page.getByLabel('Your bid ($)').fill('4500')
   await page.getByRole('button', { name: 'Submit Bid' }).click()
@@ -194,6 +233,10 @@ test('Coach disclosure popover: absent on Start, wired and functional on Screens
   await coachTrigger.click()
   await expect(coachPanel).toContainText(bidWonMessage)
   await coachTrigger.click()
+
+  const wonExplanationText = resultPanel.getByText(bidWonMessage, { exact: true })
+  await expect(wonExplanationText).toBeVisible()
+  await expectMinimumFontSize(wonExplanationText)
 
   // ---- Screen 7. ----
   await page.getByRole('button', { name: 'Continue' }).click()
@@ -292,6 +335,13 @@ test('Screen 6 below-opponent bid: engine-owned branch selects the approved DEC-
   await expect(page.getByText('Not won')).toBeVisible()
   await expect(page.getByText(`Cash after property: ${availableCashValue}`)).toBeVisible()
 
+  // Visible directly in the main decision/result panel, not only the
+  // Coach popover, and meets the 16px-equivalent readability target.
+  const resultPanel = page.getByLabel('Decision and result panel')
+  const belowOpponentExplanationText = resultPanel.getByText(bidBelowOpponentMessage, { exact: true })
+  await expect(belowOpponentExplanationText).toBeVisible()
+  await expectMinimumFontSize(belowOpponentExplanationText)
+
   const coachTrigger = page.getByRole('button', { name: coachTriggerLabel, exact: true })
   const coachPanel = page.locator(`#${COACH_PANEL_ID}`)
 
@@ -323,6 +373,13 @@ test('Screen 6 tied bid: Scripted Opponent wins and the approved DEC-011 message
   await expect(page.getByText('Not won')).toBeVisible()
   await expect(page.getByText(`Cash after property: ${availableCashValue}`)).toBeVisible()
 
+  // Visible directly in the main decision/result panel, not only the
+  // Coach popover, and meets the 16px-equivalent readability target.
+  const resultPanel = page.getByLabel('Decision and result panel')
+  const tieExplanationText = resultPanel.getByText(bidTieMessage, { exact: true })
+  await expect(tieExplanationText).toBeVisible()
+  await expectMinimumFontSize(tieExplanationText)
+
   const coachTrigger = page.getByRole('button', { name: coachTriggerLabel, exact: true })
   const coachPanel = page.locator(`#${COACH_PANEL_ID}`)
 
@@ -334,4 +391,111 @@ test('Screen 6 tied bid: Scripted Opponent wins and the approved DEC-011 message
   await page.getByRole('button', { name: coachCloseButtonLabel }).click()
   await expect(coachPanel).toBeHidden()
   await expect(coachTrigger).toBeFocused()
+})
+
+test('Desktop baseline (1440x900): no overflow, panel/action visible, explanations unclipped on Screens 2-7', async ({
+  page,
+}) => {
+  // Approved Provisional 1440x900 desktop baseline (docs/DECISIONS.md
+  // DEC-010) — the Playwright project default viewport is not this size,
+  // so it is set explicitly rather than assumed.
+  await page.setViewportSize(DESKTOP_BASELINE_VIEWPORT)
+
+  const resultPanel = page.getByLabel('Decision and result panel')
+
+  async function assertNoOverflowAndShellFits() {
+    const overflow = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }))
+    expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.clientWidth)
+
+    const shellBox = await requireBoundingBox(page.locator('.app-shell'))
+    expect(shellBox.width).toBeLessThanOrEqual(DESKTOP_BASELINE_VIEWPORT.width)
+  }
+
+  async function assertExplanationUnclippedAndClearOfButton(
+    explanationLocator: ReturnType<Page['locator']>,
+    buttonLocator: ReturnType<Page['locator']>,
+  ) {
+    const explanationBox = await requireBoundingBox(explanationLocator)
+    expect(explanationBox.width).toBeGreaterThan(0)
+    expect(explanationBox.height).toBeGreaterThan(0)
+
+    const clipped = await explanationLocator.evaluate((el) => {
+      const style = window.getComputedStyle(el)
+      return style.overflowY === 'hidden' && el.scrollHeight > el.clientHeight
+    })
+    expect(clipped).toBe(false)
+
+    const buttonBox = await requireBoundingBox(buttonLocator)
+    expect(rectsOverlap(explanationBox, buttonBox)).toBe(false)
+  }
+
+  // ---- Screen 1 -> Screen 2. ----
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Start Demo' }).click()
+  await expect(page.getByRole('heading', { name: 'Coach Tutorial' })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(page.getByRole('button', { name: 'Skip Tutorial' })).toBeVisible()
+  await page.getByRole('button', { name: 'Skip Tutorial' }).click()
+
+  // ---- Screen 3. ----
+  await expect(page.getByRole('heading', { name: 'Market Intelligence' })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(resultPanel).toBeVisible()
+  for (const indicator of gameConfig.indicators) {
+    await page.getByRole('button', { name: new RegExp(`^${indicator.headline}`) }).click()
+  }
+  const analyzeCityButton = page.getByRole('button', { name: 'Analyze City' })
+  await expect(analyzeCityButton).toBeVisible()
+  await analyzeCityButton.click()
+
+  // ---- Screen 4. ----
+  await expect(page.getByRole('heading', { name: 'City Investment Decision' })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(resultPanel).toBeVisible()
+  for (const key of SECTOR_KEYS) {
+    const label = gameConfig.sectors[key].label
+    await page.getByRole('button', { name: new RegExp(`^${label} \\(`) }).click()
+    await setRangeValue(page.getByLabel(`Allocation for ${label}`), ALLOCATION_PER_SECTOR_CENTS)
+  }
+  const confirmInvestmentsButton = page.getByRole('button', { name: 'Confirm Investments' })
+  await expect(confirmInvestmentsButton).toBeVisible()
+  await confirmInvestmentsButton.click()
+
+  // ---- Screen 5: explanation unclipped and clear of the primary action. ----
+  await expect(page.getByRole('heading', { name: 'Market Result' })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(resultPanel).toBeVisible()
+  const continueToAuctionButton = page.getByRole('button', { name: 'Continue to Auction' })
+  await expect(continueToAuctionButton).toBeVisible()
+  await assertExplanationUnclippedAndClearOfButton(resultPanel.locator('.screen-explanation'), continueToAuctionButton)
+  await continueToAuctionButton.click()
+
+  // ---- Screen 6 pre-submission: explanation unclipped and clear of Submit Bid. ----
+  await expect(page.getByRole('heading', { name: gameConfig.property.name })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(resultPanel).toBeVisible()
+  const submitBidButton = page.getByRole('button', { name: 'Submit Bid' })
+  await expect(submitBidButton).toBeVisible()
+  await assertExplanationUnclippedAndClearOfButton(resultPanel.locator('.screen-explanation'), submitBidButton)
+
+  await page.getByLabel('Your bid ($)').fill('4500')
+  await submitBidButton.click()
+
+  // ---- Screen 6 post-submission (win): explanation unclipped and clear of Continue. ----
+  await expect(page.getByRole('heading', { name: `${gameConfig.property.name} — Result` })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(resultPanel).toBeVisible()
+  const continueButton = page.getByRole('button', { name: 'Continue' })
+  await expect(continueButton).toBeVisible()
+  await assertExplanationUnclippedAndClearOfButton(resultPanel.locator('.screen-explanation'), continueButton)
+  await continueButton.click()
+
+  // ---- Screen 7. ----
+  await expect(page.getByRole('heading', { name: 'Round Summary' })).toBeVisible()
+  await assertNoOverflowAndShellFits()
+  await expect(resultPanel).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Play Again' })).toBeVisible()
 })

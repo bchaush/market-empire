@@ -15,7 +15,9 @@ import {
   screen7CoachMessage,
   sealedBidPreSubmissionMessage,
 } from './content/issue11Guidance'
+import type { MarketResultCoachContent } from './content/issue11Guidance'
 import { bidResultCategory, marketResultCategory } from './engine'
+import type { BidResultCategory } from './engine'
 import { initialGameState } from './state/initialState'
 import type { GameState } from './state/types'
 import {
@@ -45,15 +47,48 @@ import {
 import './screens/screens.css'
 
 /**
- * Selects the approved DEC-011 Coach body content for the active screen.
- * A pure derived read of `state` (plus the engine-owned
- * `marketResultCategory` and, per DEC-012, `bidResultCategory`) — never
+ * Derives the Screen 5 engine-owned category once per render, so both the
+ * Coach popover and the visible Screen 5 panel (docs/DECISIONS.md DEC-011)
+ * read the same single computed value instead of calling
+ * `marketResultCategory` a second time.
+ */
+function getMarketResultContent(state: GameState): MarketResultCoachContent | null {
+  if (state.currentScreen !== 'marketResult') return null
+  const sectorResults = Object.values(state.sectorResultsCents ?? {})
+  const category = marketResultCategory(sectorResults)
+  return marketResultCoachContent[category]
+}
+
+/**
+ * Derives the Screen 6 post-submission engine-owned branch once per
+ * render, so both the Coach popover and the visible Screen 6 panel
+ * (docs/DECISIONS.md DEC-012) read the same single computed value instead
+ * of calling `bidResultCategory` a second time.
+ */
+function getBidResultBranch(state: GameState): BidResultCategory | null {
+  if (state.currentScreen !== 'propertyOpportunity' || state.currentScreenState !== 'post-submission') return null
+  return bidResultCategory(state.playerBidCents ?? 0, state.scriptedOpponentBidCents ?? 0)
+}
+
+function bidResultMessage(branch: BidResultCategory): string {
+  if (branch === 'win') return bidWonMessage
+  if (branch === 'tie') return bidTieMessage
+  return bidBelowOpponentMessage
+}
+
+/**
+ * Selects the approved DEC-011 Coach body content for the active screen,
+ * from the already-derived `marketResultContent`/`bidResultBranch` — never
  * mutates state, never recalculates a financial result, and reproduces no
  * sign-classification or bid-comparison logic of its own. Screen 2 reads
  * the same existing tutorial source of truth CoachTutorialScreen already
  * uses, rather than introducing a second tutorial state.
  */
-function getCoachGuidance(state: GameState): ReactNode {
+function getCoachGuidance(
+  state: GameState,
+  marketResultContent: MarketResultCoachContent | null,
+  bidResultBranch: BidResultCategory | null,
+): ReactNode {
   switch (state.currentScreen) {
     case 'coachTutorial': {
       const stepText = state.tutorialStep === 0 ? gameConfig.coach.introduction : tutorialTopics[state.tutorialStep - 1]
@@ -63,25 +98,20 @@ function getCoachGuidance(state: GameState): ReactNode {
       return <p>{screen3CoachMessage}</p>
     case 'cityInvestmentDecision':
       return <p>{screen4CoachMessage}</p>
-    case 'marketResult': {
-      const sectorResults = Object.values(state.sectorResultsCents ?? {})
-      const category = marketResultCategory(sectorResults)
-      const content = marketResultCoachContent[category]
+    case 'marketResult':
+      if (!marketResultContent) return null
       return (
         <>
-          <h4>{content.heading}</h4>
-          <p>{content.message}</p>
+          <h4>{marketResultContent.heading}</h4>
+          <p>{marketResultContent.message}</p>
         </>
       )
-    }
     case 'propertyOpportunity': {
       if (state.currentScreenState === 'pre-submission') {
         return <p>{sealedBidPreSubmissionMessage}</p>
       }
-      const branch = bidResultCategory(state.playerBidCents ?? 0, state.scriptedOpponentBidCents ?? 0)
-      if (branch === 'win') return <p>{bidWonMessage}</p>
-      if (branch === 'tie') return <p>{bidTieMessage}</p>
-      return <p>{bidBelowOpponentMessage}</p>
+      if (!bidResultBranch) return null
+      return <p>{bidResultMessage(bidResultBranch)}</p>
     }
     case 'roundSummary':
       return <p>{screen7CoachMessage}</p>
@@ -116,6 +146,12 @@ function App() {
   if (gameState.currentScreen === 'start') {
     return <StartScreen onStartDemo={() => setGameState((current) => startDemo(current))} />
   }
+
+  // Derived once per render and reused for both the Coach popover and the
+  // visible screen explanation (docs/DECISIONS.md DEC-011, DEC-012) — see
+  // getMarketResultContent/getBidResultBranch above.
+  const marketResultContent = getMarketResultContent(gameState)
+  const bidResultBranch = getBidResultBranch(gameState)
 
   let rightPanelContent: ReactNode
   let coachContent: ReactNode
@@ -154,6 +190,8 @@ function App() {
         <MarketResultScreen
           state={gameState}
           onContinueToAuction={() => setGameState((current) => continueToAuction(current))}
+          resultHeading={marketResultContent?.heading ?? ''}
+          resultMessage={marketResultContent?.message ?? ''}
         />
       )
       break
@@ -163,6 +201,8 @@ function App() {
           state={gameState}
           onSubmitBid={handleSubmitBid}
           onContinue={() => setGameState((current) => continueFromBid(current))}
+          preSubmissionExplanation={sealedBidPreSubmissionMessage}
+          postSubmissionExplanation={bidResultBranch ? bidResultMessage(bidResultBranch) : ''}
         />
       )
       break
@@ -187,7 +227,7 @@ function App() {
       balanceLimitation={gameConfig.status.balanceLimitation}
       rightPanelContent={rightPanelContent}
       coachContent={coachContent}
-      coachGuidance={getCoachGuidance(gameState)}
+      coachGuidance={getCoachGuidance(gameState, marketResultContent, bidResultBranch)}
       isCoachOpen={isCoachOpen}
       onCoachOpen={() => setIsCoachOpen(true)}
       onCoachClose={() => setIsCoachOpen(false)}

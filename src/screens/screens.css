@@ -107,9 +107,26 @@
   color: #d4af37;
 }
 
-.content-pending {
-  color: #8a97a8;
-  font-style: italic;
+/* Visible Screen 5/Screen 6 explanations (docs/DECISIONS.md DEC-011,
+   DEC-012) — a readable, clearly separated block distinct from the dense
+   numeric result rows around it. Font size is explicit at the existing
+   16px root rather than only relying on inheritance. */
+.screen-explanation {
+  margin: 0.75rem 0 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid #3a4658;
+  background: #141d2a;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.screen-explanation h3 {
+  margin: 0 0 0.35rem;
+}
+
+.screen-explanation p {
+  margin: 0;
 }
 
 .error-message {

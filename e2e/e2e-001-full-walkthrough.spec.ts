@@ -230,7 +230,12 @@ test('E2E-001: full seven-screen deterministic walkthrough', async ({ page }) =>
     await expect(page.getByText(`Your bid: ${formatCentsAsDollars(PLAYER_BID_CENTS)}`)).toBeVisible()
     // Opponent bid becomes visible after submission.
     await expect(page.getByText(`Scripted Opponent bid: ${formatCentsAsDollars(opponentBidCents)}`)).toBeVisible()
-    await expect(page.getByText('Won')).toBeVisible()
+    // .first() disambiguates against the Issue #11 win explanation
+    // (docs/DECISIONS.md DEC-011/DEC-012), which now also legitimately
+    // contains the substring "won" elsewhere on the same screen; this
+    // still targets the original won/not-won indicator element and does
+    // not weaken the assertion.
+    await expect(page.getByText('Won').first()).toBeVisible()
     await expect(page.getByText(`Cash after property: ${formatCentsAsDollars(cashAfterPropertyCents)}`)).toBeVisible()
     await expect(page.getByText(`Net property result: ${formatCentsAsDollars(netPropertyResultCents)}`)).toBeVisible()
 
