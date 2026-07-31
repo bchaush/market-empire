@@ -500,25 +500,25 @@ This message:
 - does not change or approve FIN-DEC-CAND-004;
 - states only existing one-round and reset behaviour.
 
-**Date:**  
+**Date:**
 2026-07-30
 
-**Who approved:**  
+**Who approved:**
 Bora, Product Lead
 
-**Why:**  
+**Why:**
 Issue #7 and Issue #11 require: Coach access on every applicable screen; sector-information popups; distinct Market Result explanations; clear pre- and post-submission auction explanations; keyboard-reachable and labelled interactions. The merged PR #10 intentionally left this presentation and content work for a separate issue. Recording these decisions before implementation prevents unapproved player copy, interaction behaviour and display-category logic from being introduced silently.
 
-**Alternatives considered:**  
+**Alternatives considered:**
 Not documented in source material beyond the approval record itself.
 
-**What this changes:**  
+**What this changes:**
 This decision authorizes later Issue #11 implementation work in: shared popup components; Coach access wiring; sector-information popup wiring; approved content configuration; Market Result explanation selection; a pure engine-owned Market Result display-category function; focused browser and engine tests; required desktop spacing and readability work. This Decision Record itself does not implement those changes.
 
-**What this does not change:**  
+**What this does not change:**
 DEC-011 does not change: any financial value; any sector return rate; any indicator modifier; any allocation rule; any bid amount; any bid-resolution branch; any property calculation; any cash calculation; any end-of-round formula; the seven-screen order; the engine/interface authority boundary; mobile-support status; formal contrast-validation status; formal reduced-motion-validation status; final artwork, sound, advanced motion, multiplayer, accounts or new gameplay. FIN-DEC-CAND-004 remains Provisional and is not approved by DEC-011.
 
-**Status:**  
+**Status:**
 Active — Product Lead approved for Issue #11 implementation
 
 ---
@@ -537,23 +537,23 @@ For Issue #11:
 6. The interface may map the returned typed branch to the already-approved DEC-011 Screen 6 Coach message.
 7. The interface must not reproduce the greater-than, less-than or equality branch logic.
 
-**Date:**  
+**Date:**
 2026-07-30
 
-**Who approved:**  
+**Who approved:**
 Bora, Product Lead
 
-**Why:**  
+**Why:**
 The current Issue #11 implementation introduced a clear sector-information trigger label that was not explicitly recorded in DEC-011. The implementation also selected tied-vs-below Coach content through a bid comparison in `App.tsx`, which duplicates an engine-owned game-rule boundary. This decision records the trigger wording and restores the documented engine/interface authority boundary without changing bid behaviour.
 
-**Alternatives considered:**  
+**Alternatives considered:**
 Not documented in source material beyond the approval record itself.
 
-**What this changes:**  
+**What this changes:**
 This authorizes: the exact sector-information trigger template; reuse of an existing bid-result discriminator, or, if required, one pure engine-owned three-state display classifier; focused unit tests; removal of the interface-side bid comparison; Playwright coverage for all three Screen 6 result-message branches.
 
-**What this does not change:**  
+**What this does not change:**
 It does not change: DEC-006 bid-resolution rules; the scripted opponent bid; winning-bid deductions; losing or tied bid cash treatment; property calculations; any financial value or formula; any transition; any approved DEC-011 Screen 6 message; any Screen 5 logic; any new gameplay.
 
-**Status:**  
+**Status:**
 Active — Product Lead approved for Issue #11 correction

@@ -230,11 +230,12 @@ test('E2E-001: full seven-screen deterministic walkthrough', async ({ page }) =>
     await expect(page.getByText(`Your bid: ${formatCentsAsDollars(PLAYER_BID_CENTS)}`)).toBeVisible()
     // Opponent bid becomes visible after submission.
     await expect(page.getByText(`Scripted Opponent bid: ${formatCentsAsDollars(opponentBidCents)}`)).toBeVisible()
-    // .first() disambiguates against the Issue #11 win explanation
-    // (docs/DECISIONS.md DEC-011/DEC-012), which now also legitimately
-    // contains the substring "won" elsewhere on the same screen; this
-    // still targets the original won/not-won indicator element and does
-    // not weaken the assertion.
+    // getByText() matches case-insensitively by default, so this search
+    // for "Won" also matches the lowercase "won" inside the approved
+    // Issue #11 win explanation (docs/DECISIONS.md DEC-011/DEC-012),
+    // which is now legitimately visible elsewhere on this same screen.
+    // .first() disambiguates back to the original won/not-won indicator
+    // element; the assertion itself is unchanged.
     await expect(page.getByText('Won').first()).toBeVisible()
     await expect(page.getByText(`Cash after property: ${formatCentsAsDollars(cashAfterPropertyCents)}`)).toBeVisible()
     await expect(page.getByText(`Net property result: ${formatCentsAsDollars(netPropertyResultCents)}`)).toBeVisible()
