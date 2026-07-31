@@ -20,7 +20,7 @@ The one document to read before doing anything else
 </tbody>
 </table>
 
-Current stage: Research and one-round demo build • Status: Not yet balance-validated
+Current stage: One-round demo complete, reviewed and approved for presentation (see `docs/DECISIONS.md` DEC-013) • Status: Not yet balance-validated
 
 1. What we are building
 
@@ -36,7 +36,7 @@ Financial ideas are usually taught as definitions. This project turns them into 
 
 It is built for people with no background - so every screen, rule and explanation must work without a teacher present.
 
-It is not yet a finished game. It is currently a researched, documented plan being turned into one working demo round.
+It is not yet the finished full game. The one-round demo is complete and approved for presentation; the broader Market Empire product remains future work.
 
 2. What we are building right now - the demo
 

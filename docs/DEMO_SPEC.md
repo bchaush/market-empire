@@ -8,6 +8,8 @@
 >
 > Status: Approved Provisional Direction — the new seven-screen experience has not yet been usability-tested.
 >
+> **Update (2026-07-31):** The implemented seven-screen demo built from this specification was reviewed by the project team and the course professor and approved as complete for presentation (`docs/DECISIONS.md` DEC-013). This approval covers presenting the completed demo as built; it does not claim that formal usability, accessibility or balance testing has since occurred — the sentence above remains true and unchanged. A separate mock visual design may be shown only as a possible future direction and is not part of this approved demo.
+>
 > This document replaces the former six-screen specification as the proposed current build direction.
 >
 > The original six-screen Figma prototype remains preserved as tested design evidence — Anant tested it and completed it without questions or blocked actions. This result covered basic clarity only.
