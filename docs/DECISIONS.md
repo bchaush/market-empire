@@ -520,3 +520,40 @@ DEC-011 does not change: any financial value; any sector return rate; any indica
 
 **Status:**  
 Active — Product Lead approved for Issue #11 implementation
+
+---
+
+### DEC-012 — Approve sector-information trigger wording and engine-owned bid-result display branches
+
+**Decision:**
+
+For Issue #11:
+
+1. Approve the exact sector-information trigger template: `Show {sector label} information`. The placeholder is populated only from an existing DEC-010 sector label.
+2. Require Screen 6 post-submission interface content to be selected from an engine-owned result branch rather than an interface-side comparison of bid values.
+3. Approve these exact display branches: `Win`, `Below Opponent`, `Tie`.
+4. Reuse an existing engine-owned discriminator if one already exists.
+5. If no sufficient discriminator exists, authorize one new pure engine function that receives the already-recorded player and opponent bid values and classifies them according to the existing DEC-006 rules: player bid greater than opponent bid → `Win`; player bid less than opponent bid → `Below Opponent`; player bid equal to opponent bid → `Tie`.
+6. The interface may map the returned typed branch to the already-approved DEC-011 Screen 6 Coach message.
+7. The interface must not reproduce the greater-than, less-than or equality branch logic.
+
+**Date:**  
+2026-07-30
+
+**Who approved:**  
+Bora, Product Lead
+
+**Why:**  
+The current Issue #11 implementation introduced a clear sector-information trigger label that was not explicitly recorded in DEC-011. The implementation also selected tied-vs-below Coach content through a bid comparison in `App.tsx`, which duplicates an engine-owned game-rule boundary. This decision records the trigger wording and restores the documented engine/interface authority boundary without changing bid behaviour.
+
+**Alternatives considered:**  
+Not documented in source material beyond the approval record itself.
+
+**What this changes:**  
+This authorizes: the exact sector-information trigger template; reuse of an existing bid-result discriminator, or, if required, one pure engine-owned three-state display classifier; focused unit tests; removal of the interface-side bid comparison; Playwright coverage for all three Screen 6 result-message branches.
+
+**What this does not change:**  
+It does not change: DEC-006 bid-resolution rules; the scripted opponent bid; winning-bid deductions; losing or tied bid cash treatment; property calculations; any financial value or formula; any transition; any approved DEC-011 Screen 6 message; any Screen 5 logic; any new gameplay.
+
+**Status:**  
+Active — Product Lead approved for Issue #11 correction

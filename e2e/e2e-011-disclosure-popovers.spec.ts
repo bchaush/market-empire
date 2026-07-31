@@ -2,6 +2,8 @@ import { expect, test, type Page } from '@playwright/test'
 import { gameConfig } from '../src/content/gameConfig'
 import { tutorialTopics } from '../src/content/tutorialSteps'
 import {
+  bidBelowOpponentMessage,
+  bidTieMessage,
   bidWonMessage,
   coachCloseButtonLabel,
   coachPanelHeading,
@@ -15,20 +17,18 @@ import {
   sectorInfoTriggerLabel,
 } from '../src/content/issue11Guidance'
 import { SECTOR_KEYS } from '../src/state/gameActions'
-import { dollarsToCents, marketResultCategory, settleSector } from '../src/engine'
+import { centsToDollars, dollarsToCents, marketResultCategory, settleSector } from '../src/engine'
 
 /**
- * Focused coverage for the DEC-011 disclosure-popover wiring (Coach
- * access, Screens 2-7; sector information, Screen 4). E2E-001 remains the
- * complete seven-screen golden-path walkthrough and is unmodified — this
- * spec only exercises the new popover interactions, reusing the same
- * already-approved fixtures (docs/finance/source-ledger.md FIN-EX-002 /
- * FIN-EX-010) rather than inventing new inputs.
- *
- * Screen 6 below-opponent and tied-bid Coach messages are approved
- * content but are not exercised here (see docs/testing/initial-test-plan.md
- * — covering them would require a second full seven-screen setup); they
- * are not claimed as browser-covered by this spec.
+ * Focused coverage for the DEC-011/DEC-012 disclosure-popover wiring
+ * (Coach access, Screens 2-7; sector information, Screen 4). E2E-001
+ * remains the complete seven-screen golden-path walkthrough and is
+ * unmodified — this spec only exercises the new popover interactions,
+ * reusing already-approved fixtures (docs/finance/source-ledger.md
+ * FIN-EX-002, FIN-EX-007, FIN-EX-008, FIN-EX-010; docs/DECISIONS.md
+ * DEC-010's approved asking price and scripted opponent bid) rather than
+ * inventing new inputs. All three Screen 6 post-submission branches (win,
+ * below-opponent, tie) are exercised via the real browser flow below.
  */
 
 const ALLOCATION_PER_SECTOR_CENTS = dollarsToCents(2500) // FIN-EX-002 / CALC-002 / BOUND-ALLOC-01
@@ -42,6 +42,26 @@ async function setRangeValue(locator: ReturnType<Page['getByLabel']>, value: num
     setter.call(el, String(v))
     el.dispatchEvent(new Event('input', { bubbles: true }))
   }, value)
+}
+
+/** Reaches Screen 6 pre-submission via the real seven-screen flow, using
+ * the same already-approved $2,500-per-sector allocation as E2E-001. */
+async function reachPreSubmissionAuction(page: Page) {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Start Demo' }).click()
+  await page.getByRole('button', { name: 'Skip Tutorial' }).click()
+  for (const indicator of gameConfig.indicators) {
+    await page.getByRole('button', { name: new RegExp(`^${indicator.headline}`) }).click()
+  }
+  await page.getByRole('button', { name: 'Analyze City' }).click()
+  for (const key of SECTOR_KEYS) {
+    const label = gameConfig.sectors[key].label
+    await page.getByRole('button', { name: new RegExp(`^${label} \\(`) }).click()
+    await setRangeValue(page.getByLabel(`Allocation for ${label}`), ALLOCATION_PER_SECTOR_CENTS)
+  }
+  await page.getByRole('button', { name: 'Confirm Investments' }).click()
+  await page.getByRole('button', { name: 'Continue to Auction' }).click()
+  await expect(page.getByRole('heading', { name: gameConfig.property.name })).toBeVisible()
 }
 
 test('Coach disclosure popover: absent on Start, wired and functional on Screens 2-7', async ({ page }) => {
@@ -251,4 +271,67 @@ test('Sector-information disclosure popovers on Screen 4', async ({ page }) => {
   await expect(healthCareTrigger).toBeFocused()
 
   await expect(availableCashLine).toContainText('$10,000.00')
+})
+
+test('Screen 6 below-opponent bid: engine-owned branch selects the approved DEC-011 message', async ({ page }) => {
+  await reachPreSubmissionAuction(page)
+
+  // The property's own approved asking price ($4,000, DEC-010) is below
+  // the shipped scripted opponent bid ($4,250) and within available cash
+  // at this point — an existing approved value, not an invented bid.
+  const belowOpponentBidDollars = centsToDollars(gameConfig.property.askingPriceCents)
+  expect(belowOpponentBidDollars).toBeLessThan(centsToDollars(gameConfig.property.scriptedOpponentBidCents))
+
+  const availableCashBefore = await page.getByText(/^Available cash: \$/).innerText()
+  const availableCashValue = availableCashBefore.replace('Available cash: ', '')
+
+  await page.getByLabel('Your bid ($)').fill(String(belowOpponentBidDollars))
+  await page.getByRole('button', { name: 'Submit Bid' }).click()
+  await expect(page.getByRole('heading', { name: `${gameConfig.property.name} — Result` })).toBeVisible()
+
+  await expect(page.getByText('Not won')).toBeVisible()
+  await expect(page.getByText(`Cash after property: ${availableCashValue}`)).toBeVisible()
+
+  const coachTrigger = page.getByRole('button', { name: coachTriggerLabel, exact: true })
+  const coachPanel = page.locator(`#${COACH_PANEL_ID}`)
+
+  await coachTrigger.click()
+  await expect(coachPanel).toBeVisible()
+  await expect(coachTrigger).toBeFocused()
+  await expect(coachPanel).toContainText(bidBelowOpponentMessage)
+
+  await page.getByRole('button', { name: coachCloseButtonLabel }).click()
+  await expect(coachPanel).toBeHidden()
+  await expect(coachTrigger).toBeFocused()
+})
+
+test('Screen 6 tied bid: Scripted Opponent wins and the approved DEC-011 message appears', async ({ page }) => {
+  await reachPreSubmissionAuction(page)
+
+  // The player's bid exactly matches the shipped scripted opponent bid
+  // (DEC-010) — an existing approved configuration value, not an
+  // invented bid.
+  const tiedBidDollars = centsToDollars(gameConfig.property.scriptedOpponentBidCents)
+
+  const availableCashBefore = await page.getByText(/^Available cash: \$/).innerText()
+  const availableCashValue = availableCashBefore.replace('Available cash: ', '')
+
+  await page.getByLabel('Your bid ($)').fill(String(tiedBidDollars))
+  await page.getByRole('button', { name: 'Submit Bid' }).click()
+  await expect(page.getByRole('heading', { name: `${gameConfig.property.name} — Result` })).toBeVisible()
+
+  await expect(page.getByText('Not won')).toBeVisible()
+  await expect(page.getByText(`Cash after property: ${availableCashValue}`)).toBeVisible()
+
+  const coachTrigger = page.getByRole('button', { name: coachTriggerLabel, exact: true })
+  const coachPanel = page.locator(`#${COACH_PANEL_ID}`)
+
+  await coachTrigger.click()
+  await expect(coachPanel).toBeVisible()
+  await expect(coachTrigger).toBeFocused()
+  await expect(coachPanel).toContainText(bidTieMessage)
+
+  await page.getByRole('button', { name: coachCloseButtonLabel }).click()
+  await expect(coachPanel).toBeHidden()
+  await expect(coachTrigger).toBeFocused()
 })

@@ -15,7 +15,7 @@ import {
   screen7CoachMessage,
   sealedBidPreSubmissionMessage,
 } from './content/issue11Guidance'
-import { marketResultCategory } from './engine'
+import { bidResultCategory, marketResultCategory } from './engine'
 import { initialGameState } from './state/initialState'
 import type { GameState } from './state/types'
 import {
@@ -47,11 +47,11 @@ import './screens/screens.css'
 /**
  * Selects the approved DEC-011 Coach body content for the active screen.
  * A pure derived read of `state` (plus the engine-owned
- * `marketResultCategory`) — never mutates state, never recalculates a
- * financial result, and reproduces no sign-classification or
- * bid-resolution logic of its own. Screen 2 reads the same existing
- * tutorial source of truth CoachTutorialScreen already uses, rather than
- * introducing a second tutorial state.
+ * `marketResultCategory` and, per DEC-012, `bidResultCategory`) — never
+ * mutates state, never recalculates a financial result, and reproduces no
+ * sign-classification or bid-comparison logic of its own. Screen 2 reads
+ * the same existing tutorial source of truth CoachTutorialScreen already
+ * uses, rather than introducing a second tutorial state.
  */
 function getCoachGuidance(state: GameState): ReactNode {
   switch (state.currentScreen) {
@@ -78,11 +78,10 @@ function getCoachGuidance(state: GameState): ReactNode {
       if (state.currentScreenState === 'pre-submission') {
         return <p>{sealedBidPreSubmissionMessage}</p>
       }
-      if (state.propertyWon) {
-        return <p>{bidWonMessage}</p>
-      }
-      const isTie = (state.playerBidCents ?? 0) === (state.scriptedOpponentBidCents ?? 0)
-      return <p>{isTie ? bidTieMessage : bidBelowOpponentMessage}</p>
+      const branch = bidResultCategory(state.playerBidCents ?? 0, state.scriptedOpponentBidCents ?? 0)
+      if (branch === 'win') return <p>{bidWonMessage}</p>
+      if (branch === 'tie') return <p>{bidTieMessage}</p>
+      return <p>{bidBelowOpponentMessage}</p>
     }
     case 'roundSummary':
       return <p>{screen7CoachMessage}</p>
