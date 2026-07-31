@@ -14,9 +14,25 @@ This evidence spans four distinct commits on `11-complete-remaining-demo-accepta
 | `0652c62df2975c29fc8a570274fce338b58c47ad` | The original Issue #11 implementation (popovers, explanations, desktop readability). | **Yes.** This is the implementation commit the "Evidence matrix" below was originally produced against, at 2026-07-30 22:35–22:40 local time. |
 | `8dadb11c8dbbd84139b69bbecb29fba5d8e024b2` | Documentation and evidence only — added this file and two qualifying notes to `docs/testing/initial-test-plan.md`. No application, engine, test, or CSS file changed. | No code changed, so the suite was not re-run for this commit; it carries the same code as `0652c62`. |
 | `295fb75f3e6472629d82fd256a33e7ee9baf8d06` | Independent-review correction: removed trailing whitespace from DEC-011/DEC-012 metadata lines in `docs/DECISIONS.md` (wording unchanged), and corrected the explanatory comment above the `.first()` disambiguation in `e2e/e2e-001-full-walkthrough.spec.ts` (assertion unchanged). No application, engine, CSS, or test-assertion behaviour changed. | **Yes.** The complete suite was independently re-executed at this exact commit — see "Re-verification at the correction commit" below. |
-| *(this commit, "Align Issue 11 review evidence")* | Documentation only — this file, updated to add this section and align commit references. No code changed. | No — documentation-only, consistent with the commit before it. |
+| `a8dd37ded2bb4badfb223d7b82b8cd210cc878f4` | Documentation only — this file, updated to add this section and align commit references. No code changed. This became the final PR #12 head. | No — documentation-only, consistent with `295fb75`. |
+| *(this commit, "Align Issue 11 walkthrough evidence", Issue #13)* | Documentation only — this file, updated to record the completed human Vercel-preview walkthrough (see the new section below) and to name `a8dd37d` explicitly now that it is no longer "this commit." No code changed. | No — documentation-only, consistent with the commit before it. |
 
-**The human Vercel-preview walkthrough remains pending** and will be performed against the final PR #12 head after this correction is deployed, not against `0652c62` or `295fb75` individually.
+**As of commit `a8dd37d` (2026-07-30), the human Vercel-preview walkthrough had not yet been performed** — the sentence below is preserved as the accurate record of that point in time, rather than silently rewritten:
+
+> "The human Vercel-preview walkthrough remains pending and will be performed against the final PR #12 head after this correction is deployed, not against `0652c62` or `295fb75` individually."
+
+**Current status (2026-07-31 update): the walkthrough has since been completed and passed.** See "Human Vercel-preview walkthrough (completed)" below for the full record.
+
+## Human Vercel-preview walkthrough (completed)
+
+A human mouse-and-keyboard walkthrough was performed against the Vercel Preview deployment for PR #12 at commit `a8dd37ded2bb4badfb223d7b82b8cd210cc878f4` — exactly the commit named above as the one the pending walkthrough would target. The full record is posted as a Test Result comment on PR #12: `https://github.com/bchaush/market-empire/pull/12#issuecomment-5138948147` (2026-07-31T03:30:30Z). Summarized here without adding any claim beyond that comment:
+
+- **Method:** human walkthrough using both mouse and keyboard, at the approved desktop baseline.
+- **What was checked:** the complete Start-to-Round-Summary flow; Coach access on Screens 2–7; Coach Escape dismissal and focus restoration; all four sector-information popovers; Screen 5 and Screen 6 explanation readability and state match; Play Again's full reset.
+- **Result:** Pass. No clipping, overlap, horizontal overflow, or difference between local/automated behaviour and the Vercel deployment was observed.
+- **This was a walkthrough of the pre-merge PR Preview deployment, not the post-merge production deployment.** No human walkthrough of the production deployment is claimed here or elsewhere.
+- **This remains a human functional, readability and keyboard walkthrough only.** Per the same PR comment's own notes, it does not constitute formal screen-reader-user validation, formal contrast certification, formal target-size certification, reduced-motion certification, or responsive/mobile support. Final visual design, city-map artwork, animation, and the final content-polish pass remain outside Issue #11.
+- **This does not change the Status of any row in the "Evidence matrix" below.** REQ-02-02, REQ-04-02, REQ-05-02, REQ-06-03, and every A11Y row remain exactly as previously recorded (`Pass`, `Not Yet Executed`, or blocked-by-undefined-threshold, as applicable) — this human walkthrough is recorded as an additional, distinct piece of evidence, not a conversion of any Manual- or Accessibility-typed requirement to Pass.
 
 ## Purpose
 
