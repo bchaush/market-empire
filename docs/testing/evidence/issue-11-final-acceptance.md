@@ -7,7 +7,7 @@
 
 ## Commit history and re-verification (2026-07-30 update)
 
-This evidence spans four distinct commits on `11-complete-remaining-demo-acceptance`. They are not interchangeable, and this section states plainly what was actually done at each one:
+This evidence spans five distinct commits across the original Issue #11 branch and the Issue #13 documentation follow-up. They are not interchangeable, and this section states plainly what was actually done at each one:
 
 | Commit | What it changed | Was the test suite executed at this commit? |
 |---|---|---|
@@ -25,14 +25,17 @@ This evidence spans four distinct commits on `11-complete-remaining-demo-accepta
 
 ## Human Vercel-preview walkthrough (completed)
 
-A human mouse-and-keyboard walkthrough was performed against the Vercel Preview deployment for PR #12 at commit `a8dd37ded2bb4badfb223d7b82b8cd210cc878f4` — exactly the commit named above as the one the pending walkthrough would target. The full record is posted as a Test Result comment on PR #12: `https://github.com/bchaush/market-empire/pull/12#issuecomment-5138948147` (2026-07-31T03:30:30Z). Summarized here without adding any claim beyond that comment:
+A human mouse-and-keyboard walkthrough was performed against the Vercel Preview deployment for PR #12 at commit `a8dd37ded2bb4badfb223d7b82b8cd210cc878f4` — exactly the commit named above as the one the pending walkthrough would target. The full record is posted as a Test Result comment on PR #12: `https://github.com/bchaush/market-empire/pull/12#issuecomment-5138948147` (2026-07-31T03:30:30Z). The walkthrough observations below are summarized from that Test Result comment:
 
 - **Method:** human walkthrough using both mouse and keyboard, at the approved desktop baseline.
 - **What was checked:** the complete Start-to-Round-Summary flow; Coach access on Screens 2–7; Coach Escape dismissal and focus restoration; all four sector-information popovers; Screen 5 and Screen 6 explanation readability and state match; Play Again's full reset.
-- **Result:** Pass. No clipping, overlap, horizontal overflow, or difference between local/automated behaviour and the Vercel deployment was observed.
-- **This was a walkthrough of the pre-merge PR Preview deployment, not the post-merge production deployment.** No human walkthrough of the production deployment is claimed here or elsewhere.
-- **This remains a human functional, readability and keyboard walkthrough only.** Per the same PR comment's own notes, it does not constitute formal screen-reader-user validation, formal contrast certification, formal target-size certification, reduced-motion certification, or responsive/mobile support. Final visual design, city-map artwork, animation, and the final content-polish pass remain outside Issue #11.
-- **This does not change the Status of any row in the "Evidence matrix" below.** REQ-02-02, REQ-04-02, REQ-05-02, REQ-06-03, and every A11Y row remain exactly as previously recorded (`Pass`, `Not Yet Executed`, or blocked-by-undefined-threshold, as applicable) — this human walkthrough is recorded as an additional, distinct piece of evidence, not a conversion of any Manual- or Accessibility-typed requirement to Pass.
+- **Result:** Pass. No clipping, overlap, horizontal overflow, or local/Vercel behavioural difference was observed.
+
+**Document-scope clarifications:**
+
+- This was a walkthrough of the pre-merge PR Preview deployment, not the post-merge production deployment. No human walkthrough of the production deployment is claimed here or elsewhere.
+- This remains a human functional, readability and keyboard walkthrough only. Per the same PR comment's own notes, it does not constitute formal screen-reader-user validation, formal contrast certification, formal target-size certification, reduced-motion certification, or responsive/mobile support. Final visual design, city-map artwork, animation, and the final content-polish pass remain outside Issue #11.
+- This does not change the Status of any row in the "Evidence matrix" below. REQ-02-02, REQ-04-02, REQ-05-02, REQ-06-03, and every A11Y row remain exactly as previously recorded (`Pass`, `Not Yet Executed`, or blocked-by-undefined-threshold, as applicable) — this human walkthrough is recorded as an additional, distinct piece of evidence, not a conversion of any Manual- or Accessibility-typed requirement to Pass.
 
 ## Purpose
 
