@@ -23,7 +23,6 @@ export interface AppShellProps {
   timeOfDay: string
   availableCashCents: number | null
   provisionalStatusLabel: string
-  pendingReviews: string[]
   balanceLimitation: string
   cityMapContent?: ReactNode
   rightPanelContent?: ReactNode
@@ -39,7 +38,6 @@ export function AppShell({
   timeOfDay,
   availableCashCents,
   provisionalStatusLabel,
-  pendingReviews,
   balanceLimitation,
   cityMapContent,
   rightPanelContent,
@@ -89,13 +87,6 @@ export function AppShell({
 
       <section className="app-shell__status" aria-label="Approval status and limitations">
         <p className="app-shell__status-badge">{provisionalStatusLabel}</p>
-
-        <h2 className="app-shell__status-heading">Pending reviews</h2>
-        <ul className="app-shell__status-list">
-          {pendingReviews.map((review) => (
-            <li key={review}>{review}</li>
-          ))}
-        </ul>
 
         <h2 className="app-shell__status-heading">Balance limitation</h2>
         <p className="app-shell__status-limitation">{balanceLimitation}</p>

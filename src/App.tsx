@@ -223,7 +223,6 @@ function App() {
       timeOfDay={humanizeIdentifier(gameState.timeOfDayState)}
       availableCashCents={gameState.availableCashCents}
       provisionalStatusLabel={`${gameConfig.status.label} — ${gameConfig.status.decisionId}`}
-      pendingReviews={gameConfig.status.pendingReviews}
       balanceLimitation={gameConfig.status.balanceLimitation}
       rightPanelContent={rightPanelContent}
       coachContent={coachContent}
