@@ -1,11 +1,22 @@
 # Issue #11 Final Acceptance Evidence
 
 **Status:** Evidence record — not a claim that Issue #7 or Issue #11 is complete.
-**Related:** GitHub Issue #11 (`Complete remaining seven-screen demo acceptance criteria`), parent Issue #7.
+**Related:** GitHub Issue #11 (`Complete remaining seven-screen demo acceptance criteria`), parent Issue #7, PR #12.
 **Controlling decisions:** `docs/DECISIONS.md` DEC-009, DEC-010, DEC-011, DEC-012.
-**Commit evaluated:** `0652c62df2975c29fc8a570274fce338b58c47ad` (branch `11-complete-remaining-demo-acceptance`).
-**Date/time of execution:** 2026-07-30, 22:35–22:40 local time.
 **Recorded by:** automated agent audit (Claude Code), not a human tester unless explicitly stated otherwise below.
+
+## Commit history and re-verification (2026-07-30 update)
+
+This evidence spans four distinct commits on `11-complete-remaining-demo-acceptance`. They are not interchangeable, and this section states plainly what was actually done at each one:
+
+| Commit | What it changed | Was the test suite executed at this commit? |
+|---|---|---|
+| `0652c62df2975c29fc8a570274fce338b58c47ad` | The original Issue #11 implementation (popovers, explanations, desktop readability). | **Yes.** This is the implementation commit the "Evidence matrix" below was originally produced against, at 2026-07-30 22:35–22:40 local time. |
+| `8dadb11c8dbbd84139b69bbecb29fba5d8e024b2` | Documentation and evidence only — added this file and two qualifying notes to `docs/testing/initial-test-plan.md`. No application, engine, test, or CSS file changed. | No code changed, so the suite was not re-run for this commit; it carries the same code as `0652c62`. |
+| `295fb75f3e6472629d82fd256a33e7ee9baf8d06` | Independent-review correction: removed trailing whitespace from DEC-011/DEC-012 metadata lines in `docs/DECISIONS.md` (wording unchanged), and corrected the explanatory comment above the `.first()` disambiguation in `e2e/e2e-001-full-walkthrough.spec.ts` (assertion unchanged). No application, engine, CSS, or test-assertion behaviour changed. | **Yes.** The complete suite was independently re-executed at this exact commit — see "Re-verification at the correction commit" below. |
+| *(this commit, "Align Issue 11 review evidence")* | Documentation only — this file, updated to add this section and align commit references. No code changed. | No — documentation-only, consistent with the commit before it. |
+
+**The human Vercel-preview walkthrough remains pending** and will be performed against the final PR #12 head after this correction is deployed, not against `0652c62` or `295fb75` individually.
 
 ## Purpose
 
@@ -13,7 +24,7 @@ This file records the actual, dated, executed evidence supporting (or not yet su
 
 It does not modify, weaken, or delete any test. It does not mark a check Pass without direct executed evidence for that exact pass rule. Manual/Accessibility-typed requirements are left `Not Yet Executed` even where strong automated or agent-performed browser evidence exists, per this audit's explicit rules — that evidence is recorded as partial support, not converted into a Pass.
 
-## Complete test-suite results (this commit)
+## Complete test-suite results at the original implementation commit (`0652c62`)
 
 | Command | Exit code | Files | Tests | Result |
 |---|---|---|---|---|
@@ -22,7 +33,20 @@ It does not modify, weaken, or delete any test. It does not mark a check Pass wi
 | `npm run build` (`tsc -b && vite build`) | 0 | — | — | Pass |
 | `git diff --check` | 0 | — | — | Clean |
 
-No warnings were emitted by any command beyond Vite's normal build summary output.
+No warnings were emitted by any command beyond Vite's normal build summary output. The evidence matrix below reflects this execution.
+
+## Re-verification at the correction commit (`295fb75`, 2026-07-30, 23:20 local time)
+
+The independent-review correction (trailing-whitespace removal in `docs/DECISIONS.md`; comment-only correction in `e2e-001-full-walkthrough.spec.ts`) changed no application, engine, CSS, or test-assertion behaviour. The complete suite was nonetheless independently re-executed in full at this new commit, not merely assumed unchanged:
+
+| Command | Exit code | Files | Tests | Result |
+|---|---|---|---|---|
+| `npx vitest run --reporter=verbose` | 0 | 7 passed | 32 passed | Pass — identical to `0652c62` |
+| `npm run e2e` (Playwright) | 0 | 3 spec files, 6 tests | 6 passed | Pass — identical to `0652c62` |
+| `npm run build` (`tsc -b && vite build`) | 0 | — | — | Pass — identical to `0652c62` |
+| `git diff --check origin/main...HEAD` | 0 | — | — | Clean (previously exit 2 due to the DEC-011/DEC-012 trailing whitespace; now resolved) |
+
+No warnings were emitted beyond Vite's normal build summary output. Results are unchanged in substance from `0652c62` — as expected, since no executable code changed — with the sole difference being that the PR-range diff-check now passes.
 
 ## Evidence matrix
 
