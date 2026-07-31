@@ -557,3 +557,45 @@ It does not change: DEC-006 bid-resolution rules; the scripted opponent bid; win
 
 **Status:**
 Active — Product Lead approved for Issue #11 correction
+
+---
+
+### DEC-013 — Approve the completed seven-screen demo for presentation
+
+**Decision:**
+
+The implemented seven-screen demo (Start, Coach Tutorial, Market Intelligence, City Investment Decision, Market Result, Property Opportunity & Sealed Bid, Round Summary), as merged through PR #10, PR #12 and PR #14 at `81f9e7d8f7c1842536609683c44fec45652f08d2`, is complete and approved for presentation.
+
+The current implemented visual design is accepted as the presentation version and will not receive further design work in this milestone. A separate mock visual design may be shown only as a possible future direction; it is not part of the implemented demo and is not a commitment to implementation.
+
+Current scripted values, content and interactions (`docs/DECISIONS.md` DEC-010, DEC-011, DEC-012) are approved for use in this demo presentation.
+
+This approval resolves remaining internal team/specialist approval dependencies for the completed demo — that is, whether the completed demo, as built, may be shown as the finished presentation artifact. It does not resolve, and is not a substitute for, any specific named specialist's review of the underlying financial formulas or beginner-facing wording (Hanyu's and Pankuri's reviews referenced in DEC-008/DEC-010 remain pending exactly as previously recorded).
+
+This approval does not convert project-authored simplified values into externally verified real-world facts. It does not claim formal screen-reader-user, contrast, click-target, reduced-motion, responsive/mobile, financial-reality or balance certification. All historical evidence recorded in this file and elsewhere in the repository remains preserved and unaltered.
+
+**Date:**
+2026-07-31
+
+**Who approved:**
+Full project team and course professor, as reported by Bora after the 2026-07-31 review meeting
+
+**Why:**
+The completed seven-screen demo was reviewed by the project team and the course professor, who approved it as complete for presentation. Recording this here follows this file's own rule that scope/process decisions of this kind are written down, not just said out loud.
+
+**Alternatives considered:**
+Not documented in source material beyond the approval record itself.
+
+**What this changes:**
+`docs/PROJECT_FOUNDATION.md` (current-stage status line); `docs/DEMO_SPEC.md` (status callout, noting presentation approval alongside the existing usability-testing caveat); `src/components/AppShell.tsx` (removal of the Screen 2 "Right panel area — screen content not yet implemented" placeholder, per this decision's presentation-approval).
+
+**What this does not change:**
+It does not change: any financial value, rate, modifier or formula; any sector return rate; any allocation, bid-resolution or property calculation; the seven-screen order or transition table; the engine/interface authority boundary; any DEC-010/DEC-011/DEC-012 content; mobile-support status; formal contrast-, target-size-, reduced-motion- or accessibility-certification status; final artwork, sound, advanced motion, multiplayer, accounts or new gameplay. It does not implement, approve, or commit to the separate mock visual design.
+
+**Status:**
+Active
+
+---
+
+**Clarifying note on DEC-010 (added 2026-07-31, does not alter DEC-010's original text above):**
+DEC-013 records that the full project team and course professor approved the completed demo — including the DEC-010 configuration values as implemented — for presentation on 2026-07-31. This resolves whether the demo may be presented in its current form. It does not resolve, and does not claim to resolve, Hanyu's financial-formula/terminology review or Pankuri's beginner-wording review referenced in DEC-010's Status line, which remain pending exactly as DEC-010 originally recorded. DEC-010's values remain Approved Provisional project-authored demo constants, not externally verified real-world facts.

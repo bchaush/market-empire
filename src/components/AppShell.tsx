@@ -69,9 +69,7 @@ export function AppShell({
       </section>
 
       <aside className="app-shell__right-panel" aria-label="Decision and result panel">
-        {rightPanelContent ?? (
-          <p className="app-shell__placeholder">Right panel area — screen content not yet implemented.</p>
-        )}
+        {rightPanelContent}
       </aside>
 
       <section className="app-shell__coach" aria-label="Market Coach">

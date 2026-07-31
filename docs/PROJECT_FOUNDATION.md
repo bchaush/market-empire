@@ -20,7 +20,7 @@ The one document to read before doing anything else
 </tbody>
 </table>
 
-Current stage: Research and one-round demo build • Status: Not yet balance-validated
+Current stage: One-round demo complete, reviewed and approved for presentation (see `docs/DECISIONS.md` DEC-013) • Status: Not yet balance-validated
 
 1. What we are building
 
