@@ -68,6 +68,15 @@
   margin: 0.5rem 0;
 }
 
+/* Keeps each Screen 4 landmark button grouped with its DisclosurePopover
+   information trigger (docs/DECISIONS.md DEC-011) so the revealed panel
+   doesn't visually collide with the next sector's controls. */
+.sector-landmark {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 0.5rem;
+}
+
 .indicator-list {
   list-style: none;
   padding: 0;
