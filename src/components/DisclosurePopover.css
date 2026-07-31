@@ -1,0 +1,55 @@
+/*
+ * Minimal structural styling for the shared DisclosurePopover
+ * (docs/DECISIONS.md DEC-011). Colours match the existing shell palette
+ * (src/components/AppShell.css, src/screens/screens.css). The broader
+ * Issue #11 typography/layout work is out of scope here; the global
+ * :focus-visible rule in src/index.css already covers these native
+ * buttons, so no separate focus styling is added.
+ */
+
+.disclosure-popover {
+  display: inline-block;
+}
+
+.disclosure-popover__trigger {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+  border-radius: 4px;
+  border: 1px solid #3a4658;
+  background: #1b2430;
+  color: #f4f6f8;
+  cursor: pointer;
+}
+
+.disclosure-popover__trigger[aria-expanded='true'] {
+  border-color: #d4af37;
+}
+
+.disclosure-popover__panel {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #2a3546;
+  border-radius: 4px;
+  background: #141d2a;
+  overflow-wrap: break-word;
+}
+
+.disclosure-popover__heading {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.disclosure-popover__body {
+  margin-bottom: 0.75rem;
+}
+
+.disclosure-popover__close {
+  font-size: 1rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  border: 1px solid #3a4658;
+  background: #1b2430;
+  color: #f4f6f8;
+  cursor: pointer;
+}

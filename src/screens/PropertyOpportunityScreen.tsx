@@ -12,20 +12,27 @@ import type { GameState } from '../state/types'
  * the engine's `validateBid`, `resolveBid`, `netPropertyResult` and
  * `cashAfterProperty`) — this screen only formats the result.
  *
- * DEMO_SPEC §11 requires a "sealed-bid explanation," but no approved
- * player-facing sentence for it exists anywhere in the repository (the
- * only prior candidate was evidence-ledger text, which is not player
- * dialogue and has been removed). That content slot is left visibly
- * unresolved below rather than filled with invented copy — see the
- * implementation report.
+ * `preSubmissionExplanation` and `postSubmissionExplanation` are the
+ * approved DEC-011/DEC-012 sealed-bid explanations. The post-submission
+ * text is selected in `App.tsx` from the engine-owned `bidResultCategory`
+ * — this screen never compares `playerBidCents`/`scriptedOpponentBidCents`
+ * itself.
  */
 export interface PropertyOpportunityScreenProps {
   state: GameState
   onSubmitBid: (bidCents: number) => string | null
   onContinue: () => void
+  preSubmissionExplanation: string
+  postSubmissionExplanation: string
 }
 
-export function PropertyOpportunityScreen({ state, onSubmitBid, onContinue }: PropertyOpportunityScreenProps) {
+export function PropertyOpportunityScreen({
+  state,
+  onSubmitBid,
+  onContinue,
+  preSubmissionExplanation,
+  postSubmissionExplanation,
+}: PropertyOpportunityScreenProps) {
   const [bidInput, setBidInput] = useState('')
   const [bidError, setBidError] = useState<string | null>(null)
   const property = gameConfig.property
@@ -51,9 +58,7 @@ export function PropertyOpportunityScreen({ state, onSubmitBid, onContinue }: Pr
           Gross income: {formatCentsAsDollars(state.grossPropertyIncomeCents)} · Operating cost:{' '}
           {formatCentsAsDollars(state.operatingCostCents)}
         </p>
-        <p className="content-pending" role="note">
-          Sealed-bid explanation: content pending approval.
-        </p>
+        <p className="screen-explanation">{preSubmissionExplanation}</p>
         <p>Opponent: Scripted Opponent</p>
 
         <label htmlFor="bid-input">Your bid ($)</label>
@@ -89,6 +94,7 @@ export function PropertyOpportunityScreen({ state, onSubmitBid, onContinue }: Pr
       </p>
       <p>Cash after property: {formatCentsAsDollars(state.endingCashCents)}</p>
       {won && <p>Net property result: {formatCentsAsDollars(state.netPropertyResultCents)}</p>}
+      <p className="screen-explanation">{postSubmissionExplanation}</p>
       <button type="button" onClick={onContinue}>
         Continue
       </button>

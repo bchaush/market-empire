@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import './AppShell.css'
 import { formatCentsAsDollars } from './format'
+import { DisclosurePopover } from './DisclosurePopover'
+import { coachCloseButtonLabel, coachPanelHeading, coachTriggerLabel } from '../content/issue11Guidance'
 
 /**
  * Persistent structural shell required by docs/DEMO_SPEC.md §7: a fixed
@@ -8,6 +10,13 @@ import { formatCentsAsDollars } from './format'
  * status/limitations region, at the 1440x900 desktop baseline
  * (docs/DECISIONS.md DEC-010). Structural only — no map landmarks, screen
  * copy, or gameplay logic live here; those are Phase 2B.
+ *
+ * The Coach section (docs/DECISIONS.md DEC-011) renders a persistent
+ * DisclosurePopover trigger whenever the shell renders (Screens 2-7 —
+ * Screen 1 never renders AppShell, so it never shows the trigger). Its
+ * open/closed state and body content (`coachGuidance`) are owned by the
+ * caller as local interface state, never GameState. `coachContent` is
+ * unchanged and still carries Screen 2's full interactive tutorial panel.
  */
 export interface AppShellProps {
   currentStage: string
@@ -19,6 +28,10 @@ export interface AppShellProps {
   cityMapContent?: ReactNode
   rightPanelContent?: ReactNode
   coachContent?: ReactNode
+  coachGuidance: ReactNode
+  isCoachOpen: boolean
+  onCoachOpen: () => void
+  onCoachClose: () => void
 }
 
 export function AppShell({
@@ -31,6 +44,10 @@ export function AppShell({
   cityMapContent,
   rightPanelContent,
   coachContent,
+  coachGuidance,
+  isCoachOpen,
+  onCoachOpen,
+  onCoachClose,
 }: AppShellProps) {
   return (
     <div className="app-shell">
@@ -58,7 +75,18 @@ export function AppShell({
       </aside>
 
       <section className="app-shell__coach" aria-label="Market Coach">
-        {coachContent ?? <p className="app-shell__placeholder">Coach area — content not yet implemented.</p>}
+        <DisclosurePopover
+          panelId="coach-panel"
+          triggerLabel={coachTriggerLabel}
+          panelHeading={coachPanelHeading}
+          closeButtonLabel={coachCloseButtonLabel}
+          isOpen={isCoachOpen}
+          onOpen={onCoachOpen}
+          onClose={onCoachClose}
+        >
+          {coachGuidance}
+        </DisclosurePopover>
+        {coachContent}
       </section>
 
       <section className="app-shell__status" aria-label="Approval status and limitations">

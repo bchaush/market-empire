@@ -331,3 +331,229 @@ Not documented in source material beyond the approval record itself.
 
 **Status:**  
 Active — Approved Provisional. Financial-formula and terminology review remains pending Hanyu's or explicit team approval. Beginner-facing wording review remains pending Pankuri's or explicit team approval. The BOUND-BID-05 known-answer example remains pending Leo's/Hanyu's review per the approval record. Final usability, accessibility and balance validation have not been completed.
+
+---
+
+### DEC-011 — Approve Issue #11 disclosure popups, scripted guidance and market-result display categories
+
+**Decision:**
+
+For GitHub Issue #11, approve the following implementation and content decisions.
+
+**A. Shared popup interaction pattern**
+
+Use one reusable, non-modal disclosure-popup component for:
+
+- persistent Coach access on Screens 2–7; and
+- sector information on Screen 4.
+
+The shared pattern must:
+
+- use a native `<button type="button">` trigger;
+- provide a visible trigger label;
+- use `aria-expanded` on the trigger;
+- use `aria-controls` referencing the controlled panel;
+- render the revealed information in an ordinary content container with a visible heading;
+- include a clearly labelled close button inside the panel;
+- support mouse, Enter and Space through native button behaviour;
+- support Escape to close;
+- leave focus on the trigger when the panel opens;
+- return focus to the original trigger when closed through Escape or the close button;
+- use no focus trap;
+- use no `role="dialog"`;
+- use no `aria-modal`;
+- use no outside-click dismissal;
+- allow only one sector-information popup to be open at a time;
+- treat the Coach popup separately from the sector-information popup group;
+- store open/closed state only as local interface state;
+- contain no investment, bid, calculation, navigation or game-state action.
+
+Opening or closing a popup must never change an allocation, submit a bid, advance a screen or call an engine function.
+
+**B. Persistent Coach interface wording**
+
+Approve these exact strings:
+
+- Visible Coach trigger label: `Coach`
+- Coach panel heading: `Coach`
+- Coach close-button accessible name: `Close Coach panel`
+
+The visible trigger label is also its accessible name. Do not override it with a different `aria-label`.
+
+The Coach must be available through this trigger on Screens 2–7.
+
+Screen 2 continues to use its existing DEC-010 Coach introduction and existing tutorial topics without rewriting them.
+
+**C. Screen 3 Coach guidance**
+
+Approve this exact scripted message:
+
+`These market indicators are clues, not guarantees. Open each one to see what it means. Analyze City unlocks once all three have been reviewed.`
+
+This message is neutral. It does not recommend a sector or predict an outcome.
+
+**D. Screen 4 Coach guidance**
+
+Approve this exact scripted message:
+
+`Choose how much Available Cash to allocate to each sector. Your total cannot exceed your Available Cash. Cash left unallocated remains available for the property auction. I will not choose an amount for you.`
+
+This message states only existing allocation and cash rules. It does not advise the player how much to invest or keep.
+
+**E. Sector-information popup content**
+
+Use the four existing DEC-010 sector labels and descriptions from `src/content/gameConfig.ts` verbatim.
+
+Use the existing Everyday Goods label note in the Everyday Goods popup.
+
+Do not add:
+
+- risk levels;
+- return predictions;
+- sector recommendations;
+- new descriptions;
+- new financial terminology.
+
+Approve this close-button accessible-name template:
+
+`Close {sector label} information`
+
+For example: `Close Technology information`.
+
+The placeholder is populated only from the existing approved sector label.
+
+**F. Engine-owned Market Result display categories**
+
+Approve one new pure display-classification function in `src/engine/`.
+
+It receives the already-calculated per-sector monetary results and determines the Screen 5 explanation category from their signs.
+
+The exact classification is:
+
+1. If at least one sector result is positive and at least one sector result is negative: `Mixed`
+2. Otherwise, if at least one sector result is positive: `Net Gain`
+3. Otherwise, if at least one sector result is negative: `Net Loss`
+4. Otherwise: `No Change`
+
+The fourth state covers valid cases in which every sector result is zero, including a valid zero-allocation decision.
+
+The function must:
+
+- introduce no percentage, threshold or financial value;
+- use no screen-side calculation;
+- operate only on engine-calculated sector result signs;
+- remain separate from the existing whole-round `roundChangeCategory` function;
+- not change any sector settlement, cash, bid, property or summary formula.
+
+**G. Screen 5 Market Result explanations**
+
+Approve these exact scripted explanations:
+
+`Net Gain` — `At least one sector gained and none lost this round. Review the per-sector breakdown and total market change below.`
+
+`Net Loss` — `At least one sector lost and none gained this round. Review the per-sector breakdown and total market change below.`
+
+`Mixed` — `Some sectors gained and others lost this round. Review the per-sector breakdown and total market change below.`
+
+`No Change` — `No sector gained or lost this round. Review the per-sector breakdown and total market change below.`
+
+The interface selects one explanation only from the engine-owned display category described above.
+
+The interface must not independently inspect values or reproduce the category logic.
+
+These messages do not describe a decision as objectively good or bad and do not predict a future result.
+
+**H. Screen 6 pre-submission sealed-bid explanation**
+
+Approve this exact scripted message:
+
+`This is a sealed bid. The Scripted Opponent's bid stays hidden until you submit yours. A bid above the Scripted Opponent's bid wins, and the winner pays the amount submitted. Your bid cannot exceed your Available Cash.`
+
+This text does not describe the asking price as a required bid.
+
+The deterministic tie result and losing-bid cash treatment remain unchanged and are explained after submission in the applicable result state.
+
+**I. Screen 6 post-submission explanations**
+
+Approve these exact scripted messages.
+
+Player wins: `You bid above the Scripted Opponent and won the property. Your submitted bid was deducted from Available Cash, and the displayed net property result was then applied.`
+
+Player bids below the opponent: `Your bid was below the Scripted Opponent's bid, so you did not win the property. Your bid was not deducted from Available Cash.`
+
+Player ties the opponent: `Your bid matched the Scripted Opponent's bid. The Scripted Opponent wins a tie, and your bid was not deducted from Available Cash.`
+
+The applicable message must be selected from the existing engine-owned bid outcome.
+
+No new fee, deposit, penalty or auction rule is introduced.
+
+**J. Screen 7 Coach guidance**
+
+Approve this exact scripted message:
+
+`This is the end of the one-round demo. Review your ending cash, property result, and overall round change. Play Again resets the demo to the beginning.`
+
+This message:
+
+- does not call the financial-position method a final score;
+- does not claim that property carrying value is verified market value;
+- does not change or approve FIN-DEC-CAND-004;
+- states only existing one-round and reset behaviour.
+
+**Date:**
+2026-07-30
+
+**Who approved:**
+Bora, Product Lead
+
+**Why:**
+Issue #7 and Issue #11 require: Coach access on every applicable screen; sector-information popups; distinct Market Result explanations; clear pre- and post-submission auction explanations; keyboard-reachable and labelled interactions. The merged PR #10 intentionally left this presentation and content work for a separate issue. Recording these decisions before implementation prevents unapproved player copy, interaction behaviour and display-category logic from being introduced silently.
+
+**Alternatives considered:**
+Not documented in source material beyond the approval record itself.
+
+**What this changes:**
+This decision authorizes later Issue #11 implementation work in: shared popup components; Coach access wiring; sector-information popup wiring; approved content configuration; Market Result explanation selection; a pure engine-owned Market Result display-category function; focused browser and engine tests; required desktop spacing and readability work. This Decision Record itself does not implement those changes.
+
+**What this does not change:**
+DEC-011 does not change: any financial value; any sector return rate; any indicator modifier; any allocation rule; any bid amount; any bid-resolution branch; any property calculation; any cash calculation; any end-of-round formula; the seven-screen order; the engine/interface authority boundary; mobile-support status; formal contrast-validation status; formal reduced-motion-validation status; final artwork, sound, advanced motion, multiplayer, accounts or new gameplay. FIN-DEC-CAND-004 remains Provisional and is not approved by DEC-011.
+
+**Status:**
+Active — Product Lead approved for Issue #11 implementation
+
+---
+
+### DEC-012 — Approve sector-information trigger wording and engine-owned bid-result display branches
+
+**Decision:**
+
+For Issue #11:
+
+1. Approve the exact sector-information trigger template: `Show {sector label} information`. The placeholder is populated only from an existing DEC-010 sector label.
+2. Require Screen 6 post-submission interface content to be selected from an engine-owned result branch rather than an interface-side comparison of bid values.
+3. Approve these exact display branches: `Win`, `Below Opponent`, `Tie`.
+4. Reuse an existing engine-owned discriminator if one already exists.
+5. If no sufficient discriminator exists, authorize one new pure engine function that receives the already-recorded player and opponent bid values and classifies them according to the existing DEC-006 rules: player bid greater than opponent bid → `Win`; player bid less than opponent bid → `Below Opponent`; player bid equal to opponent bid → `Tie`.
+6. The interface may map the returned typed branch to the already-approved DEC-011 Screen 6 Coach message.
+7. The interface must not reproduce the greater-than, less-than or equality branch logic.
+
+**Date:**
+2026-07-30
+
+**Who approved:**
+Bora, Product Lead
+
+**Why:**
+The current Issue #11 implementation introduced a clear sector-information trigger label that was not explicitly recorded in DEC-011. The implementation also selected tied-vs-below Coach content through a bid comparison in `App.tsx`, which duplicates an engine-owned game-rule boundary. This decision records the trigger wording and restores the documented engine/interface authority boundary without changing bid behaviour.
+
+**Alternatives considered:**
+Not documented in source material beyond the approval record itself.
+
+**What this changes:**
+This authorizes: the exact sector-information trigger template; reuse of an existing bid-result discriminator, or, if required, one pure engine-owned three-state display classifier; focused unit tests; removal of the interface-side bid comparison; Playwright coverage for all three Screen 6 result-message branches.
+
+**What this does not change:**
+It does not change: DEC-006 bid-resolution rules; the scripted opponent bid; winning-bid deductions; losing or tied bid cash treatment; property calculations; any financial value or formula; any transition; any approved DEC-011 Screen 6 message; any Screen 5 logic; any new gameplay.
+
+**Status:**
+Active — Product Lead approved for Issue #11 correction
