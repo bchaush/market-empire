@@ -1,6 +1,6 @@
 # Market Empire
 
-**Market Empire** is a beginner-friendly financial education game where players make simple investment decisions, observe the results, and learn through clear explanations.
+**Market Empire** is intended to be a beginner-friendly financial education game where players make simple investment decisions, observe the results, and learn through clear explanations.
 
 This repository contains the completed **one-round, seven-screen playable demo** built with React and TypeScript.
 
